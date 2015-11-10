@@ -6782,7 +6782,7 @@ input[type=checkbox]:not(:disabled) ~ .lever:active:after {
     font-size: 0.8rem; }
 
 select {
-  display: none; }
+  display: block; }
 
 select.browser-default {
   display: block; }

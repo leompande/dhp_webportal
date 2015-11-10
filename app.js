@@ -3,7 +3,7 @@
 
    angular
     .module('dhp', [
-        'ngRoute'
+        'ngRoute','angularFileUpload'
     ]);
 
 
