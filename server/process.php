@@ -4,8 +4,8 @@ include_once('functions.php');
 if(isset($_POST["submit"])) { $test_variable = "for upload";
 	$period = $_POST['period'];
 	$orgUnit= $_POST['org_unit'];
-	$category= "bRowv6yZOF2";
-	
+    $category = "uGIJ6IdkP7Q";
+    $attributeoptioncombo = "uGIJ6IdkP7Q";
 	$target_dir = "../uploads/";
 	$target_file = $target_dir . basename($_FILES["dhp_source_file"]["name"]);
 	$uploadOk = 1;
@@ -20,7 +20,7 @@ if(isset($_POST["submit"])) { $test_variable = "for upload";
 		 }else{					
 				if($dhp::uploadFile($_FILES["dhp_source_file"]["tmp_name"],$target_file)){
 						
-						$_SESSION['dhp'] = $dhp::processUploadsForDHIS($target_file,$period,$orgUnit,$category);
+						$_SESSION['dhp'] = $dhp::processUploadsForDHIS($target_file,$period,$orgUnit,$category,$attributeoptioncombo);
 				}else{
 						
 				}
@@ -39,7 +39,7 @@ if(isset($_POST["submit"])) { $test_variable = "for upload";
 					$uploadOk = 0;
 		}else{					
 			  if($dhp::uploadFile($_FILES["dhp_source_file"]["tmp_name"],$target_file)){						
-					$_SESSION['dhp'] = $dhp::processUploadsForDHIS($target_file,$period,$orgUnit,$category);
+					$_SESSION['dhp'] = $dhp::processUploadsForDHIS($target_file,$period,$orgUnit,$category,$attributeoptioncombo);
 			   }else{
 					
 			   }

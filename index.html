@@ -6,23 +6,91 @@
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="assets/css/materialize.css"  media="screen,projection"/>
 	  <link href="assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-      <!--Let browser know website is optimized for mobile-->
+
+        <link rel="stylesheet" type="text/css" href="assets/js/datatables/media/css/dataTables.bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="assets/js/openlayers3/build/ol.css">
+        <link rel="stylesheet" type="text/css" href="assets/js/angular-openlayers-directive/dist/angular-openlayers-directive.css">
+
+
+        <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <script src="assets/js/datatables/media/js/jquery.js"></script>
+        <script src="assets/js/datatables/media/js/jquery.dataTables.js"></script>
       <script type="text/javascript" src="assets/js/angular-1.4.7/angular.js"></script> 
       <script type="text/javascript" src="assets/js/angular-1.4.7/angular-route.js"></script> 
-      <script type="text/javascript" src="assets/angular-file-upload/dist/angular-file-upload.js"></script> 
-      <script type="text/javascript" src="app.js"></script> 
+      <script type="text/javascript" src="assets/angular-file-upload/dist/angular-file-upload.js"></script>
+
+        <script type="text/javascript" src="assets/js/angular-1.4.7/angular-sanitize.js"></script>
+        <script src="assets/js/openlayers3/build/ol.js"></script>
+        <script src="assets/js/angular-openlayers-directive/dist/angular-openlayers-directive.js"></script>
+
+        <script src="assets/js/angular-datatables/dist/angular-datatables.min.js"></script>
+
+
+        <script type="text/javascript" src="app.js"></script>
       <script type="text/javascript" src="index.js"></script> 
+      <script type="text/javascript" src="sharedFactory.js"></script>
+      <script type="text/javascript" src="mapController.js"></script>
     </head>
 
-    <body ng-controller="mainCtroller as main">
-      <!--Import jQuery before materialize.js-->
+
+    <style>
+        html, body {
+            height: 98.5%;
+        }
+        .info {
+            background-color: #fff;
+            border: 2px #444 solid;
+            border-radius: 7px;
+            -webkit-box-shadow: 4px 4px 5px 0px rgba(50, 50, 50, 0.75);
+            -moz-box-shadow:    4px 4px 5px 0px rgba(50, 50, 50, 0.75);
+            box-shadow:         4px 4px 5px 0px rgba(50, 50, 50, 0.75);
+            color: #111;
+            font-size: 13px;
+            position: absolute;
+            bottom:30em;
+            left: 15em;
+            z-index: 100;
+            font-weight: bold;
+            padding: .2em .5em;
+            white-space: nowrap;
+            line-height: 1.1em;
+            text-align: center;
+            z-index: 100;
+        }
+        .info:before {
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            content: "";
+            border-right: 6px solid black;
+            border-right-color: inherit;
+            position: absolute;
+            left: -8px;
+            top: 20px;
+        }
+
+        tr td{
+            text-align:center;
+            padding:2px;
+        }
+
+        tr td b{
+            text-align:right!important;
+        }
+
+        td.header_style{
+            text-align: left;
+        }
+    </style>
+
+    <body ng-controller="mainController as main">
       <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="assets/js/materialize.min.js"></script> 
       
 		<div class="row">			
 		<ul id="nav-mobile" class="side-nav fixed" style="left: 0px;" ng-show="main.csv_menu">
-        <li class="logo">DHP Webportal</li>      
+        <li class="logo"><div class="col m12" >DHP Webportal</div></li>
         <li class="bold">
 			 <form class="col s12 m12" action="server/process.php" method="POST" enctype="multipart/form-data">
 			  <div class="row">
@@ -30,9 +98,6 @@
 					<select id="org_unit" name="org_unit">
 						<option ng-repeat="org in main.orgUnits" value="{{org.id}}">{{org.name}}</option>
 					</select>
-<!--
-					<label for="org_unit">Organisation Unit</label>			  
--->
 				</div>
 			  </div>
 			  <div class="row">
@@ -41,10 +106,7 @@
 					  <option selected disabled>- period -</option>
 						<option ng-repeat="period in main.periods" value="{{period.id}}">{{period.name}}</option>
 					</select>	
-					
-<!--
-					<label for="period">Period</label>			  
--->
+
 				</div>
 			  </div>
 			  <div class="row">
@@ -77,58 +139,129 @@
 			</div>
 			   </nav>
 
-			 <div class="row">
-				<div class="col s12 m4">
-				  <div class="card red lighten-4 darken-1">
-					<div class="card-content white-text">
-					  <span class="card-title">Card Title</span>
-					  <p>I am a very simple card. I am good at containing small bits of information.
-					  I am convenient because I require little markup to use effectively.</p>
-					</div>
-					<div class="card-action">
-					  <a href="#">{{main.csv_menu}}</a>
-					  <a href="#">This is a link</a>
-					</div>
-				  </div>
-				</div>
-				<div class="col s12 m4">
-				  <div class="card blue-grey darken-1">
-					<div class="card-content white-text">
-					  <span class="card-title">Card Title</span>
-					  <p>I am a very simple card. I am good at containing small bits of information.
-					  I am convenient because I require little markup to use effectively.</p>
-					</div>
-					<div class="card-action">
-					  <a href="#">This is a link</a>
-					  <a href="#">This is a link</a>
-					</div>
-				  </div>
-				</div>
-				<div class="col s12 m4">
-				  <div class="card blue-grey darken-1">
-					<div class="card-content white-text">
-					  <span class="card-title">Card Title</span>
-					  <p>I am a very simple card. I am good at containing small bits of information.
-					  I am convenient because I require little markup to use effectively.</p>
-					</div>
-					<div class="card-action">
-					  <a href="#">This is a link</a>
-					  <a href="#">This is a link</a>
-					</div>
-				  </div>
-				</div>
-			  
-			  <div class="section no-pad-bot" id="index-banner">
-			<div class="container">
-			  <div class="row">
-		
-		  </div>
-			</div>
-		    </div>
-		 
-			  
-			  </div>
-		  
+    <div class="row" ng-controller="mapController">
+        <div class="col s12 m4">
+            <div class="card white lighten-4 darken-1">
+                <div class="card-content ">
+                    <div class="row">
+                    <div class="col m8 s12">
+
+                        <span class="card-title grey-text">DHP Data Map View</span>
+                    </div>
+                    <div class="col m4 s12">
+                        <select  name="period" class="col m12 s12" ng-model="main.period_map">
+                            <option selected disabled>- period -</option>
+                            <option ng-repeat="period in main.periods"  value="{{period.id}}" >{{period.name}}</option>
+                        </select>
+                    </div>
+
+                        </div>
+                    <div id="maps" class="maps"  style="width: 100%;" >
+
+                        <openlayers ol-center="Africa" ol-defaults="defaults" custom-layers="true"  height="400px">
+                            <ol-layer ol-layer-properties="layer" name="test" ng-repeat="layer in layers"></ol-layer>
+                        </openlayers>
+
+
+                        <div id="districtbox" ng-if="selectedDistrict" class="info district f32">
+                            <a href="#" ng-click="closeTootip()"><i class="material-icons">clear</i></a>
+                            <table >
+                                <caption class="invoice-header" style="text-align: center">{{selectedDistrict.name}}&nbsp;<b>{{main.period_map}}</b></caption>
+                                <thead></thead>
+                                <tbody>
+                                <tr>
+                                    <td class="header_style"><a class="waves-effect waves-teal " ng-click="main.getHtmlReport('',main.period_map)">Html Report</a></td>
+                                </tr>
+                                <td class="header_style"><a class="waves-effect waves-teal " ng-click="main.getAppropiatePdf('',main.period_map)">Pdf Report</a></td>
+                                </tr>
+
+                                </tbody>
+
+
+                            </table>
+                        </div>
+
+                    </div><!-- /.map -->
+
+                </div>
+                <div class="card-action">
+                    <a href="#">{{main.csv_menu}}</a>
+                    <a href="#">This is a link</a>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m8">
+            <div class="card white lighten-5 darken-1">
+                <div class="card-content grey-text">
+                    <div class="row"><span class="card-title grey-text">DHP Data Table View</span></div>
+                    <!---->
+                    <div class="row">
+                    <select  name="period" class="col m2" ng-model="main.period_table">
+                        <option selected disabled>- period -</option>
+                        <option ng-repeat="period in main.periods"  value="{{period.id}}" >{{period.name}}</option>
+                    </select>&nbsp;&nbsp;
+
+                    <a class="waves-effect waves-light btn" ng-click="main.getHtmlReport(main.facilityUid,main.period)">Html Report</a>
+                    <a class="waves-effect waves-light btn" ng-click="main.getAppropiatePdf(main.facilityUid,main.period)"><i class="material-icons left">save</i>Pdf</a>
+                    </div>
+                    <div class="row">
+                    <table datatable="ng" >
+                        <thead style="background-color: lightgray;">
+                        <tr>
+                            <td style="width: 30px;"></td>
+                            <td>
+                                District
+                            </td>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="org in orgunit">
+                            <td>
+                                <input type="radio" name="report" value="{{org.id}}" ng-model="main.facilityUid">
+                                </td>
+                            <td>{{org.properties.name}}</td>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+
+                </div>
+                <div class="card-action">
+                    <a href="#">{{main.csv_menu}}</a>
+                    <a href="#">This is a link</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section no-pad-bot" id="index-banner">
+            <div class="container">
+                <div class="row">
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="row">
+
+        <div class="section no-pad-bot" id="index-banner">
+            <div class="container">
+                <div class="row">
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
 		  </div>
 			
 		</div>
