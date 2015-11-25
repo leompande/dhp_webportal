@@ -5,7 +5,7 @@ include_once('functions.php');
 class DhpFile { 
         
         public static $directional_image="iVBORw0KGgoAAAANSUhEUgAAAfMAAABeCAIAAAC4mGqYAAAACXBIWXMAABcSAAAXEgFnn9JSAAAA";
-
+        public static $dir = "../uploads/";
 
 		/**
 		 *  Delete file function
@@ -258,7 +258,14 @@ class DhpFile {
 						$output = shell_exec('./pushdatavalue.sh');
 						chdir($old_path);
 
-			} 
+			}
+
+    public function getAppropiatePdfFiles($district_name,$period){
+
+        $file_system = scandir(DhpFile::$dir);
+
+        return $file_system;
+    }
 } 
 
 $dhp = new DhpFile;

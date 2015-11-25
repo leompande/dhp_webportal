@@ -10,6 +10,9 @@
         <link rel="stylesheet" type="text/css" href="assets/js/datatables/media/css/dataTables.bootstrap.css">
         <link rel="stylesheet" type="text/css" href="assets/js/openlayers3/build/ol.css">
         <link rel="stylesheet" type="text/css" href="assets/js/angular-openlayers-directive/dist/angular-openlayers-directive.css">
+        <link rel="stylesheet" type="text/css" href="assets/js/bower_components/angular-ivh-treeview/dist/ivh-treeview.css">
+        <link rel="stylesheet" type="text/css" href="assets/js/bower_components/angular-ivh-treeview/dist/ivh-treeview-theme-basic.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-4.4.0/css/font-awesome.css">
 
 
         <!--Let browser know website is optimized for mobile-->
@@ -26,6 +29,7 @@
         <script src="assets/js/angular-openlayers-directive/dist/angular-openlayers-directive.js"></script>
 
         <script src="assets/js/angular-datatables/dist/angular-datatables.min.js"></script>
+        <script src="assets/js/bower_components/angular-ivh-treeview/dist/ivh-treeview.js"></script>
 
 
         <script type="text/javascript" src="app.js"></script>
@@ -38,6 +42,7 @@
     <style>
         html, body {
             height: 98.5%;
+            background-color: #eeeeee;
         }
         .info {
             background-color: #fff;
@@ -70,6 +75,37 @@
             top: 20px;
         }
 
+        .infoh {
+            background-color: #fff;
+            border: 2px #444 solid;
+            border-radius: 7px;
+            -webkit-box-shadow: 4px 4px 5px 0px rgba(50, 50, 50, 0.75);
+            -moz-box-shadow:    4px 4px 5px 0px rgba(50, 50, 50, 0.75);
+            box-shadow:         4px 4px 5px 0px rgba(50, 50, 50, 0.75);
+            color: #111;
+            font-size: 13px;
+            position: absolute;
+            bottom:7.5em;
+            left: 2em;
+            z-index: 100;
+            font-weight: bold;
+            padding: .2em .5em;
+            white-space: nowrap;
+            line-height: 1.1em;
+            text-align: center;
+            z-index: 100;
+        }
+        .infoh:before {
+            /*border-top: 6px solid transparent;*/
+            /*border-bottom: 6px solid transparent;*/
+            /*content: "";*/
+            /*border-right: 6px solid black;*/
+            /*border-right-color: inherit;*/
+            /*position: absolute;*/
+            /*left: -8px;*/
+            /*top: 20px;*/
+        }
+
         tr td{
             text-align:center;
             padding:2px;
@@ -82,38 +118,61 @@
         td.header_style{
             text-align: left;
         }
+
+        .not_found{
+            height:1060px;
+        }
+        .default{
+            height:510px;
+        }
     </style>
 
     <body ng-controller="mainController as main">
       <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="assets/js/materialize.min.js"></script> 
       
-		<div class="row">			
+		<div class="row">
 		<ul id="nav-mobile" class="side-nav fixed" style="left: 0px;" ng-show="main.csv_menu">
+
+            <br/>
+            <br/>
         <li class="logo"><div class="col m12" >DHP Webportal</div></li>
         <li class="bold">
+            <br/>
+            <br/>
 			 <form class="col s12 m12" action="server/process.php" method="POST" enctype="multipart/form-data">
 			  <div class="row">
+                  <label>* Organisation Unit</label>
 				<div class="input-field col  s12 m12">
-					<select id="org_unit" name="org_unit">
+					<select id="org_unit" name="org_unit" required>
 						<option ng-repeat="org in main.orgUnits" value="{{org.id}}">{{org.name}}</option>
 					</select>
 				</div>
 			  </div>
 			  <div class="row">
+                  <label>* Period</label>
 				<div class="input-field col  s12 m12">
-				  <select id="period" name="period" class=>
-					  <option selected disabled>- period -</option>
+				  <select id="period" name="period" required>
 						<option ng-repeat="period in main.periods" value="{{period.id}}">{{period.name}}</option>
 					</select>	
 
 				</div>
 			  </div>
-			  <div class="row">
-				<div class="input-field col  s12 m12">
-				  <input id="pdf_file" name="dhp_source_file" type="file" class="validate">				  
-				</div>
-			  </div>
+			  <!--<div class="row">-->
+                  <!--<label>* Upload CSV File</label>-->
+				<!--<div class="input-field col  s12 m12">-->
+				  <!--<input id="csv_file" name="dhp_source_file" type="file" class="validate" required>-->
+				<!--</div>-->
+			  <!--</div>-->
+
+                 <div class="row">
+                     <label>* Upload ReadOnly Pdf File</label>
+                     <div class="input-field col  s12 m12">
+
+                         <input id="pdf_file" name="dhp_source_file" type="file" class="validate" required>
+                     </div>
+                 </div>
+
 			  <div class="row">
 				<div class="input-field col s12 m12">
 				  <button class="waves-effect waves-light btn" type="submit" name="submit">Send</button>
@@ -123,139 +182,125 @@
         </li>
         
       </ul>
-			<div class="row">
-			
-			   <nav class="grey lighten-4 row " role="navigation" >
+                    <div class="row">
 
-			  <ul class="right hide-on-med-and-down">
-				<li><a href="#" style="color:#000000;" ng-click="main.getDashboard()">Dashboard</a></li>
-				<li><a href="#" style="color:#000000;" ng-click="main.getLeftNav()">Upload Form</a></li>
-			  </ul>
+               <nav class=" row " role="navigation" style="background-color: #A3CEC5!important;">
 
-			  <ul id="nav-mobile" class="side-nav">
-				<li><a href="#">Navbar Link</a></li>
-			  </ul>
-			  <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-			</div>
+                      <ul class="left">
+                        <li>&nbsp;<img style="width:60px;height:50px;" src="assets/images/tanzania1.gif"></img></li>
+                        <li><a href="#" style="color:#ffffff;" ><h4>DHP Webportal</h4></a></li>
+                      </ul>
+
+                      <ul class="right hide-on-med-and-down">
+                        <li><a href="#" style="color:#ffffff;" ng-click="main.getDashboard()">Dashboard</a></li>
+                        <li><a href="#" style="color:#ffffff;" ng-click="main.getLeftNav()">Upload Form</a></li>
+                      </ul>
+
+                      <ul id="nav-mobile" class="side-nav">
+                          <li><a href="#" style="color:#000000;" ng-click="main.getDashboard()">Dashboard</a></li>
+                          <li><a href="#" style="color:#000000;" ng-click="main.getLeftNav()">Upload Form</a></li>
+                      </ul>
+                      <a href="#" data-activates="nav-mobile" class="right button-collapse"><i class="material-icons">menu</i></a>
+                    </div>
 			   </nav>
 
-    <div class="row" ng-controller="mapController">
-        <div class="col s12 m4">
-            <div class="card white lighten-4 darken-1">
-                <div class="card-content ">
-                    <div class="row">
-                    <div class="col m8 s12">
+                <div class="row" ng-controller="mapController">
+                    <!--<div class="col s12 m12">-->
+                        <!--<div class="card white lighten-4 darken-1">-->
+                            <!--<div class="card-content "></div></div>-->
+                    <!--</div>-->
+                    <div class="col s12 m4">
+                        <ul class="collapsible" data-collapsible="accordion">
+                            <li>
+                                <div class="collapsible-header grey-text"><i class="material-icons">place</i>Data Organisation Unit View</div>
+                                <div class="collapsible-body">
 
-                        <span class="card-title grey-text">DHP Data Map View</span>
-                    </div>
-                    <div class="col m4 s12">
-                        <select  name="period" class="col m12 s12" ng-model="main.period_map">
-                            <option selected disabled>- period -</option>
-                            <option ng-repeat="period in main.periods"  value="{{period.id}}" >{{period.name}}</option>
-                        </select>
-                    </div>
+                                    <div class="grey-text"
+                                       ivh-treeview="data.organisationUnits"
+                                       ivh-treeview-label-attribute="'name'"
+                                       ivh-treeview-on-cb-change="treeCallback(ivhNode, ivhIsSelected, ivhTree)"
+                                            >
 
+                                    </div>
+
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="card white lighten-4 darken-1">
+                            <div class="card-content ">
+                                <div class="row">
+                                <div class="col m8 s12">
+
+                                    <span class="card-title grey-text">DHP Data Map View</span>
+                                </div>
+                                <div class="col m4 s12">
+                                    <lable for="pe" class="grey-text">Select Period</lable>
+                                    <select id="pe" name="period" class="col m12 s12" ng-model="main.period_map">
+                                        <option ng-repeat="period in main.periods"  value="{{period.id}}" >{{period.name}}</option>
+                                    </select>
+                                </div>
+
+                                    </div>
+                                <div id="maps" class="maps"  style="width: 100%;" >
+
+                                    <openlayers ol-center="Africa" ol-defaults="defaults" custom-layers="true"  height="400px">
+                                        <ol-layer ol-layer-properties="layer" name="test" ng-repeat="layer in layers"></ol-layer>
+                                    </openlayers>
+
+
+                                    <div id="districtbo" ng-if="selectedDistrict" class="info district f32">
+                                        <a href="#" ng-click="closeTootip()" style="font-size:14px;font-weight:bold;margin-left:-160px;border:1px solid blue;border-radius:10px;">x</a>
+                                        <table >
+                                            <caption class="invoice-header" style="text-align: center">{{selectedDistrict.name}}&nbsp;<b>{{main.period_map}}</b></caption>
+                                            <thead></thead>
+                                            <tbody>
+                                            <tr>
+                                                <td class="header_style"><a class="waves-effect waves-teal " ng-click="main.getHtmlReport(selectedDistrict.district_id,main.period_map)">View Report</a></td>
+
+                                            <td class="header_style"><a class="waves-effect waves-teal " ng-click="main.getAppropiatePdf(selectedDistrict,main.period_map)">Preview Pdf</a></td>
+                                            </tr>
+
+                                            </tbody>
+
+
+                                        </table>
+                                    </div>
+                                    <div id="districtboxz" ng-if="selectedDistrictHover" class="infoh district ">
+                                       {{selectedDistrictHover.name}}
+                                    </div>
+                                </div><!-- /.map -->
+
+                            </div>
+                            <div class="card-action">
+                                <a href="#">{{main.csv_menu}}</a>
+                                <a href="#">This is a link</a>
+                            </div>
                         </div>
-                    <div id="maps" class="maps"  style="width: 100%;" >
-
-                        <openlayers ol-center="Africa" ol-defaults="defaults" custom-layers="true"  height="400px">
-                            <ol-layer ol-layer-properties="layer" name="test" ng-repeat="layer in layers"></ol-layer>
-                        </openlayers>
-
-
-                        <div id="districtbox" ng-if="selectedDistrict" class="info district f32">
-                            <a href="#" ng-click="closeTootip()"><i class="material-icons">clear</i></a>
-                            <table >
-                                <caption class="invoice-header" style="text-align: center">{{selectedDistrict.name}}&nbsp;<b>{{main.period_map}}</b></caption>
-                                <thead></thead>
-                                <tbody>
-                                <tr>
-                                    <td class="header_style"><a class="waves-effect waves-teal " ng-click="main.getHtmlReport('',main.period_map)">Html Report</a></td>
-                                </tr>
-                                <td class="header_style"><a class="waves-effect waves-teal " ng-click="main.getAppropiatePdf('',main.period_map)">Pdf Report</a></td>
-                                </tr>
-
-                                </tbody>
-
-
-                            </table>
+                    </div>
+                    <div class="col s12 m8 ">
+                        <div class="card white lighten-5 darken-1" >
+                            <div class="card-content grey-text {{custome_height}}">
+                                <img style="width:100%;" src="assets/images/dhp_portal.png">
+                            </div>
+                            <div class="card-content grey-text {{custome_height}}">
+                                <object data="{{current_pdf_link}}" ng-if="viewOpen" type="application/pdf" width="100%" height="100%">
+                                    <p>Document preview is not available go <a href="{{current_pdf_link}}">to the PDF!</a> manually.</p>
+                                </object>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">Download</a>
+                                <a href="#">Share</a>
+                            </div>
                         </div>
-
-                    </div><!-- /.map -->
-
-                </div>
-                <div class="card-action">
-                    <a href="#">{{main.csv_menu}}</a>
-                    <a href="#">This is a link</a>
-                </div>
-            </div>
-        </div>
-        <div class="col s12 m8">
-            <div class="card white lighten-5 darken-1">
-                <div class="card-content grey-text">
-                    <div class="row"><span class="card-title grey-text">DHP Data Table View</span></div>
-                    <!---->
-                    <div class="row">
-                    <select  name="period" class="col m2" ng-model="main.period_table">
-                        <option selected disabled>- period -</option>
-                        <option ng-repeat="period in main.periods"  value="{{period.id}}" >{{period.name}}</option>
-                    </select>&nbsp;&nbsp;
-
-                    <a class="waves-effect waves-light btn" ng-click="main.getHtmlReport(main.facilityUid,main.period)">Html Report</a>
-                    <a class="waves-effect waves-light btn" ng-click="main.getAppropiatePdf(main.facilityUid,main.period)"><i class="material-icons left">save</i>Pdf</a>
-                    </div>
-                    <div class="row">
-                    <table datatable="ng" >
-                        <thead style="background-color: lightgray;">
-                        <tr>
-                            <td style="width: 30px;"></td>
-                            <td>
-                                District
-                            </td>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="org in orgunit">
-                            <td>
-                                <input type="radio" name="report" value="{{org.id}}" ng-model="main.facilityUid">
-                                </td>
-                            <td>{{org.properties.name}}</td>
-                        </tr>
-
-
-                        </tbody>
-                    </table>
                     </div>
 
+                    <div class="section no-pad-bot" id="index-banner">
+                        <div class="container">
+                            <div class="row">
 
-                </div>
-                <div class="card-action">
-                    <a href="#">{{main.csv_menu}}</a>
-                    <a href="#">This is a link</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="section no-pad-bot" id="index-banner">
-            <div class="container">
-                <div class="row">
-
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-    <div class="row">
-
-        <div class="section no-pad-bot" id="index-banner">
-            <div class="container">
-                <div class="row">
-
-                </div>
-            </div>
-        </div>
+                            </div>
+                        </div>
+                    </div>
 
 
     </div>

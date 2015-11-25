@@ -56,4 +56,15 @@ if(isset($_GET["csv_output"])) {
 	DhpFile::queryTheDatabase('report_container',$csv_file);
 	
 	}
+
+if(isset($_GET["list_files"])){
+    $district_name = $_GET['name'];
+    $period = $_GET['period'];
+    $file_list = $dhp->getAppropiatePdfFiles($district_name,$period);
+
+    print_r($file_list);
+
+}
+
+
 ?>

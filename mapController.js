@@ -12,8 +12,8 @@
         .module('dhp')
         .controller('mapController', mapController);
 
-    mapController.$inject   = ['$scope', '$http', 'olData','olHelpers','shared'];
-    function mapController($scope, $http, olData,olHelpers,shared) {
+    mapController.$inject   = ['$scope', '$http','$timeout', 'olData','olHelpers','shared'];
+    function mapController($scope, $http,$timeout, olData,olHelpers,shared) {
 
 
 /// indicators URL
@@ -210,8 +210,64 @@
                             position: [100, -100]
                         });
                         var overlayHidden = true;
-                        // Mouse over function, called from the Leaflet Map Events
+                        // Mouse click function, called from the Leaflet Map Events
                         $scope.$on('openlayers.layers.geojson.mousemove', function(event, feature, olEvent) {
+                            $scope.$apply(function(scope) {
+                                scope.selectedDistrictHover = feature ? $scope.districts[feature.getId()] : '';
+                                if(feature) {
+                                    // looping throught indicator types
+                                    angular.forEach(Indicators,function(value,index){
+
+
+                                        //$http({
+                                        //    method: 'GET',
+                                        //    url: "http://hrhis.moh.go.tz:9090/api/analytics.json?dimension=dx:"+value+"&dimension=pe:"+$scope.thisyear+"&filter=ou:"+feature.getId()+"&displayProperty=NAME",
+                                        //    //url:"portal-module/testIndicatorType.json",
+                                        //    dataType: "json",
+                                        //    cache: true,
+                                        //    ifModified: true
+                                        //}).success(
+                                        //    function(data) {
+                                        //        var currentDistrict = $scope.districts[feature.getId()];
+                                        //        if(data.rows[0]){
+                                        //            if(value==data.rows[0][0]){
+                                        //
+                                        //                currentDistrict[index] = data.rows[0][2];
+                                        //            }
+                                        //        }
+                                        //
+                                        //        $scope.districts[feature.getId()] = currentDistrict;
+                                        //    });
+                                    });
+                                    scope.selectedDistrictHover = feature ? $scope.districts[feature.getId()] : '';
+//                                    $timeout(function(){ scope.selectedDistrictHover=null; },5000);
+                                }
+
+                            });
+
+                            if (!feature) {
+                                map.removeOverlay(overlay);
+                                overlayHidden = true;
+                                return;
+                            } else if (overlayHidden) {
+                                map.addOverlay(overlay);
+                                overlayHidden = false;
+                            }
+                            overlay.setPosition(map.getEventCoordinate(olEvent));
+                            if (feature) {
+                                feature.setStyle(olHelpers.createStyle({
+                                    fill: {
+                                        color: '#FFF'
+                                    }
+                                }));
+                                if (previousFeature && feature !== previousFeature) {
+                                    previousFeature.setStyle(getStyle(previousFeature));
+                                }
+                                previousFeature = feature;
+                            }
+                        });
+                        $scope.$on('openlayers.layers.geojson.click', function(event, feature, olEvent) {
+                            $scope.closeTootipHover();
                             $scope.$apply(function(scope) {
                                 scope.selectedDistrict = feature ? $scope.districts[feature.getId()] : '';
                                 if(feature) {
@@ -276,6 +332,10 @@
                     });
                     $scope.closeTootip = function(){
                         $scope.selectedDistrict = null;
+
+                    }
+                    $scope.closeTootipHover = function(){
+                        $scope.selectedDistrictHover = null;
 
                     }
 
