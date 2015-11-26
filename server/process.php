@@ -1,24 +1,26 @@
 <?php
 include_once('functions.php');
 // Check if  file is a csv
-if(isset($_POST["submit"])) { $test_variable = "for upload";
-	$period = $_POST['period'];
-	$orgUnit= $_POST['org_unit'];
+if(isset($_GET["file"])) { $test_variable = "for upload";
+//	echo $period = $_POST['period'];
+//	echo $orgUnit= $_POST['org_unit'];
+
+    print_r($_GET);
     $category = "uGIJ6IdkP7Q";
     $attributeoptioncombo = "uGIJ6IdkP7Q";
 	$target_dir = "../uploads/";
-	$target_file = $target_dir . basename($_FILES["dhp_source_file"]["name"]);
+	echo $target_file = $target_dir . basename($_FILES["file"]["name"]);die();
 	$uploadOk = 1;
 	$fileType = pathinfo($target_file,PATHINFO_EXTENSION);
   if (file_exists($target_file)) {
     
 	if($dhp::deleteFile($target_file)){
-		
-		if($fileType != "csv") {
-				echo "NONE_CSV_ERR";
+		echo $fileType;
+		if($fileType != "pdf") {
+				echo "NONE_PDF_ERR";
 				$uploadOk = 0;
 		 }else{					
-				if($dhp::uploadFile($_FILES["dhp_source_file"]["tmp_name"],$target_file)){
+				if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
 						
 						$_SESSION['dhp'] = $dhp::processUploadsForDHIS($target_file,$period,$orgUnit,$category,$attributeoptioncombo);
 				}else{
@@ -34,12 +36,12 @@ if(isset($_POST["submit"])) { $test_variable = "for upload";
     $uploadOk = 0;
   }else{
 			
-	if($fileType != "csv") {
-					echo "NONE_CSV_ERR";
+	if($fileType != "pdf") {
+					echo "NONE_PDF_ERR";
 					$uploadOk = 0;
 		}else{					
-			  if($dhp::uploadFile($_FILES["dhp_source_file"]["tmp_name"],$target_file)){						
-					$_SESSION['dhp'] = $dhp::processUploadsForDHIS($target_file,$period,$orgUnit,$category,$attributeoptioncombo);
+			  if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
+//					$_SESSION['dhp'] = $dhp::processUploadsForDHIS($target_file,$period,$orgUnit,$category,$attributeoptioncombo);
 			   }else{
 					
 			   }
@@ -48,7 +50,7 @@ if(isset($_POST["submit"])) { $test_variable = "for upload";
 			
   }
 
-header( 'Location:../' );
+//header( 'Location:../' );
 }
 
 if(isset($_GET["csv_output"])) { 

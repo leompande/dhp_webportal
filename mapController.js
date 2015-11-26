@@ -231,6 +231,7 @@
 
                         $scope.$on('openlayers.layers.geojson.click', function(event, feature, olEvent) {
                             $scope.$parent.main.chart_shown = false;
+                            $scope.$parent.main.backToGrid()
                             //$scope.closeTootipHover();
                             $scope.$apply(function(scope) {
                                 scope.selectedDistrict = feature ? $scope.districts[feature.getId()] : '';

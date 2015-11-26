@@ -30,7 +30,6 @@
 
         <script src="assets/js/angular-datatables/dist/angular-datatables.min.js"></script>
         <script src="assets/js/bower_components/angular-ivh-treeview/dist/ivh-treeview.js"></script>
-        <script src="assets/js/bower_components/angular-thumbnails/dist/angular-thumbnails.js"></script>
 
 
         <script type="text/javascript" src="app.js"></script>
@@ -125,7 +124,7 @@
             /*margin-bottom: 50px;*/
         }
         .default{
-            height:510px;
+            height:568px;
 
         }
     </style>
@@ -137,6 +136,9 @@
       <script type="text/javascript" src="assets/js/bower_components/highcharts/highstocks-app.js"></script>
       <script type="text/javascript" src="assets/js/bower_components/highcharts/highcharts-ng.js"></script>
 
+      <script type="text/javascript" src="assets/js/bower_components/ng-file-upload/ng-file-upload.js"></script>
+      <script type="text/javascript" src="assets/js/bower_components/ng-file-upload/ng-file-upload-shim.js"></script>
+
 		<div class="row">
 		<ul id="nav-mobile" class="side-nav fixed" style="left: 0px;" ng-show="main.csv_menu">
 
@@ -146,19 +148,19 @@
         <li class="bold">
             <br/>
             <br/>
-			 <form class="col s12 m12" action="server/process.php" method="POST" enctype="multipart/form-data">
+			 <form class="col s12 m12" name="upload_form">
 			  <div class="row">
                   <label>* Organisation Unit</label>
 				<div class="input-field col  s12 m12">
-					<select id="org_unit" name="org_unit" required>
-						<option ng-repeat="org in main.orgUnits" value="{{org.id}}">{{org.name}}</option>
+					<select id="org_unit" name="org_unit" ng-change="main.orgunit()" required>
+						<option ng-repeat="org in organisationUnits" value="{{org.id}}">{{org.name}}</option>
 					</select>
 				</div>
 			  </div>
 			  <div class="row">
                   <label>* Period</label>
 				<div class="input-field col  s12 m12">
-				  <select id="period" name="period" required>
+				  <select id="period" name="period" ng-model="main.form_period" required>
 						<option ng-repeat="period in main.periods" value="{{period.id}}">{{period.name}}</option>
 					</select>	
 
@@ -166,16 +168,18 @@
 			  </div>
 
                  <div class="row">
-                     <label>* Upload ReadOnly Pdf File</label>
-                     <div class="input-field col  s12 m12">
+                     <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'application/pdf'"
+                          accept="application/pdf" ><a href="#"><i class="fa fa-file"></i> Select a File</a></div>
+                     <!--<label>* Upload ReadOnly Pdf File</label>-->
+                     <!--<div class="input-field col  s12 m12">-->
 
-                         <input id="pdf_file" name="dhp_source_file" type="file" class="validate" required>
-                     </div>
+                         <!--<input id="pdf_file" name="dhp_source_file" type="file" class="validate" required>-->
+                     <!--</div>-->
                  </div>
 
 			  <div class="row">
 				<div class="input-field col s12 m12">
-				  <button class="waves-effect waves-light btn" type="submit" name="submit">Send</button>
+				  <button class="waves-effect waves-light btn" type="submit" ng-click="submit(main.form_period,main.orgunit)" name="submit">Send a File</button>
 				</div>
 			  </div>
 			</form>
@@ -261,7 +265,7 @@
 
                                             <div class="col m4 s4"><span>No Uploads</span></div>
                                             <div class="col m1 s1"><span style="color:#55CD55;"><i class="fa fa-file"></i></span></div>
-                                            <div class="col m4 s4"><span>Uploads Exist</span></div>
+                                            <div class="col m4 s4"><span>Uploads</span></div>
 
                                     </div>
 
@@ -272,7 +276,7 @@
                     </div>
                     <div class="col s12 m8 ">
                         <div class="card white lighten-1 darken-3" >
-                            <div class="card-content grey-text">
+                            <div class="card-content grey-text" style="padding:13px">
                                 DISTRICT HEALTH PROFILE
                             </div>
 
