@@ -30,6 +30,7 @@
 
         <script src="assets/js/angular-datatables/dist/angular-datatables.min.js"></script>
         <script src="assets/js/bower_components/angular-ivh-treeview/dist/ivh-treeview.js"></script>
+        <script src="assets/js/bower_components/angular-thumbnails/dist/angular-thumbnails.js"></script>
 
 
         <script type="text/javascript" src="app.js"></script>
@@ -120,17 +121,22 @@
         }
 
         .not_found{
-            height:1060px;
+            height:100%;
+            /*margin-bottom: 50px;*/
         }
         .default{
             height:510px;
+
         }
     </style>
 
     <body ng-controller="mainController as main">
       <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="assets/js/materialize.min.js"></script> 
-      
+      <script type="text/javascript" src="assets/js/bower_components/highcharts/highcharts.js"></script>
+      <script type="text/javascript" src="assets/js/bower_components/highcharts/highstocks-app.js"></script>
+      <script type="text/javascript" src="assets/js/bower_components/highcharts/highcharts-ng.js"></script>
+
 		<div class="row">
 		<ul id="nav-mobile" class="side-nav fixed" style="left: 0px;" ng-show="main.csv_menu">
 
@@ -158,12 +164,6 @@
 
 				</div>
 			  </div>
-			  <!--<div class="row">-->
-                  <!--<label>* Upload CSV File</label>-->
-				<!--<div class="input-field col  s12 m12">-->
-				  <!--<input id="csv_file" name="dhp_source_file" type="file" class="validate" required>-->
-				<!--</div>-->
-			  <!--</div>-->
 
                  <div class="row">
                      <label>* Upload ReadOnly Pdf File</label>
@@ -210,16 +210,22 @@
                             <!--<div class="card-content "></div></div>-->
                     <!--</div>-->
                     <div class="col s12 m4">
+
                         <ul class="collapsible" data-collapsible="accordion">
                             <li>
-                                <div class="collapsible-header grey-text"><i class="material-icons">place</i>Data Organisation Unit View</div>
-                                <div class="collapsible-body">
+                                <div class="collapsible-header grey-text"><i class="material-icons">place</i>Data Organisation Unit View
 
+                                </div>
+                                <div class="collapsible-body">
+                                    <input type="text" ng-model="bagSearch" placeholder="Search Organisation Unit" />
                                     <div class="grey-text"
                                        ivh-treeview="data.organisationUnits"
                                        ivh-treeview-label-attribute="'name'"
-                                       ivh-treeview-on-cb-change="treeCallback(ivhNode, ivhIsSelected, ivhTree)"
-                                            >
+                                       ivh-treeview-id-attribute="'id'"
+                                       ivh-treeview-children-attribute="'children'"
+                                       ivh-treeview-options="customOpts"
+                                       ivh-treeview-filter="bagSearch"
+                                          >
 
                                     </div>
 
@@ -231,12 +237,12 @@
                                 <div class="row">
                                 <div class="col m8 s12">
 
-                                    <span class="card-title grey-text">DHP Data Map View</span>
+                                    <span class="card-title grey-text" style="font-size: 20px;">DHP Data Map View   {{main.selectedYear}}</span>
                                 </div>
                                 <div class="col m4 s12">
                                     <lable for="pe" class="grey-text">Select Period</lable>
-                                    <select id="pe" name="period" class="col m12 s12" ng-model="main.period_map">
-                                        <option ng-repeat="period in main.periods"  value="{{period.id}}" >{{period.name}}</option>
+                                    <select  name="period" ng-model="main.selectedYear">
+                                        <option ng-repeat="period in main.periods" >{{period.name}}</option>
                                     </select>
                                 </div>
 
@@ -246,50 +252,78 @@
                                     <openlayers ol-center="Africa" ol-defaults="defaults" custom-layers="true"  height="400px">
                                         <ol-layer ol-layer-properties="layer" name="test" ng-repeat="layer in layers"></ol-layer>
                                     </openlayers>
-
-
-                                    <div id="districtbo" ng-if="selectedDistrict" class="info district f32">
-                                        <a href="#" ng-click="closeTootip()" style="font-size:14px;font-weight:bold;margin-left:-160px;border:1px solid blue;border-radius:10px;">x</a>
-                                        <table >
-                                            <caption class="invoice-header" style="text-align: center">{{selectedDistrict.name}}&nbsp;<b>{{main.period_map}}</b></caption>
-                                            <thead></thead>
-                                            <tbody>
-                                            <tr>
-                                                <td class="header_style"><a class="waves-effect waves-teal " ng-click="main.getHtmlReport(selectedDistrict.district_id,main.period_map)">View Report</a></td>
-
-                                            <td class="header_style"><a class="waves-effect waves-teal " ng-click="main.getAppropiatePdf(selectedDistrict,main.period_map)">Preview Pdf</a></td>
-                                            </tr>
-
-                                            </tbody>
-
-
-                                        </table>
-                                    </div>
                                     <div id="districtboxz" ng-if="selectedDistrictHover" class="infoh district ">
                                        {{selectedDistrictHover.name}}
                                     </div>
+                                    <div class="card-action">
+                                            <div class="col m2 s2">Key:</div>
+                                            <div class="col m1 s1"><span style="color:#E38280;"><i class="fa fa-file"></i></span></div>
+
+                                            <div class="col m4 s4"><span>No Uploads</span></div>
+                                            <div class="col m1 s1"><span style="color:#55CD55;"><i class="fa fa-file"></i></span></div>
+                                            <div class="col m4 s4"><span>Uploads Exist</span></div>
+
+                                    </div>
+
                                 </div><!-- /.map -->
 
-                            </div>
-                            <div class="card-action">
-                                <a href="#">{{main.csv_menu}}</a>
-                                <a href="#">This is a link</a>
                             </div>
                         </div>
                     </div>
                     <div class="col s12 m8 ">
-                        <div class="card white lighten-5 darken-1" >
-                            <div class="card-content grey-text {{custome_height}}">
-                                <img style="width:100%;" src="assets/images/dhp_portal.png">
+                        <div class="card white lighten-1 darken-3" >
+                            <div class="card-content grey-text">
+                                DISTRICT HEALTH PROFILE
                             </div>
-                            <div class="card-content grey-text {{custome_height}}">
-                                <object data="{{current_pdf_link}}" ng-if="viewOpen" type="application/pdf" width="100%" height="100%">
-                                    <p>Document preview is not available go <a href="{{current_pdf_link}}">to the PDF!</a> manually.</p>
-                                </object>
+
                             </div>
-                            <div class="card-action">
-                                <a href="#">Download</a>
-                                <a href="#">Share</a>
+                        <div class="card white lighten-1 darken-3" >
+                            <div class="card-content grey-text {{custome_height}}" ng-if="!viewOpen" >
+                                <div class="col s12 m12" ng-if="!main.chart_shown">
+                                    <div class="col s11 m11">
+                                        <p style="font-weight: bolder">District Health Available Documents for: {{main.selectedYear}}</p>
+                                    </div>
+                                    <div class="col s1 m1"><a class="waves-effect waves-light btn" ng-click="main.backToChart()"><i class="fa fa-arrow-left"></i></a></div>
+                                </div>
+                                <div class="col s12 m12" style="background-color: #eeeeee;" ng-if="!main.chart_shown">
+                                    <div class="col s4 m4" ng-repeat="document in main.Documents" title="click to preview document">
+                                    <!--<div class="col s3 m3" >-->
+                                        <div class="card white lighten-5 darken-1" >
+                                            <a href="#" ng-click="main.openPdfFile(document.file)">
+                                                <div> <img style="width:100%;" src="assets/images/dhp_portal.png"></div>
+                                                <div class="grey-text" style="padding: 10px;font-size: 10px;font-weight: bold;">{{document.facility}} {{main.selectedYear}}</div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col s12 m12" ng-if="main.chart_shown">
+                                    <highchart id="chart1" config="chartConfig"></highchart>
+                                </div>
+
+
+                            </div>
+                            <div class="card-content grey-text " ng-if="viewOpen">
+                                <div class="col s12 m12">
+                                    <div  class="col s11 m11">
+                                        <p style="font-weight: bolder">District Health Profile Preview  for: <i>{{main.clickedDistrict}}</i> </p>
+                                    </div>
+                                    <div class="col s1 m1"><a class="waves-effect waves-light btn" ng-click="main.backToGrid()"><i class="fa fa-arrow-left"></i></a></div>
+                                </div>
+                                <br/>
+                                <div class="col s12 m12 ">
+                                    <br/>
+                                    <object data="{{main.current_pdf_link}}"  type="application/pdf" width="100%" height="1000px">
+                                        <p>Document preview is not available go <a href="{{main.current_pdf_link}}">to the PDF!</a> manually.</p>
+                                    </object>
+                                </div>
+
+                            </div>
+                            <div class="card-action" ng-if="viewOpen">
+                                <a href="{{main.current_pdf_link}}" target="_blank">Download</a>
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
                             </div>
                         </div>
                     </div>

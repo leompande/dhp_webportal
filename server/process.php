@@ -58,11 +58,40 @@ if(isset($_GET["csv_output"])) {
 	}
 
 if(isset($_GET["list_files"])){
-    $district_name = $_GET['name'];
-    $period = $_GET['period'];
-    $file_list = $dhp->getAppropiatePdfFiles($district_name,$period);
+    $file_list = $dhp->getAppropiatePdfFiles();
+    echo json_encode($file_list);
 
-    print_r($file_list);
+}
+
+if(isset($_GET["by_year"])){
+    $file_list_by_year = $dhp->getAppropiatePdfFiles();
+    array_shift($file_list_by_year);
+    array_shift($file_list_by_year);
+    $available_files = array();
+    foreach($file_list_by_year as $index=>$value){
+        $orgUnit_array = explode("_",$value);
+        if(is_array($orgUnit_array)){
+
+            $orgUnit_array_year = explode(".",$orgUnit_array[2]);
+            if($_GET["by_year"]==$orgUnit_array_year[0]){
+                array_push($available_files,$value);
+            }
+        }
+
+    }
+    echo json_encode($available_files);
+
+}
+
+if(isset($_GET["by_orgunit"])){
+    $file_list = $dhp->getAppropiatePdfFiles();
+    echo json_encode($file_list);
+
+}
+
+if(isset($_GET["list_files"])&&isset($_GET["orgunit"])&&isset($_GET["year"])){
+    $file_list = $dhp->getAppropiatePdfFiles();
+    echo json_encode($file_list);
 
 }
 

@@ -15,49 +15,15 @@
     mapController.$inject   = ['$scope', '$http','$timeout', 'olData','olHelpers','shared'];
     function mapController($scope, $http,$timeout, olData,olHelpers,shared) {
 
-
-/// indicators URL
-        var Indicators = {
-            anc_12:'TRoamv0YPt3',
-            anc_fisrt:'QiA9L6tNHFy',
-            inst:'bzTuXoKa87E',
-            post:'S0cn3ephUSs',
-            measle:'wM0Lz10TaMU',
-            penta3:'U10A7hLOxgq',
-            vitaminA:'j1mwtqSyifi',
-            child:'uOOJi6b0pzm',
-            cervical:'oBTUbnPkrMT'
-            //,
-            //doctor:'',
-            //nurse:'',
-            //complete:''
-
-        };
-
-        var ANIC_Before_12_weeks_URL = "http://hrhis.moh.go.tz:9090/api/analytics.json?dimension=dx:TRoamv0YPt3&dimension=pe:2014&filter=ou:lgZ6HfZaj3f&displayProperty=NAME";
-        var ANC_first_visit_URL = "http://hrhis.moh.go.tz:9090/api/analytics.json?dimension=dx:oazOp512ShT&dimension=pe:2014&filter=ou:lgZ6HfZaj3f&displayProperty=NAME";
-        var Institutional_delivery_URL = "http://hrhis.moh.go.tz:9090/api/analytics.json?dimension=dx:bzTuXoKa87E&dimension=pe:2014&filter=ou:lgZ6HfZaj3f&displayProperty=NAME";
-        var Postinatal_care_URL = "http://hrhis.moh.go.tz:9090/api/analytics.json?dimension=dx:S0cn3ephUSs&dimension=pe:2014&filter=ou:lgZ6HfZaj3f&displayProperty=NAME";
-        var Measles_vaccination_less_than_12_URL = "";
-        var Penta_3_URL = "";
-        var Vitamin_A_URL = "";
-        var Child_Under_weight_URL = "";
-        var Cervical_cancer_screening_URL = "";
-        var Doctors_and_AMO_URL = "";
-        var Nurse_and_midwives_URL = "";
-        var Completeness_URL = "";
-
         /**
          * THE BEGINNING OF THE FUNCTION THAT HANDLES HOME PAGE FUNCTIONALITY OF MAP
          * */
 
-        (function(){
+        var drawMap = function(){
+            console.log($scope.$parent.main.selectedYear);
             $scope.shared = shared;
             shared.facility =3029;
-            var pullDistricts = 'http://hrhis.moh.go.tz:9090//api/organisationUnits.json?fields=id,name&level=3';
-            //var url = 'portal-module/geoFeatures.json';
             var url = 'server/organisationUnits.geojson';
-            var url1 = 'http://hrhis.moh.go.tz:9090/api/geoFeatures.json?ou=ou:LEVEL-4;m0frOspS7JY&displayProperty=NAME&viewClass=detailed';
 
             $http({
                 method: 'GET',
@@ -82,8 +48,41 @@
                     $scope.thisyear = dateObject.getFullYear();
                     $scope.districts = {};
                     $scope.DistrictFreeObject = [];
+                    var getApproPiateColor = function(percent){
+
+
+                        if(percent>0){
+                            return "#55CD55"
+                        }
+                        //if(percent>0.4){
+                        //    return "#90EE90"
+                        //}
+                        //
+                        //if(percent>0.1){
+                        //    return "#E8C25B"
+                        //}
+
+                        if(percent==0){
+                            return "#E38280"
+                        }
+
+                        //if(percent==0){
+                        //    // red color
+                        //    return "#DE877E"
+                        //}
+                    }
                     angular.forEach(data.features, function (value, index) {
-                        var hue = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+
+                        var number_of_files_available = $scope.$parent.main.getOrgunitFileStatistics(value.properties.name);
+                        var percent = 0;
+                        if(number_of_files_available.total==0){
+                            percent = 0;
+                        }else{
+                            percent = number_of_files_available.count/number_of_files_available.total;
+                        }
+                        console.log(number_of_files_available.total);
+                        var hue = getApproPiateColor(percent.toFixed(3));
+
                         // creating dynamic colors for district
                         $scope.saveColorInlocalStorage(value.id,hue);
 
@@ -93,20 +92,7 @@
                             year:$scope.thisyear,
                             name:value.properties.name,
                             "color":hue,
-                            "facility":Math.floor(Math.random() * 256),
-                            "anc_12":0,
-                            "anc_fisrt":0,
-                            "inst":0,
-                            "post":0,
-                            "measle":0,
-                            "penta3":0,
-                            "vitaminA":0,
-                            "child":0,
-                            "cervical":0,
-                            "doctor":0,
-                            "nurse":0,
-                            "complete":0
-
+                            "facility":Math.floor(Math.random() * 256)
                         };
 
                         $scope.DistrictFreeObject.push(districtProperties[value.id]);
@@ -213,34 +199,10 @@
                         // Mouse click function, called from the Leaflet Map Events
                         $scope.$on('openlayers.layers.geojson.mousemove', function(event, feature, olEvent) {
                             $scope.$apply(function(scope) {
+
                                 scope.selectedDistrictHover = feature ? $scope.districts[feature.getId()] : '';
                                 if(feature) {
-                                    // looping throught indicator types
-                                    angular.forEach(Indicators,function(value,index){
-
-
-                                        //$http({
-                                        //    method: 'GET',
-                                        //    url: "http://hrhis.moh.go.tz:9090/api/analytics.json?dimension=dx:"+value+"&dimension=pe:"+$scope.thisyear+"&filter=ou:"+feature.getId()+"&displayProperty=NAME",
-                                        //    //url:"portal-module/testIndicatorType.json",
-                                        //    dataType: "json",
-                                        //    cache: true,
-                                        //    ifModified: true
-                                        //}).success(
-                                        //    function(data) {
-                                        //        var currentDistrict = $scope.districts[feature.getId()];
-                                        //        if(data.rows[0]){
-                                        //            if(value==data.rows[0][0]){
-                                        //
-                                        //                currentDistrict[index] = data.rows[0][2];
-                                        //            }
-                                        //        }
-                                        //
-                                        //        $scope.districts[feature.getId()] = currentDistrict;
-                                        //    });
-                                    });
                                     scope.selectedDistrictHover = feature ? $scope.districts[feature.getId()] : '';
-//                                    $timeout(function(){ scope.selectedDistrictHover=null; },5000);
                                 }
 
                             });
@@ -255,47 +217,30 @@
                             }
                             overlay.setPosition(map.getEventCoordinate(olEvent));
                             if (feature) {
-                                feature.setStyle(olHelpers.createStyle({
-                                    fill: {
-                                        color: '#FFF'
-                                    }
-                                }));
+                                //feature.setStyle(olHelpers.createStyle({
+                                //    fill: {
+                                //        color: '#A3CEC5'
+                                //    }
+                                //}));
                                 if (previousFeature && feature !== previousFeature) {
                                     previousFeature.setStyle(getStyle(previousFeature));
                                 }
                                 previousFeature = feature;
                             }
                         });
+
                         $scope.$on('openlayers.layers.geojson.click', function(event, feature, olEvent) {
-                            $scope.closeTootipHover();
+                            $scope.$parent.main.chart_shown = false;
+                            //$scope.closeTootipHover();
                             $scope.$apply(function(scope) {
                                 scope.selectedDistrict = feature ? $scope.districts[feature.getId()] : '';
                                 if(feature) {
                                     // looping throught indicator types
-                                    angular.forEach(Indicators,function(value,index){
-
-
-                                        //$http({
-                                        //    method: 'GET',
-                                        //    url: "http://hrhis.moh.go.tz:9090/api/analytics.json?dimension=dx:"+value+"&dimension=pe:"+$scope.thisyear+"&filter=ou:"+feature.getId()+"&displayProperty=NAME",
-                                        //    //url:"portal-module/testIndicatorType.json",
-                                        //    dataType: "json",
-                                        //    cache: true,
-                                        //    ifModified: true
-                                        //}).success(
-                                        //    function(data) {
-                                        //        var currentDistrict = $scope.districts[feature.getId()];
-                                        //        if(data.rows[0]){
-                                        //            if(value==data.rows[0][0]){
-                                        //
-                                        //                currentDistrict[index] = data.rows[0][2];
-                                        //            }
-                                        //        }
-                                        //
-                                        //        $scope.districts[feature.getId()] = currentDistrict;
-                                        //    });
-                                    });
                                     scope.selectedDistrict = feature ? $scope.districts[feature.getId()] : '';
+                                    var orgUnit = {children:null};
+                                    $scope.$parent.main.processView(orgUnit,scope.selectedDistrict.name,scope.selectedDistrict.district_id)
+
+
                                 }
                             });
 
@@ -347,6 +292,8 @@
 
                 if(!$scope.getColorFromLocalStorage(id)){
                     localStorage.setItem(id , value);
+                }else{
+                    localStorage.removeItem(id);
                 }
             }
 
@@ -359,7 +306,11 @@
                 }
 
             }
-        })();
+        };
+        // check if year has changed from the parent
+        $scope.$on('yearChangedEvent', function(e) {
+            drawMap();
+        });
         /**
          *  THE END
          * */

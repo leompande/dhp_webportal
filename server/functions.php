@@ -260,7 +260,7 @@ class DhpFile {
 
 			}
 
-    public function getAppropiatePdfFiles($district_name,$period){
+    public function getAppropiatePdfFiles(){
 
         $file_system = scandir(DhpFile::$dir);
 
