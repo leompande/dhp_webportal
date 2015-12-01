@@ -2,14 +2,10 @@
 include_once('functions.php');
 // Check if  file is a csv
 if(isset($_GET["file"])) { $test_variable = "for upload";
-//	echo $period = $_POST['period'];
-//	echo $orgUnit= $_POST['org_unit'];
+	$target_file = $_GET['new_file_name'];
 
-    print_r($_GET);
-    $category = "uGIJ6IdkP7Q";
-    $attributeoptioncombo = "uGIJ6IdkP7Q";
 	$target_dir = "../uploads/";
-	echo $target_file = $target_dir . basename($_FILES["file"]["name"]);die();
+	echo $target_file = $target_dir . basename($target_file);
 	$uploadOk = 1;
 	$fileType = pathinfo($target_file,PATHINFO_EXTENSION);
   if (file_exists($target_file)) {

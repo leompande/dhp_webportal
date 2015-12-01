@@ -135,12 +135,49 @@
       <script type="text/javascript" src="assets/js/bower_components/highcharts/highcharts.js"></script>
       <script type="text/javascript" src="assets/js/bower_components/highcharts/highstocks-app.js"></script>
       <script type="text/javascript" src="assets/js/bower_components/highcharts/highcharts-ng.js"></script>
+      <script type="text/javascript" src="assets/js/bower_components/highcharts/exporting.js"></script>
 
       <script type="text/javascript" src="assets/js/bower_components/ng-file-upload/ng-file-upload.js"></script>
       <script type="text/javascript" src="assets/js/bower_components/ng-file-upload/ng-file-upload-shim.js"></script>
 
+
+      <!-- Modal Trigger -->
+
+
+      <!-- Modal Structure -->
+      <div id="modal1" class="modal modal-fixed-footer">
+          <div class="modal-content" style="text-align: center;">
+              <h4>DHP User Login Form</h4>
+
+              <form class="col s12" style="margin-top: 100px;">
+                  <div class="row">
+                      <div class="input-field col s12">
+                          <input id="email" type="email" class="validate">
+                          <label for="email">Email</label>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="input-field col s12">
+                          <input id="password" type="password" class="validate">
+                          <label for="password">Password</label>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="input-field col s12">
+                          <a class="waves-effect modal-action modal-close waves-light btn" ng-click="main.login()">Login</a>
+                      </div>
+                  </div>
+
+              </form>
+
+          </div>
+          <div class="modal-footer">
+              <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+          </div>
+      </div>
+
 		<div class="row">
-		<ul id="nav-mobile" class="side-nav fixed" style="left: 0px;" ng-show="main.csv_menu">
+		<ul  class="side-nav fixed" style="left: 0px;" ng-show="main.csv_menu">
 
             <br/>
             <br/>
@@ -148,20 +185,20 @@
         <li class="bold">
             <br/>
             <br/>
-			 <form class="col s12 m12" name="upload_form">
+			 <form class="col s12 m12" name="upload_form" ng-submit="submit(form)">
 			  <div class="row">
                   <label>* Organisation Unit</label>
 				<div class="input-field col  s12 m12">
-					<select id="org_unit" name="org_unit" ng-change="main.orgunit()" required>
-						<option ng-repeat="org in organisationUnits" value="{{org.id}}">{{org.name}}</option>
+					<select id="org_unit" name="org_unit" ng-model="form.org_unit_selected" >
+						<option ng-repeat="org in modifedOrgunits" value="{{org.value}}">{{org.name}}</option>
 					</select>
 				</div>
 			  </div>
 			  <div class="row">
                   <label>* Period</label>
 				<div class="input-field col  s12 m12">
-				  <select id="period" name="period" ng-model="main.form_period" required>
-						<option ng-repeat="period in main.periods" value="{{period.id}}">{{period.name}}</option>
+				  <select id="period" name="period" ng-model="form.form_period" >
+						<option ng-repeat="period in main.periods" value="{{period.name}}">{{period.name}}</option>
 					</select>	
 
 				</div>
@@ -170,16 +207,11 @@
                  <div class="row">
                      <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'application/pdf'"
                           accept="application/pdf" ><a href="#"><i class="fa fa-file"></i> Select a File</a></div>
-                     <!--<label>* Upload ReadOnly Pdf File</label>-->
-                     <!--<div class="input-field col  s12 m12">-->
-
-                         <!--<input id="pdf_file" name="dhp_source_file" type="file" class="validate" required>-->
-                     <!--</div>-->
                  </div>
 
 			  <div class="row">
 				<div class="input-field col s12 m12">
-				  <button class="waves-effect waves-light btn" type="submit" ng-click="submit(main.form_period,main.orgunit)" name="submit">Send a File</button>
+				  <button class="waves-effect waves-light btn" type="submit" name="submit">Send a File</button>
 				</div>
 			  </div>
 			</form>
@@ -197,12 +229,16 @@
 
                       <ul class="right hide-on-med-and-down">
                         <li><a href="#" style="color:#ffffff;" ng-click="main.getDashboard()">Dashboard</a></li>
-                        <li><a href="#" style="color:#ffffff;" ng-click="main.getLeftNav()">Upload Form</a></li>
+                        <li><a href="#" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Upload Form</a></li>
+                        <li><a href="#" style="color:#ffffff;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>
+                        <li><a href="#" style="color:#ffffff;" ng-click="main.Logout()" ng-if="main.logedIn">Logout</a></li>
                       </ul>
 
                       <ul id="nav-mobile" class="side-nav">
-                          <li><a href="#" style="color:#000000;" ng-click="main.getDashboard()">Dashboard</a></li>
-                          <li><a href="#" style="color:#000000;" ng-click="main.getLeftNav()">Upload Form</a></li>
+                          <li><a href="#" style="color:#ffffff;" ng-click="main.getDashboard()">Dashboard</a></li>
+                          <li><a href="#" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Upload Form</a></li>
+                          <li><a href="#" style="color:#ffffff;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>
+                          <li><a href="#" style="color:#ffffff;" ng-click="main.Logout()" ng-if="main.logedIn">Logout</a></li>
                       </ul>
                       <a href="#" data-activates="nav-mobile" class="right button-collapse"><i class="material-icons">menu</i></a>
                     </div>
@@ -301,10 +337,23 @@
                                     </div>
 
                                 </div>
-                                <div class="col s12 m12" ng-if="main.chart_shown">
+                                <div class="row">
+                                <div class="col m12 s12" style="font-size: 20px;">DHP District Submission Statistics:{{main.selectedYear}}</div>
+                                <div class="col s12 m6" ng-if="main.chart_shown" style="font-size: 10px;">
                                     <highchart id="chart1" config="chartConfig"></highchart>
                                 </div>
-
+                                <div class="col s12 m6" ng-if="main.chart_shown">
+                                    <table class="highlight responsive-table " style="margin-top: 10px;">
+                                        <thead><tr><th>Region Name</th><th>District Name</th></tr></thead>
+                                        <tbody>
+                                        <tr ng-repeat="row in orgUnitTable" style="cursor: pointer;" >
+                                            <td style="text-align: left;">{{row.region}}</td>
+                                            <td class="waves-effect waves-block" style="text-align: left;">{{row.district}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+</div>
 
                             </div>
                             <div class="card-content grey-text " ng-if="viewOpen">

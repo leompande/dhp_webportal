@@ -27,8 +27,17 @@
         main.available_files_this_year = null;
         $scope.submitted = 0;
         $scope.total_facilities = 0;
+        $scope.submitted = 0;
+        $scope.total_facilities = 0;
         main.form_period = null;
         main.orgunit = null;
+        main.org_unit_selected = null;
+
+        main.logedIn = false;
+        main.logedOut = true;
+
+
+
         //front chart for the portal
         main.drawChart = function(){
             $scope.$watch("main.available_files_this_year",function(newOne,oldOne){
@@ -41,7 +50,7 @@
                         type: 'pie'
                     },
                     title: {
-                        text: 'DHP District Submission Statistics: '+main.selectedYear
+                        text: ""
                     },
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -61,7 +70,7 @@
                         type: 'pie',
                         name: 'Distribution',
                         data: [
-                            ['Not Submitted',   7],
+                            ['Not Submitted',$scope.total_facilities-$scope.submitted],
                             ['Submitted',  $scope.submitted]
 
                         ]
@@ -134,6 +143,7 @@
                             }
                         });
                         main.Documents = correct_names;
+                        console.log(main.Documents);
                     });
 
 
@@ -160,7 +170,6 @@
             }
         }
         main.backToGrid = function(){
-            console.log("abcd");
             $scope.viewOpen = false;
         }
         main.openPdfFile = function(document){
@@ -192,6 +201,16 @@
             });
         }
         main.getAvailableFilesThisYear();
+        main.getOrgUnitWithAvailableFilesThisYear = function(){
+            $scope.$watch("main.available_files_this_year",function(newValue,oldOne){
+                $scope.orgUnitTable = [];
+                angular.forEach(newValue,function(value,index){
+                    var str_array = value.split("_");
+                $scope.orgUnitTable.push({region:str_array[0],district:str_array[1],file:value});
+                });
+            });
+        };
+        main.getOrgUnitWithAvailableFilesThisYear();
 
 
         // load org unit for tree
@@ -199,13 +218,28 @@
             onCbChange:main.treeCallback
         }
         $http.get("server/organisationUnits_level_1_org.json").success(function(data){
-            console.log(data);
             $scope.data.organisationUnits = data.organisationUnits;
+            $scope.modifedOrgunits = main.modifyOrgUnits(data.organisationUnits[0].children);
         });
         $http.get("server/organisationUnits.json").success(function(data){
 
             $scope.organisationUnits = data.organisationUnits;
         });
+
+        main.modifyOrgUnits = function(rawOrgUnits){
+            var modifedOrgunits = [];
+
+            angular.forEach(rawOrgUnits,function(value,index){
+
+                angular.forEach(value.children,function(valueChildren,indexChildren){
+                    $scope.total_facilities++;
+                    modifedOrgunits.push({name:valueChildren.name,value:value.name+"_"+valueChildren.name});
+                });
+
+            });
+
+            return modifedOrgunits;
+        }
 
         main.getPeriod = function(start_period){
             var date = new Date();
@@ -227,20 +261,39 @@
 					}
 			
 			}
+        main.getDashboard = function(){
+				main.csv_menu = false;
 
-        $scope.submit = function(period,orgunit) {
-            //if ($scope.file.$valid && $scope.file) {
-                //$scope.upload($scope.file);
-                console.log(period);
-                console.log(orgunit);
-            $scope.upload($scope.file);
-            //}
+
+			}
+        main.Logout = function(){
+				main.logedIn = false;
+				main.logedOut = true;
+            main.getLeftNav();
+
+        }
+        main.login = function(){
+				main.logedIn = true;
+				main.logedOut = false;
+
+
+			}
+
+        main.getLoginForm = function(){
+            $('#modal1').openModal();
+
+			}
+
+        $scope.submit = function(form) {
+            var new_file_name = form.org_unit_selected+"_"+form.form_period+".pdf";
+            $scope.upload($scope.file,new_file_name);
+
         };
 
         // upload on file select or drop
-        $scope.upload = function (file) {
+        $scope.upload = function (file,new_file_name) {
             Upload.upload({
-                url: 'server/process.php?file=1&period='+main.form_period+"&district="+main.orgunit,
+                url: 'server/process.php?file=1&new_file_name='+new_file_name,
                 data: {file: file}
             }).then(function (resp) {
                 console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
