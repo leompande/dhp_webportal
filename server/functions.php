@@ -28,12 +28,12 @@ class DhpFile {
 		 * */
 		 
 		public static function uploadFile($file_path,$target_file){
-			
+
 		if (move_uploaded_file($file_path, $target_file)) {
-			return true;
+
+			    return true;
 			} else {			
-							
-				return false;
+			    return false;
 			}
 					
 		

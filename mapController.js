@@ -19,7 +19,7 @@
          * THE BEGINNING OF THE FUNCTION THAT HANDLES HOME PAGE FUNCTIONALITY OF MAP
          * */
 
-        var drawMap = function(){
+        $scope.drawMap = function(){
             console.log($scope.$parent.main.selectedYear);
             $scope.shared = shared;
             shared.facility =3029;
@@ -238,6 +238,7 @@
                                 if(feature) {
                                     // looping throught indicator types
                                     scope.selectedDistrict = feature ? $scope.districts[feature.getId()] : '';
+                                    $scope.selectedDistrictName = scope.selectedDistrict.name;
                                     var orgUnit = {children:null};
                                     $scope.$parent.main.processView(orgUnit,scope.selectedDistrict.name,scope.selectedDistrict.district_id)
 
@@ -310,7 +311,7 @@
         };
         // check if year has changed from the parent
         $scope.$on('yearChangedEvent', function(e) {
-            drawMap();
+            $scope.drawMap();
         });
         /**
          *  THE END

@@ -18,7 +18,8 @@
         <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-        <script src="assets/js/datatables/media/js/jquery.js"></script>
+        <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
+        <!--<script src="assets/js/datatables/media/js/jquery.js"></script>-->
         <script src="assets/js/datatables/media/js/jquery.dataTables.js"></script>
       <script type="text/javascript" src="assets/js/angular-1.4.7/angular.js"></script> 
       <script type="text/javascript" src="assets/js/angular-1.4.7/angular-route.js"></script> 
@@ -30,6 +31,17 @@
 
         <script src="assets/js/angular-datatables/dist/angular-datatables.min.js"></script>
         <script src="assets/js/bower_components/angular-ivh-treeview/dist/ivh-treeview.js"></script>
+
+        <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+        <script type="text/javascript" src="assets/js/bower_components/highcharts/highcharts.js"></script>
+        <script type="text/javascript" src="assets/js/bower_components/highcharts/highstocks-app.js"></script>
+        <script type="text/javascript" src="assets/js/bower_components/highcharts/highcharts-ng.js"></script>
+        <script type="text/javascript" src="assets/js/bower_components/highcharts/highcharts-more.js"></script>
+        <script type="text/javascript" src="assets/js/bower_components/highcharts/exporting.js"></script>
+
+        <script type="text/javascript" src="assets/js/bower_components/ng-file-upload/ng-file-upload.js"></script>
+        <script type="text/javascript" src="assets/js/bower_components/ng-file-upload/ng-file-upload-shim.js"></script>
+
 
 
         <script type="text/javascript" src="app.js"></script>
@@ -127,19 +139,21 @@
             height:568px;
 
         }
+
+        .success{
+            color: green!important;
+            font-weight: bolder!important;
+            background-color: #00bfa5!important;
+        }
+
+        .failed{
+            color: red;
+            font-weight: bolder!important;
+            background-color: #bf360c!important;
+        }
     </style>
 
     <body ng-controller="mainController as main">
-      <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
-      <script type="text/javascript" src="assets/js/materialize.min.js"></script> 
-      <script type="text/javascript" src="assets/js/bower_components/highcharts/highcharts.js"></script>
-      <script type="text/javascript" src="assets/js/bower_components/highcharts/highstocks-app.js"></script>
-      <script type="text/javascript" src="assets/js/bower_components/highcharts/highcharts-ng.js"></script>
-      <script type="text/javascript" src="assets/js/bower_components/highcharts/exporting.js"></script>
-
-      <script type="text/javascript" src="assets/js/bower_components/ng-file-upload/ng-file-upload.js"></script>
-      <script type="text/javascript" src="assets/js/bower_components/ng-file-upload/ng-file-upload-shim.js"></script>
-
 
       <!-- Modal Trigger -->
 
@@ -147,24 +161,24 @@
       <!-- Modal Structure -->
       <div id="modal1" class="modal modal-fixed-footer">
           <div class="modal-content" style="text-align: center;">
-              <h4>DHP User Login Form</h4>
+              <h4>DHP Login</h4>
 
               <form class="col s12" style="margin-top: 100px;">
                   <div class="row">
                       <div class="input-field col s12">
-                          <input id="email" type="email" class="validate">
-                          <label for="email">Email</label>
+                          <input id="email" type="text" class="validate" ng-model="login.dhis_login_username">
+                          <label for="email">Username</label>
                       </div>
                   </div>
                   <div class="row">
                       <div class="input-field col s12">
-                          <input id="password" type="password" class="validate">
+                          <input id="password" type="password" class="validate" ng-model="login.dhis_login_password">
                           <label for="password">Password</label>
                       </div>
                   </div>
                   <div class="row">
-                      <div class="input-field col s12">
-                          <a class="waves-effect modal-action modal-close waves-light btn" ng-click="main.login()">Login</a>
+                      <div class="input-field col s12"><!--modal-close-->
+                          <a class="waves-effect modal-action  waves-light btn  col s12 m12" style="background-color:#82b1ff" ng-click="main.login(login)">Login</a>
                       </div>
                   </div>
 
@@ -187,9 +201,9 @@
             <br/>
 			 <form class="col s12 m12" name="upload_form" ng-submit="submit(form)">
 			  <div class="row">
-                  <label>* Organisation Unit</label>
+                  <label for="orgunits">* Organisation Unit</label>
 				<div class="input-field col  s12 m12">
-					<select id="org_unit" name="org_unit" ng-model="form.org_unit_selected" >
+					<select id="orgunits" name="org_unit" ng-model="form.org_unit_selected" required="required">
 						<option ng-repeat="org in modifedOrgunits" value="{{org.value}}">{{org.name}}</option>
 					</select>
 				</div>
@@ -197,10 +211,10 @@
 			  <div class="row">
                   <label>* Period</label>
 				<div class="input-field col  s12 m12">
-				  <select id="period" name="period" ng-model="form.form_period" >
+				  <select id="period_upload" name="period" ng-model="form.form_period" required="required">
+						<option value="{{main.current_year}}"  selected>{{main.current_year}}</option>
 						<option ng-repeat="period in main.periods" value="{{period.name}}">{{period.name}}</option>
-					</select>	
-
+					</select>
 				</div>
 			  </div>
 
@@ -211,16 +225,33 @@
 
 			  <div class="row">
 				<div class="input-field col s12 m12">
-				  <button class="waves-effect waves-light btn" type="submit" name="submit">Send a File</button>
+				  <button class="waves-effect waves-light btn col s12 m12" style="background-color:#82b1ff" type="submit" name="submit">Upload DHP</button>
 				</div>
 			  </div>
+                 <div class="row">
+                     <div class="progress" ng-if="showProgress">
+                         <div class="indeterminate"></div>
+                     </div>
+                     <div class="col m12 s12" ng-if="message">
+                         <div class="chip" class="{{message_class}}">
+                             {{message}}{{message_class}}
+                         </div>
+                         </div>
+                 </div>
 			</form>
         </li>
-        
+            <script>
+                $(document).ready(function() {
+//                    $('select#orgunits').material_select();
+//                    $('select#period_upload').material_select();
+//                    $('select#orgunits').hide();
+//                    $('select#period_upload').hide();
+                });
+            </script>
       </ul>
                     <div class="row">
 
-               <nav class=" row " role="navigation" style="background-color: #A3CEC5!important;">
+               <nav class=" row " role="navigation" style="background-color: #82b1ff!important;">
 
                       <ul class="left">
                         <li>&nbsp;<img style="width:60px;height:50px;" src="assets/images/tanzania1.gif"></img></li>
@@ -229,7 +260,7 @@
 
                       <ul class="right hide-on-med-and-down">
                         <li><a href="#" style="color:#ffffff;" ng-click="main.getDashboard()">Dashboard</a></li>
-                        <li><a href="#" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Upload Form</a></li>
+                        <li><a href="#" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Upload DHP</a></li>
                         <li><a href="#" style="color:#ffffff;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>
                         <li><a href="#" style="color:#ffffff;" ng-click="main.Logout()" ng-if="main.logedIn">Logout</a></li>
                       </ul>
@@ -279,11 +310,13 @@
 
                                     <span class="card-title grey-text" style="font-size: 20px;">DHP Data Map View   {{main.selectedYear}}</span>
                                 </div>
-                                <div class="col m4 s12">
-                                    <lable for="pe" class="grey-text">Select Period</lable>
-                                    <select  name="period" ng-model="main.selectedYear">
+                                <div class="input-field col m4 s12">
+                                    <lable for="period_map" class="grey-text">Select Period</lable>
+                                    <select  name="period" ng-model="main.selectedYear"id="period_map">
+                                        <option selected>{{main.current_year}}</option>
                                         <option ng-repeat="period in main.periods" >{{period.name}}</option>
                                     </select>
+
                                 </div>
 
                                     </div>
@@ -301,7 +334,7 @@
 
                                             <div class="col m4 s4"><span>No Uploads</span></div>
                                             <div class="col m1 s1"><span style="color:#55CD55;"><i class="fa fa-file"></i></span></div>
-                                            <div class="col m4 s4"><span>Uploads</span></div>
+                                            <div class="col m4 s4"><span>Uploaded</span></div>
 
                                     </div>
 
@@ -313,19 +346,27 @@
                     <div class="col s12 m8 ">
                         <div class="card white lighten-1 darken-3" >
                             <div class="card-content grey-text" style="padding:13px">
-                                DISTRICT HEALTH PROFILE
+                                DISTRICT HEALTH PROFILE : Visualization of uploaded yearly health profiles by district.
                             </div>
 
                             </div>
+
                         <div class="card white lighten-1 darken-3" >
                             <div class="card-content grey-text {{custome_height}}" ng-if="!viewOpen" >
                                 <div class="col s12 m12" ng-if="!main.chart_shown">
                                     <div class="col s11 m11">
-                                        <p style="font-weight: bolder">District Health Available Documents for: {{main.selectedYear}}</p>
+                                        <p style="font-weight: bolder">District Health Available Documents for {{selectedDistrictName}}  {{main.selectedYear}}</p>
                                     </div>
                                     <div class="col s1 m1"><a class="waves-effect waves-light btn" ng-click="main.backToChart()"><i class="fa fa-arrow-left"></i></a></div>
                                 </div>
                                 <div class="col s12 m12" style="background-color: #eeeeee;" ng-if="!main.chart_shown">
+                                    <div ng-if="main.Documents.length==0" style="min-height: 317.5px;text-align: center;margin-top: 5em;">
+                                        <p>No uploaded health profile for <b>{{selectedDistrictName}}</b> in {{main.selectedYear}}</p>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <i class="large material-icons" style="color:#cccccc;">info</i>
+                                    </div>
                                     <div class="col s4 m4" ng-repeat="document in main.Documents" title="click to preview document">
                                     <!--<div class="col s3 m3" >-->
                                         <div class="card white lighten-5 darken-1" >
@@ -335,19 +376,22 @@
                                             </a>
                                         </div>
                                     </div>
-
+                                    <div ng-if="main.Documents">
+                                        <!--{{main.Documents}}-->
+                                    </div>
                                 </div>
                                 <div class="row">
-                                <div class="col m12 s12" style="font-size: 20px;">DHP District Submission Statistics:{{main.selectedYear}}</div>
+                                <div class="col m12 s12" style="font-size: 20px;" ng-if="main.chart_shown">DHP District Submission Statistics:{{main.selectedYear}}</div>
                                 <div class="col s12 m6" ng-if="main.chart_shown" style="font-size: 10px;">
                                     <highchart id="chart1" config="chartConfig"></highchart>
                                 </div>
                                 <div class="col s12 m6" ng-if="main.chart_shown">
                                     <table class="highlight responsive-table " style="margin-top: 10px;">
+                                        <caption><b>Uploaded Districts names</b></caption>
                                         <thead><tr><th>Region Name</th><th>District Name</th></tr></thead>
                                         <tbody>
-                                        <tr ng-repeat="row in orgUnitTable" style="cursor: pointer;" >
-                                            <td style="text-align: left;">{{row.region}}</td>
+                                        <tr ng-repeat="row in orgUnitTable" style="cursor: pointer;"  ng-click="main.getHealthProfileFromTable(row)" title="click to preview profile">
+                                            <td  style="text-align: left;">{{row.region}}</td>
                                             <td class="waves-effect waves-block" style="text-align: left;">{{row.district}}</td>
                                         </tr>
                                         </tbody>
@@ -375,8 +419,9 @@
                             <div class="card-action" ng-if="viewOpen">
                                 <a href="{{main.current_pdf_link}}" target="_blank">Download</a>
                                 <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="https://twitter.com/intent/tweet?text={{main.current_pdf_link}}"
+                                   data-size="large"><i class="fa fa-twitter"></i></a>
+                                <a href="http://www.linkedin.com/shareArticle?mini=true&url={{main.current_pdf_link}}"><i class="fa fa-linkedin"></i></a>
                             </div>
                         </div>
                     </div>
@@ -397,7 +442,34 @@
 		  </div>
 			
 		</div>
-      
-   
+      <footer class="page-footer" style="background-color: #82b1ff!important;">
+          <div class="container">
+              <div class="row">
+                  <div class="col l6 s12">
+                      <h5 class="white-text">Related Links</h5>
+                  </div>
+                  <div class="col l4 offset-l2 s12">
+                      <!--<h5 class="white-text">Links</h5>-->
+                      <ul>
+                          <li><a class="grey-text text-lighten-3" target="_blank" href="https://dhis.moh.go.tz/">DHIS/HMIS</a></li>
+                          <li><a class="grey-text text-lighten-3" target="_blank" href="http://139.162.204.124/hmis/portal/">HMIS Web portal</a></li>
+                          <li><a class="grey-text text-lighten-3" target="_blank" href="http://www.moh.go.tz/">MOH</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          <div class="footer-copyright">
+              <div class="container">
+                 &copy; 2015 Copyright <a target="_blank" href="http://www.moh.go.tz/"><b style="color:#ffffff;">Ministry Of Health and Social Welfare</b></a>
+                  <!--<a class="grey-text text-lighten-4 right" href="#!">More Links</a>-->
+              </div>
+          </div>
+      </footer>
+   <script>
+       $(document).ready(function() {
+//           $('select#period_map').material_select();
+//           $('select#period_map').hide();
+       });
+   </script>
     </body>
   </html>

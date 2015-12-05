@@ -3,7 +3,9 @@
 
     angular
         .module('dhp',['openlayers-directive','ivh.treeview','highcharts-ng','ngFileUpload','datatables'])
-        .config(function(){})
+        .config(function($httpProvider){
+            $httpProvider.defaults.withCredentials = true;
+        })
         .controller('mainController', mainController);
 
     mainController.$inject   = ['$scope','$http','ivhTreeviewMgr', 'Upload'];
@@ -14,7 +16,9 @@
         $scope.viewOpen          = false;
 		main.csv_menu            = false;
 		main.facilityUid         = null;
-        main.selectedYear = date.getFullYear();
+        main.current_year = date.getFullYear();
+        main.selectedYear = main.current_year;
+
         //main.selectedYear = 2014;
         main.current_id          = "m0frOspS7JY";
         $scope.data              = {
@@ -32,10 +36,12 @@
         main.form_period = null;
         main.orgunit = null;
         main.org_unit_selected = null;
-
+        $scope.form={form_period:2015,org_unit_selected:""};
+        $scope.showProgress = false;
         main.logedIn = false;
         main.logedOut = true;
-
+        $scope.selectedDistrictName = "";
+        $scope.message_class = null;
 
 
         //front chart for the portal
@@ -44,10 +50,11 @@
                 if(main.available_files_this_year!=null){
                     $scope.submitted = main.available_files_this_year.length;
                 }
-
                 $scope.chartConfig = {
                     chart: {
-                        type: 'pie'
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false
                     },
                     title: {
                         text: ""
@@ -60,8 +67,10 @@
                             allowPointSelect: true,
                             cursor: 'pointer',
                             depth: 35,
-                            dataLabels: {
-                                enabled: false,
+                            colors:['#E38280', '#55CD55']
+                            ,
+                                dataLabels: {
+                                enabled: true,
                                 format: '{point.percentage.toFixed(1)}%'
                             },showInLegend: true
                         }
@@ -88,6 +97,7 @@
         //broadcast event that year has changed
         $scope.$watch("main.selectedYear",function(oldOne,newOne){
             main.getAvailableFilesThisYear();
+            main.chart_shown = true;
             $scope.$watch("main.available_files_this_year",function(oldOneI,newOneI){
                 $scope.$broadcast ('yearChangedEvent');
             });
@@ -111,11 +121,14 @@
 
             var orgUnit = attributes.ivhNode;
             var name = orgUnit.name;
+            $scope.selectedDistrictName = name;
             var id = orgUnit.id;
             main.processView(orgUnit,name,id);
             main.current_id = id;
         }
-
+        main.getHealthProfileFromTable = function(row){
+            main.openPdfFile(row.file)
+        }
         main.processView = function(orgUnit,name,id){
             if(orgUnit.children!=null){
                 var children = main.getChildren(orgUnit.children);
@@ -143,7 +156,6 @@
                             }
                         });
                         main.Documents = correct_names;
-                        console.log(main.Documents);
                     });
 
 
@@ -244,7 +256,7 @@
         main.getPeriod = function(start_period){
             var date = new Date();
             var periods = [];
-            var thisyear = date.getFullYear();
+            var thisyear = date.getFullYear()-1;
             for(var i=Number(thisyear);i>=Number(start_period);i--){
                 periods.push({name:i,value:i})
             }
@@ -272,10 +284,18 @@
             main.getLeftNav();
 
         }
-        main.login = function(){
-				main.logedIn = true;
-				main.logedOut = false;
+        main.login = function(login){
+            console.log(login);
 
+            var base = "http://139.162.204.124/dhis/";
+            $.post( base + "dhis-web-commons-security/login.action?authOnly=true", {
+                j_username: "portal", j_password: "Portal123"
+            },function(data){
+              console.log(data);
+            });
+                //
+				//main.logedIn = true;
+				//main.logedOut = false;
 
 			}
 
@@ -285,23 +305,59 @@
 			}
 
         $scope.submit = function(form) {
-            var new_file_name = form.org_unit_selected+"_"+form.form_period+".pdf";
-            $scope.upload($scope.file,new_file_name);
+
+            if(form.org_unit_selected&&form.form_period){
+
+                var new_file_name = form.org_unit_selected+"_"+form.form_period+".pdf";
+                $scope.upload($scope.file,new_file_name);
+            }else{
+                $scope.message = "no name and period specified";
+            }
 
         };
 
         // upload on file select or drop
         $scope.upload = function (file,new_file_name) {
+
             Upload.upload({
                 url: 'server/process.php?file=1&new_file_name='+new_file_name,
                 data: {file: file}
             }).then(function (resp) {
-                console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+                $scope.showProgress = false;
+                if(resp.data=="UPLOAD_FAILED"){
+                    $scope.message = "upload failed";
+                    $scope.message_class = "failed";
+                }
+
+                if(resp.data=="UPLOAD_SUCCESS"){
+                    main.getAvailableFilesThisYear();
+                    $scope.message = "uploaded successful";
+                    $scope.message_class = "success";
+                }
+
+                if(resp.data=="FILE_EXIST_ERROR"){
+                    $scope.message = "file exist";
+                    $scope.message_class = "failed";
+                }
+
+                if(resp.data=="INVALID_TYPE_ERROR"){
+                    $scope.message = "file is not pdf";
+                    $scope.message_class = "failed";
+                }
+
             }, function (resp) {
+                $scope.showProgress = false;
                 console.log('Error status: ' + resp.status);
             }, function (evt) {
                 var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+                if(!evt.config.data.file){
+                    $scope.message = "no file specified";
+                }else{
+                    $scope.showProgress = true;
+                    console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+                }
+
+
             });
         };
 

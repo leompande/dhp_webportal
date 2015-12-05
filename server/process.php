@@ -5,48 +5,31 @@ if(isset($_GET["file"])) { $test_variable = "for upload";
 	$target_file = $_GET['new_file_name'];
 
 	$target_dir = "../uploads/";
-	echo $target_file = $target_dir . basename($target_file);
+	$target_file = $target_dir . basename($target_file);
 	$uploadOk = 1;
 	$fileType = pathinfo($target_file,PATHINFO_EXTENSION);
   if (file_exists($target_file)) {
-    
-	if($dhp::deleteFile($target_file)){
-		echo $fileType;
-		if($fileType != "pdf") {
-				echo "NONE_PDF_ERR";
-				$uploadOk = 0;
-		 }else{					
-				if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
-						
-						$_SESSION['dhp'] = $dhp::processUploadsForDHIS($target_file,$period,$orgUnit,$category,$attributeoptioncombo);
-				}else{
-						
-				}
-		}
-				
-   }else{
-		echo "NOT DELETED";	
-   }
-    
-        
+
+      echo "FILE_EXIST_ERROR";
+
     $uploadOk = 0;
   }else{
 			
 	if($fileType != "pdf") {
-					echo "NONE_PDF_ERR";
-					$uploadOk = 0;
-		}else{					
-			  if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
-//					$_SESSION['dhp'] = $dhp::processUploadsForDHIS($target_file,$period,$orgUnit,$category,$attributeoptioncombo);
-			   }else{
-					
-			   }
+		echo "INVALID_TYPE_ERROR";
+		$uploadOk = 0;
+		}else{
+
+		if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
+            echo "UPLOAD_SUCCESS";
+		   }else{
+            echo "UPLOAD_FAILED";
+		    }
 		}
 			
 			
   }
 
-//header( 'Location:../' );
 }
 
 if(isset($_GET["csv_output"])) { 
