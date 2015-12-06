@@ -310,7 +310,7 @@
             },function(data){
                 var currentUserUrl = "api/me.json";
                 $.get(base+currentUserUrl,function(userdata){
-                    if(userdata.userCredentials.code==username){
+                    if(userdata.userCredentials.code){
                         $cookies.put('dhis_enabled', 'logedIn');
                         $cookies.put('current_user', userdata.displayName);
                         $scope.currentLogedUser = $cookies.get('current_user');
