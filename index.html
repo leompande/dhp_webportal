@@ -162,7 +162,7 @@
       <div id="modal1" class="modal modal-fixed-footer">
           <div class="modal-content" style="text-align: center;">
               <h4>DHP Login</h4>
-
+                {{main.logedSuccessMessage}}
               <form class="col s12" style="margin-top: 100px;">
                   <div class="row">
                       <div class="input-field col s12">
@@ -259,6 +259,7 @@
                       </ul>
 
                       <ul class="right hide-on-med-and-down">
+                        <li><a style="color:#ffffff;" >Logged in as :{{currentLogedUser}}</a></li>
                         <li><a href="#" style="color:#ffffff;" ng-click="main.getDashboard()">Dashboard</a></li>
                         <li><a href="#" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Upload DHP</a></li>
                         <li><a href="#" style="color:#ffffff;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>

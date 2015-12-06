@@ -40,9 +40,10 @@
         $scope.showProgress = false;
         main.logedIn = false;
         main.logedOut = true;
+        $scope.currentLogedUser = "";
         $scope.selectedDistrictName = "";
         $scope.message_class = null;
-
+        main.logedSuccessMessage = "";
         if($cookies.get('dhis_enabled')){
             main.logedIn = true;
             main.logedOut = false;
@@ -289,9 +290,11 @@
                 $cookies.remove('dhis_enabled');
             }
             $cookies.remove('dhis_enabled');
+            $scope.currentLogedUser = "";
             main.logedIn = false;
             main.logedOut = true;
-            main.getLeftNav();
+            main.csv_menu = false;
+            main.logedSuccessMessage = "";
 
         }
         main.login = function(login){
@@ -308,15 +311,19 @@
                 $.get(base+currentUserUrl,function(userdata){
                     if(userdata.userCredentials.code==username){
                         $cookies.put('dhis_enabled', 'logedIn');
+                        $scope.currentLogedUser = userdata.displayName;
                         main.logedIn = true;
                         main.logedOut = false;
-
+                        main.logedSuccessMessage = "LoggedIn as "+userdata.displayName+" Successfully.";
 
                     }else{
                         $cookies.remove('dhis_enabled');
                         main.logedIn = false;
                         main.logedOut = true;
+                        main.logedSuccessMessage = "Login Failed";
+
                     }
+
                 });
 
             });
