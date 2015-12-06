@@ -292,7 +292,11 @@
                 'j_username':login.dhis_login_username,
                 'j_password':login.dhis_login_password
             },function(data){
-              console.log(data);
+                var currentUserUrl = "/api/me.json";
+                $.get(base+currentUserUrl,function(Userdata){
+                    console.log(userdata);
+                });
+
             });
 
 			}
