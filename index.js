@@ -289,13 +289,11 @@
 
             var base = "http://139.162.204.124/dhis/";
             $.post( base + "dhis-web-commons-security/login.action?authOnly=true", {
-                j_username: "portal", j_password: "Portal123"
+                'j_username':login.dhis_login_username,
+                'j_password':login.dhis_login_password
             },function(data){
               console.log(data);
             });
-                //
-				//main.logedIn = true;
-				//main.logedOut = false;
 
 			}
 
