@@ -40,7 +40,7 @@
         $scope.showProgress = false;
         main.logedIn = false;
         main.logedOut = true;
-        $scope.currentLogedUser = "";
+        $scope.currentLogedUser = $cookies.get('current_user');
         $scope.selectedDistrictName = "";
         $scope.message_class = null;
         main.logedSuccessMessage = "";
@@ -288,6 +288,7 @@
         main.Logout = function(){
             if($cookies.get('dhis_enabled')){
                 $cookies.remove('dhis_enabled');
+                $cookies.remove('current_user');
             }
             $cookies.remove('dhis_enabled');
             $scope.currentLogedUser = "";
@@ -311,13 +312,15 @@
                 $.get(base+currentUserUrl,function(userdata){
                     if(userdata.userCredentials.code==username){
                         $cookies.put('dhis_enabled', 'logedIn');
-                        $scope.currentLogedUser = userdata.displayName;
+                        $cookies.put('current_user', userdata.displayName);
+                        $scope.currentLogedUser = $cookies.get('current_user');
                         main.logedIn = true;
                         main.logedOut = false;
                         main.logedSuccessMessage = "LoggedIn as "+userdata.displayName+" Successfully.";
                         $timeout(main.closeLoginForm,3000);
                     }else{
                         $cookies.remove('dhis_enabled');
+                        $cookies.remove('current_user');
                         main.logedIn = false;
                         main.logedOut = true;
                         main.logedSuccessMessage = "Login Failed";
