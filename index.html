@@ -259,7 +259,7 @@
                       </ul>
 
                       <ul class="right hide-on-med-and-down">
-                        <li><a style="color:#ffffff;" >Logged in as :{{currentLogedUser}}</a></li>
+                        <li ng-if="main.logedIn"><a style="color:#ffffff;" >Logged in as :{{currentLogedUser}}</a></li>
                         <li><a href="#" style="color:#ffffff;" ng-click="main.getDashboard()">Dashboard</a></li>
                         <li><a href="#" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Upload DHP</a></li>
                         <li><a href="#" style="color:#ffffff;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>

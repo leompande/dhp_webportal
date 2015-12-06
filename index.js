@@ -315,7 +315,7 @@
                         main.logedIn = true;
                         main.logedOut = false;
                         main.logedSuccessMessage = "LoggedIn as "+userdata.displayName+" Successfully.";
-
+                        $timeout(main.closeLoginForm,3000);
                     }else{
                         $cookies.remove('dhis_enabled');
                         main.logedIn = false;
@@ -332,6 +332,10 @@
 
         main.getLoginForm = function(){
             $('#modal1').openModal();
+
+			}
+        main.closeLoginForm = function(){
+            $('#modal1').closeModal();
 
 			}
 
