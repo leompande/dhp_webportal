@@ -2,14 +2,14 @@
     'use strict';
 
     angular
-        .module('dhp',['openlayers-directive','ivh.treeview','highcharts-ng','ngFileUpload','datatables'])
+        .module('dhp',['openlayers-directive','ivh.treeview','highcharts-ng','ngFileUpload','datatables','ngCookies'])
         .config(function($httpProvider){
             $httpProvider.defaults.withCredentials = true;
         })
         .controller('mainController', mainController);
 
-    mainController.$inject   = ['$scope','$http','ivhTreeviewMgr', 'Upload'];
-    function mainController($scope,$http,ivhTreeviewMgr,Upload) {
+    mainController.$inject   = ['$scope','$cookies','$http','ivhTreeviewMgr', 'Upload'];
+    function mainController($scope,$cookies,$http,ivhTreeviewMgr,Upload) {
 		var main  = this;
         var date = new Date();
         $scope.custome_height    ="default";
@@ -42,6 +42,12 @@
         main.logedOut = true;
         $scope.selectedDistrictName = "";
         $scope.message_class = null;
+
+        if($cookies.get('dhis_enabled')){
+            main.logedIn = true;
+            main.logedOut = false;
+        }
+
 
 
         //front chart for the portal
@@ -279,8 +285,12 @@
 
 			}
         main.Logout = function(){
-				main.logedIn = false;
-				main.logedOut = true;
+            if($cookies.get('dhis_enabled')){
+                $cookies.remove('dhis_enabled');
+            }
+            $cookies.remove('dhis_enabled');
+            main.logedIn = false;
+            main.logedOut = true;
             main.getLeftNav();
 
         }
@@ -294,14 +304,16 @@
                 'j_username':username,
                 'j_password':password
             },function(data){
-                var currentUserUrl = "/api/me.json";
+                var currentUserUrl = "api/me.json";
                 $.get(base+currentUserUrl,function(userdata){
                     if(userdata.userCredentials.code==username){
+                        $cookies.put('dhis_enabled', 'logedIn');
                         main.logedIn = true;
                         main.logedOut = false;
 
 
                     }else{
+                        $cookies.remove('dhis_enabled');
                         main.logedIn = false;
                         main.logedOut = true;
                     }
