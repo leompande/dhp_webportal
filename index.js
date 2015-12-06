@@ -8,8 +8,8 @@
         })
         .controller('mainController', mainController);
 
-    mainController.$inject   = ['$scope','$cookies','$http','ivhTreeviewMgr', 'Upload'];
-    function mainController($scope,$cookies,$http,ivhTreeviewMgr,Upload) {
+    mainController.$inject   = ['$scope','$cookies','$http','$timeout','ivhTreeviewMgr', 'Upload'];
+    function mainController($scope,$cookies,$http,$timeout,ivhTreeviewMgr,Upload) {
 		var main  = this;
         var date = new Date();
         $scope.custome_height    ="default";
