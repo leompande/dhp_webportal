@@ -293,7 +293,7 @@
                 'j_password':login.dhis_login_password
             },function(data){
                 var currentUserUrl = "/api/me.json";
-                $.get(base+currentUserUrl,function(Userdata){
+                $.get(base+currentUserUrl,function(userdata){
                     console.log(userdata);
                 });
 
