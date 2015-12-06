@@ -286,15 +286,25 @@
         }
         main.login = function(login){
             console.log(login);
+            var username = login.dhis_login_username;
+            var password = login.dhis_login_password;
 
             var base = "http://139.162.204.124/dhis/";
             $.post( base + "dhis-web-commons-security/login.action?authOnly=true", {
-                'j_username':login.dhis_login_username,
-                'j_password':login.dhis_login_password
+                'j_username':username,
+                'j_password':password
             },function(data){
                 var currentUserUrl = "/api/me.json";
                 $.get(base+currentUserUrl,function(userdata){
-                    console.log(userdata);
+                    if(userdata.userCredentials.code==username){
+                        main.logedIn = true;
+                        main.logedOut = false;
+
+
+                    }else{
+                        main.logedIn = false;
+                        main.logedOut = true;
+                    }
                 });
 
             });
