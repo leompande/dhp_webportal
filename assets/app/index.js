@@ -78,7 +78,7 @@
                                     ]
                                 }],
                     title: {
-                        text: 'Hello'
+                        text: ''
                     },
                     xAxis: {currentMin: 0, currentMax: 10, minRange: 1},
                     loading: false
