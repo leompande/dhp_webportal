@@ -57,41 +57,114 @@
                 if(main.available_files_this_year!=null){
                     $scope.submitted = main.available_files_this_year.length;
                 }
+
                 $scope.chartConfig = {
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false
-                    },
-                    title: {
-                        text: ""
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            depth: 35,
-                            colors:['#E38280', '#55CD55']
-                            ,
-                                dataLabels: {
-                                enabled: true,
-                                format: '{point.percentage.toFixed(1)}%'
-                            },showInLegend: true
-                        }
+                    options: {
+                        chart: {
+                            type: 'pie',
+                            zoomType: 'x'
+                        },color:
+                            ['#058DC7', '#50B432']
+
+
                     },
                     series: [{
-                        type: 'pie',
-                        name: 'Distribution',
-                        data: [
-                            ['Not Submitted',$scope.total_facilities-$scope.submitted],
-                            ['Submitted',  $scope.submitted]
+                                    type: 'pie',
+                                    name: 'Distribution',
+                                    data: [
+                                        ['Not Submitted',$scope.total_facilities-$scope.submitted],
+                                        ['Submitted',  $scope.submitted]
 
-                        ]
-                    }]
+                                    ]
+                                }],
+                    title: {
+                        text: 'Hello'
+                    },
+                    xAxis: {currentMin: 0, currentMax: 10, minRange: 1},
+                    loading: false
                 }
+
+                //    $scope.chartConfig = {
+                //
+                //        options: {
+                //            chart: {
+                //                type: 'pie'
+                //            },
+                //            tooltip: {
+                //                style: {
+                //                    padding: 10,
+                //                    fontWeight: 'bold'
+                //                }
+                //            },pie: {
+                //                allowPointSelect: true,
+                //                cursor: 'pointer',
+                //                depth: 35,
+                //                dataLabels: {
+                //                    enabled: true,
+                //                    format: '{point.name}'
+                //                }
+                //            }
+                //        },
+                //        series:{
+                //            type: 'pie',
+                //            name: 'Distribution',
+                //            data: [
+                //                ['Not Submitted',$scope.total_facilities-$scope.submitted],
+                //                ['Submitted',  $scope.submitted]
+                //
+                //            ]
+                //        },
+                //        title: {
+                //            text: ''
+                //        },
+                //        loading: false,
+                //        xAxis: {
+                //            currentMin: 0,
+                //            currentMax: 20,
+                //            title: {text: 'values'}
+                //        },
+                //        useHighStocks: false,
+                //        size: {
+                //            width: 400,
+                //            height: 300
+                //        },
+                //        func: function (chart) {
+                //        }
+                //    };
+                //$scope.chartConfig = {
+                //    chart: {
+                //        plotBackgroundColor: null,
+                //        plotBorderWidth: null,
+                //        plotShadow: false
+                //    },
+                //    title: {
+                //        text: ""
+                //    },
+                //    tooltip: {
+                //        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                //    },
+                //    plotOptions: {
+                //        pie: {
+                //            allowPointSelect: true,
+                //            cursor: 'pointer',
+                //            depth: 35,  colors: ['#058DC7', '#50B432']
+                //            ,
+                //                dataLabels: {
+                //                enabled: true,
+                //                format: '{point.percentage.toFixed(1)}%'
+                //            },showInLegend: true
+                //        }
+                //    },
+                //    series: [{
+                //        type: 'pie',
+                //        name: 'Distribution',
+                //        data: [
+                //            ['Not Submitted',$scope.total_facilities-$scope.submitted],
+                //            ['Submitted',  $scope.submitted]
+                //
+                //        ]
+                //    }]
+                //}
 
             });
         }

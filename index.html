@@ -34,20 +34,22 @@
         <script src="assets/js/bower_components/angular-ivh-treeview/dist/ivh-treeview.js"></script>
 
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
-        <script type="text/javascript" src="assets/js/bower_components/highcharts/highcharts.js"></script>
-        <script type="text/javascript" src="assets/js/bower_components/highcharts/highstocks-app.js"></script>
-        <script type="text/javascript" src="assets/js/bower_components/highcharts/highcharts-ng.js"></script>
-        <script type="text/javascript" src="assets/js/bower_components/highcharts/highcharts-more.js"></script>
-        <script type="text/javascript" src="assets/js/bower_components/highcharts/exporting.js"></script>
+        <script type="text/javascript" src="assets/js/bower_components/bower_components/highcharts-ng/dist/highcharts.js"></script>
+        <script type="text/javascript" src="assets/js/bower_components/bower_components/highcharts-ng/dist/exporting.js"></script>
+        <script type="text/javascript" src="assets/js/bower_components/bower_components/highcharts-ng/dist/highcharts-more.js"></script>
+        <!--<script type="text/javascript" src="assets/js/bower_components/bower_components/highcharts-ng/dist/highcharts-3d.js"></script>-->
+        <!--<script type="text/javascript" src="assets/js/bower_components/bower_components/highcharts-ng/dist/highstocks-app.js"></script>-->
+        <script type="text/javascript" src="assets/js/bower_components/bower_components/highcharts-ng/dist/standalone-framework.js"></script>
+        <script type="text/javascript" src="assets/js/bower_components/bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
 
         <script type="text/javascript" src="assets/js/bower_components/ng-file-upload/ng-file-upload.js"></script>
         <script type="text/javascript" src="assets/js/bower_components/ng-file-upload/ng-file-upload-shim.js"></script>
 
 
-        <script type="text/javascript" src="app.js"></script>
-      <script type="text/javascript" src="index.js"></script> 
-      <script type="text/javascript" src="sharedFactory.js"></script>
-      <script type="text/javascript" src="mapController.js"></script>
+        <script type="text/javascript" src="assets/app/app.js"></script>
+      <script type="text/javascript" src="assets/app/index.js"></script>
+      <script type="text/javascript" src="assets/app/sharedFactory.js"></script>
+      <script type="text/javascript" src="assets/app/mapController.js"></script>
     </head>
 
 
@@ -385,6 +387,7 @@
                                 <div class="col m12 s12" style="font-size: 20px;" ng-if="main.chart_shown">DHP District Submission Statistics:{{main.selectedYear}}</div>
                                 <div class="col s12 m6" ng-if="main.chart_shown" style="font-size: 10px;">
                                     <highchart id="chart1" config="chartConfig"></highchart>
+
                                 </div>
                                 <div class="col s12 m6" ng-if="main.chart_shown">
                                     <table class="highlight responsive-table " style="margin-top: 10px;">
