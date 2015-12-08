@@ -36,7 +36,7 @@
         main.form_period = null;
         main.orgunit = null;
         main.org_unit_selected = null;
-        $scope.form={form_period:2015,org_unit_selected:""};
+        $scope.form={form_period:main.current_year,org_unit_selected:""};
         $scope.showProgress = false;
         main.logedIn = false;
         main.logedOut = true;
