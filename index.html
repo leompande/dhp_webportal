@@ -316,7 +316,7 @@
                                 <div class="input-field col m4 s12">
                                     <lable for="period_map" class="grey-text">Select Period</lable>
                                     <select  name="period" ng-model="main.selectedYear"id="period_map">
-                                        <option selected>{{main.current_year}}</option>
+                                        <option selected="selected">{{main.current_year}}</option>
                                         <option ng-repeat="period in main.periods" >{{period.name}}</option>
                                     </select>
 
