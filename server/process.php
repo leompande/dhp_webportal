@@ -24,6 +24,7 @@ if(isset($_GET["file"])) { $test_variable = "for upload";
             echo "UPLOAD_SUCCESS";
 		   }else{
 //            echo "UPLOAD_FAILED";
+            echo $_FILES['file']['error'];
             print_r($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file));
 		    }
 		}
