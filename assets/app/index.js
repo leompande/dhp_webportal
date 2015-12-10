@@ -416,6 +416,7 @@
                 url: 'server/process.php?file=1&new_file_name='+new_file_name,
                 data: {file: file}
             }).then(function (resp) {
+                console.log(resp);
                 $scope.showProgress = false;
                 if(resp.data=="UPLOAD_FAILED"){
                     $scope.message = "upload failed";
@@ -439,9 +440,11 @@
                 }
 
             }, function (resp) {
+                console.log(resp);
                 $scope.showProgress = false;
                 console.log('Error status: ' + resp.status);
             }, function (evt) {
+                console.log(evt);
                 var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                 if(!evt.config.data.file){
                     $scope.message = "no file specified";
