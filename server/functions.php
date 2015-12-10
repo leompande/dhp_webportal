@@ -30,10 +30,10 @@ class DhpFile {
 		public static function uploadFile($file_path,$target_file){
 
 		if (move_uploaded_file($file_path, $target_file)) {
-
 			    return true;
 			} else {			
-			    return move_uploaded_file($file_path, $target_file);
+			    //return move_uploaded_file($file_path, $target_file);
+            return $target_file."  ".$file_path;
 			}
 					
 		
