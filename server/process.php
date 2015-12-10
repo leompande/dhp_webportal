@@ -22,7 +22,8 @@ if(isset($_GET["file"])) { $test_variable = "for upload";
 
 		if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
 //            echo "UPLOAD_SUCCESS";
-            echo json_encode($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file));
+            echo json_encode($_FILES);
+//            echo json_encode($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file));
 		   }else{
 //            echo "UPLOAD_FAILED";
 //            echo $_FILES['file']['error'];
