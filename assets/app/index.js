@@ -378,10 +378,12 @@
                 });
 
             }).fail(function(failure){
-                    $scope.progressLogin = false;
+                    $cookies.remove('dhis_enabled');
+                    $cookies.remove('current_user');
                     main.logedIn = false;
                     main.logedOut = true;
                     main.logedSuccessMessage = "Login Failed";
+                    $scope.progressLogin = false;
               });
 
 			}

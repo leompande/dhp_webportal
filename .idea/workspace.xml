@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="faf2b6c6-cf65-410e-9119-f837416e3314" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/angular-file-upload" afterPath="$PROJECT_DIR$/assets/angular-file-upload" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/app/index.js" afterPath="$PROJECT_DIR$/assets/app/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dhp_portal.iws" />
@@ -29,11 +29,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/app/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="7550" max-vertical-offset="8334">
-              <caret line="428" column="50" selection-start-line="428" selection-start-column="50" selection-end-line="428" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.6" vertical-offset="6579" max-vertical-offset="8370">
+              <caret line="385" column="49" selection-start-line="385" selection-start-column="49" selection-end-line="385" selection-end-column="49" />
               <folding>
                 <element signature="e#4916#5001#0" expanded="false" />
               </folding>
@@ -81,10 +81,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33182845" vertical-offset="951" max-vertical-offset="7218">
+            <state vertical-scroll-proportion="-2.8269231" vertical-offset="951" max-vertical-offset="7218">
               <caret line="161" column="56" selection-start-line="161" selection-start-column="56" selection-end-line="161" selection-end-column="56" />
               <folding>
                 <element signature="tag#style#0;tag#html#0" expanded="false" />
@@ -124,8 +124,8 @@
         <option value="$PROJECT_DIR$/server/functions.php" />
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/assets/js/bower_components/bower_components/highcharts-ng/dist/highcharts-ng.js" />
-        <option value="$PROJECT_DIR$/assets/app/index.js" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/assets/app/index.js" />
       </list>
     </option>
   </component>
@@ -851,24 +851,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/app/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="7550" max-vertical-offset="8334">
-          <caret line="428" column="50" selection-start-line="428" selection-start-column="50" selection-end-line="428" selection-end-column="50" />
-          <folding>
-            <element signature="e#4916#5001#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33182845" vertical-offset="951" max-vertical-offset="7218">
+        <state vertical-scroll-proportion="-2.8269231" vertical-offset="951" max-vertical-offset="7218">
           <caret line="161" column="56" selection-start-line="161" selection-start-column="56" selection-end-line="161" selection-end-column="56" />
           <folding>
             <element signature="tag#style#0;tag#html#0" expanded="false" />
             <element signature="n#style#0;n#p#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#4;n#form#0;n#li#1;n#ul#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/app/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6" vertical-offset="6579" max-vertical-offset="8370">
+          <caret line="385" column="49" selection-start-line="385" selection-start-column="49" selection-end-line="385" selection-end-column="49" />
+          <folding>
+            <element signature="e#4916#5001#0" expanded="false" />
           </folding>
         </state>
       </provider>
