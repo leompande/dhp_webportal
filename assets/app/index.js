@@ -44,6 +44,7 @@
         $scope.currentLogedUser = $cookies.get('current_user');
         $scope.selectedDistrictName = "";
         $scope.message_class = null;
+        $scope.progressPercent = '0%';
         main.orgUnitTable = [];
         main.logedSuccessMessage = "";
         if($cookies.get('dhis_enabled')){
@@ -444,6 +445,7 @@
                     $scope.message = "no file specified";
                 }else{
                     $scope.showProgress = true;
+                    $scope.progressPercent = progressPercentage+'%';
                     console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
                 }
 
