@@ -360,22 +360,27 @@
                         $cookies.put('dhis_enabled', 'logedIn');
                         $cookies.put('current_user', userdata.displayName);
                         $scope.currentLogedUser = $cookies.get('current_user');
+                        $scope.progressLogin = false;
                         main.logedIn = true;
                         main.logedOut = false;
                         main.logedSuccessMessage = "LoggedIn as "+userdata.displayName+" Successfully.";
                         $timeout(main.closeLoginForm,3000);
+
                     }else{
                         $cookies.remove('dhis_enabled');
                         $cookies.remove('current_user');
                         main.logedIn = false;
                         main.logedOut = true;
                         main.logedSuccessMessage = "Login Failed";
-
+                        $scope.progressLogin = false;
                     }
                 });
 
             }).fail(function(failure){
                     $scope.progressLogin = false;
+                    main.logedIn = false;
+                    main.logedOut = true;
+                    main.logedSuccessMessage = "Login Failed";
               });
 
 			}
