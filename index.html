@@ -7,7 +7,7 @@
       <link type="text/css" rel="stylesheet" href="assets/css/materialize.css"  media="screen,projection"/>
 	  <link href="assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 
-        <link rel="stylesheet" type="text/css" href="assets/js/datatables/media/css/dataTables.bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="assets/js/bower_components/datatables/media/css/dataTables.bootstrap.css">
         <link rel="stylesheet" type="text/css" href="assets/js/openlayers3/build/ol.css">
         <link rel="stylesheet" type="text/css" href="assets/js/angular-openlayers-directive/dist/angular-openlayers-directive.css">
         <link rel="stylesheet" type="text/css" href="assets/js/bower_components/angular-ivh-treeview/dist/ivh-treeview.css">
@@ -19,32 +19,27 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
         <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
-        <!--<script src="assets/js/datatables/media/js/jquery.js"></script>-->
-        <script src="assets/js/datatables/media/js/jquery.dataTables.js"></script>
-      <script type="text/javascript" src="assets/js/angular-1.4.7/angular.js"></script> 
+      <script type="text/javascript" src="assets/js/angular-1.4.7/angular.js"></script>
       <script type="text/javascript" src="assets/js/angular-1.4.7/angular-route.js"></script> 
-      <!--<script type="text/javascript" src="assets/angular-file-upload/dist/angular-file-upload.js"></script>-->
       <script type="text/javascript" src="assets/js/angular-1.4.7/angular-cookies.js"></script>
 
         <script type="text/javascript" src="assets/js/angular-1.4.7/angular-sanitize.js"></script>
         <script src="assets/js/openlayers3/build/ol.js"></script>
         <script src="assets/js/angular-openlayers-directive/dist/angular-openlayers-directive.js"></script>
 
-        <script src="assets/js/angular-datatables/dist/angular-datatables.min.js"></script>
         <script src="assets/js/bower_components/angular-ivh-treeview/dist/ivh-treeview.js"></script>
 
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
         <script type="text/javascript" src="assets/js/bower_components/bower_components/highcharts-ng/dist/highcharts.js"></script>
         <script type="text/javascript" src="assets/js/bower_components/bower_components/highcharts-ng/dist/exporting.js"></script>
         <script type="text/javascript" src="assets/js/bower_components/bower_components/highcharts-ng/dist/highcharts-more.js"></script>
-        <!--<script type="text/javascript" src="assets/js/bower_components/bower_components/highcharts-ng/dist/highcharts-3d.js"></script>-->
-        <!--<script type="text/javascript" src="assets/js/bower_components/bower_components/highcharts-ng/dist/highstocks-app.js"></script>-->
         <script type="text/javascript" src="assets/js/bower_components/bower_components/highcharts-ng/dist/standalone-framework.js"></script>
         <script type="text/javascript" src="assets/js/bower_components/bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
 
         <script type="text/javascript" src="assets/js/bower_components/ng-file-upload/ng-file-upload.js"></script>
         <script type="text/javascript" src="assets/js/bower_components/ng-file-upload/ng-file-upload-shim.js"></script>
-
+        <script src="assets/js/bower_components/datatables/media/js/jquery.dataTables.js"></script>
+        <script src="assets/js/bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
 
         <script type="text/javascript" src="assets/app/app.js"></script>
       <script type="text/javascript" src="assets/app/index.js"></script>
@@ -163,8 +158,21 @@
       <!-- Modal Structure -->
       <div id="modal1" class="modal modal-fixed-footer">
           <div class="modal-content" style="text-align: center;">
-              <h4>DHP Login</h4>
+              <p style="font-weight: bolder;font-size: 14px;">DHP Login (DHIS2 users only)</p>
                 {{main.logedSuccessMessage}}
+              <div class="row">
+                  <div class="preloader-wrapper small active" ng-if="progressLogin">
+                      <div class="spinner-layer spinner-green-only">
+                          <div class="circle-clipper left">
+                              <div class="circle"></div>
+                          </div><div class="gap-patch">
+                          <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                          <div class="circle"></div>
+                      </div>
+                      </div>
+                  </div>
+              </div>
               <form class="col s12" style="margin-top: 100px;">
                   <div class="row">
                       <div class="input-field col s12">
@@ -234,6 +242,7 @@
                      <div class="progress" ng-if="showProgress">
                          <div class="indeterminate"></div>
                      </div>
+
                      <div class="col m12 s12" ng-if="message">
                          <div class="chip" class="{{message_class}}">
                              {{message}}{{message_class}}
@@ -275,7 +284,7 @@
                           <li><a href="#" style="color:#ffffff;" ng-click="main.Logout()" ng-if="main.logedIn">Logout</a></li>
                       </ul>
                       <a href="#" data-activates="nav-mobile" class="right button-collapse"><i class="material-icons">menu</i></a>
-                    </div>
+                    <!--</div>-->
 			   </nav>
 
                 <div class="row" ng-controller="mapController">
@@ -351,8 +360,7 @@
                             <div class="card-content grey-text" style="padding:13px">
                                 DISTRICT HEALTH PROFILE : Visualization of yearly  uploaded health profiles by district.
                             </div>
-
-                            </div>
+                        </div>
 
                         <div class="card white lighten-1 darken-3" >
                             <div class="card-content grey-text {{custome_height}}" ng-if="!viewOpen" >
@@ -389,19 +397,25 @@
                                     <highchart id="chart1" config="chartConfig"></highchart>
 
                                 </div>
+
                                 <div class="col s12 m6" ng-if="main.chart_shown">
-                                    <table class="highlight responsive-table " style="margin-top: 10px;">
-                                        <caption><b>Uploaded Districts names</b></caption>
-                                        <thead><tr><th>Region Name</th><th>District Name</th></tr></thead>
+
+                                    <table  class="row" style="margin-top: 10px;"  >
+                                        <!--<caption><b>Uploaded Districts names</b></caption>-->
+                                        <thead><tr>
+                                            <!--<th>Region Name</th>-->
+                                            <th>District Name</th></tr></thead>
                                         <tbody>
-                                        <tr ng-repeat="row in orgUnitTable" style="cursor: pointer;"  ng-click="main.getHealthProfileFromTable(row)" title="click to preview profile">
+                                        <tr ng-repeat="row in main.orgUnitTable" style="cursor: pointer;"  ng-click="main.getHealthProfileFromTable(row)" title="click to preview profile">
                                             <td  style="text-align: left;">{{row.region}}</td>
                                             <td class="waves-effect waves-block" style="text-align: left;">{{row.district}}</td>
                                         </tr>
                                         </tbody>
                                     </table>
+
+                                    <!--<table id="foobar" datatable dt-options="main.dtOptions" dt-columns="main.dtColumns" dt-instance="main.dtInstance"></table>-->
                                 </div>
-</div>
+                        </div>
 
                             </div>
                             <div class="card-content grey-text " ng-if="viewOpen">
@@ -469,12 +483,12 @@
               </div>
           </div>
       </footer>
-   <script>
-       $(document).ready(function() {
-           var date = new Date();
-           var year = date.getFullYear();
-           $("select option[value='? number:"+year+" ?']").remove();
-       });
-   </script>
+       <script>
+           $(document).ready(function() {
+               var date = new Date();
+               var year = date.getFullYear();
+               $("select option[value='? number:"+year+" ?']").remove();
+           });
+       </script>
     </body>
   </html>

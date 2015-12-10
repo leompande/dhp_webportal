@@ -8,8 +8,8 @@
         })
         .controller('mainController', mainController);
 
-    mainController.$inject   = ['$scope','$cookies','$http','$timeout','ivhTreeviewMgr', 'Upload'];
-    function mainController($scope,$cookies,$http,$timeout,ivhTreeviewMgr,Upload) {
+    mainController.$inject   = ['$scope','$cookies','$http','$timeout','ivhTreeviewMgr','DTOptionsBuilder', 'DTColumnDefBuilder', 'Upload'];
+    function mainController($scope,$cookies,$http,$timeout,ivhTreeviewMgr,DTOptionsBuilder, DTColumnDefBuilder,Upload) {
 		var main  = this;
         var date = new Date();
         $scope.custome_height    ="default";
@@ -39,10 +39,12 @@
         $scope.form={form_period:main.current_year,org_unit_selected:""};
         $scope.showProgress = false;
         main.logedIn = false;
+        $scope.progressLogin = false;
         main.logedOut = true;
         $scope.currentLogedUser = $cookies.get('current_user');
         $scope.selectedDistrictName = "";
         $scope.message_class = null;
+        main.orgUnitTable = [];
         main.logedSuccessMessage = "";
         if($cookies.get('dhis_enabled')){
             main.logedIn = true;
@@ -63,7 +65,8 @@
                         chart: {
                             type: 'pie',
                             zoomType: 'x'
-                        },color:
+                        }
+                        ,color:
                             ['#058DC7', '#50B432']
 
 
@@ -83,60 +86,13 @@
                     xAxis: {currentMin: 0, currentMax: 10, minRange: 1},
                     loading: false
                 }
-
-                //    $scope.chartConfig = {
                 //
-                //        options: {
-                //            chart: {
-                //                type: 'pie'
-                //            },
-                //            tooltip: {
-                //                style: {
-                //                    padding: 10,
-                //                    fontWeight: 'bold'
-                //                }
-                //            },pie: {
-                //                allowPointSelect: true,
-                //                cursor: 'pointer',
-                //                depth: 35,
-                //                dataLabels: {
-                //                    enabled: true,
-                //                    format: '{point.name}'
-                //                }
-                //            }
-                //        },
-                //        series:{
-                //            type: 'pie',
-                //            name: 'Distribution',
-                //            data: [
-                //                ['Not Submitted',$scope.total_facilities-$scope.submitted],
-                //                ['Submitted',  $scope.submitted]
-                //
-                //            ]
-                //        },
-                //        title: {
-                //            text: ''
-                //        },
-                //        loading: false,
-                //        xAxis: {
-                //            currentMin: 0,
-                //            currentMax: 20,
-                //            title: {text: 'values'}
-                //        },
-                //        useHighStocks: false,
-                //        size: {
-                //            width: 400,
-                //            height: 300
-                //        },
-                //        func: function (chart) {
-                //        }
-                //    };
                 //$scope.chartConfig = {
                 //    chart: {
                 //        plotBackgroundColor: null,
                 //        plotBorderWidth: null,
                 //        plotShadow: false
-                //    },
+                //    },color:['#058DC7', '#50B432'],
                 //    title: {
                 //        text: ""
                 //    },
@@ -173,6 +129,17 @@
             $scope.viewOpen = false;
             main.chart_shown = true;
         }
+
+        main.drawTable = function(){
+
+//         main.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withDisplayLength(2);
+//        main.dtColumnDefs = [
+//            DTColumnDefBuilder.newColumnDef(0),
+//            DTColumnDefBuilder.newColumnDef(1).notVisible(),
+//            DTColumnDefBuilder.newColumnDef(2).notSortable()
+//        ];
+        }
+
 
         //broadcast event that year has changed
         $scope.$watch("main.selectedYear",function(oldOne,newOne){
@@ -296,11 +263,14 @@
         main.getOrgUnitWithAvailableFilesThisYear = function(){
             $scope.$watch("main.available_files_this_year",function(newValue,oldOne){
                 $scope.orgUnitTable = [];
+                main.orgUnitTable = [];
                 angular.forEach(newValue,function(value,index){
                     var str_array = value.split("_");
                 $scope.orgUnitTable.push({region:str_array[0],district:str_array[1],file:value});
+                main.orgUnitTable.push({region:str_array[0],district:str_array[1],file:value});
                 });
             });
+            main.drawTable();
         };
         main.getOrgUnitWithAvailableFilesThisYear();
 
@@ -372,7 +342,8 @@
 
         }
         main.login = function(login){
-            console.log(login);
+
+            $scope.progressLogin = true;
             var username = login.dhis_login_username;
             var password = login.dhis_login_password;
 
@@ -380,7 +351,9 @@
             $.post( base + "dhis-web-commons-security/login.action?authOnly=true", {
                 'j_username':username,
                 'j_password':password
-            },function(data){
+            },
+                function(data){
+                $scope.progressLogin = false;
                 var currentUserUrl = "api/me.json";
                 $.get(base+currentUserUrl,function(userdata){
                     if(userdata){
@@ -402,7 +375,10 @@
 
                 });
 
-            });
+            },function(failure){
+
+                    $scope.progressLogin = false;
+                });
 
 			}
 

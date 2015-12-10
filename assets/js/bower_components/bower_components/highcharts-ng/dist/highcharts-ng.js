@@ -449,7 +449,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
                 });
                 scope.$watch('config.options', function (newOptions, oldOptions, scope) {
                     //do nothing when called on registration
-                    if (newOptions === oldOptions) return;
+                    //if (newOptions === oldOptions) return;
+                    console.log(newOptions);
                     initChart();
                     processSeries(scope.config.series);
                     chart.redraw();
