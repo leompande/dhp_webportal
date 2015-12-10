@@ -66,8 +66,8 @@
                             type: 'pie',
                             zoomType: 'x'
                         }
-                        ,color:
-                            ['#058DC7', '#50B432']
+                        ,colors:
+                            ['#E38280', '#50B432']
 
 
                     },
