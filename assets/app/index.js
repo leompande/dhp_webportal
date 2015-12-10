@@ -372,13 +372,11 @@
                         main.logedSuccessMessage = "Login Failed";
 
                     }
-
                 });
 
-            },function(failure){
-
+            }).fail(function(failure){
                     $scope.progressLogin = false;
-                });
+              });
 
 			}
 
