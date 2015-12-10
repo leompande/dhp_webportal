@@ -33,7 +33,7 @@ class DhpFile {
 			    return true;
 			} else {			
 			    //return move_uploaded_file($file_path, $target_file);
-            return $target_file."  ".$file_path;
+            return $target_file."--->".$file_path;
 			}
 					
 		
