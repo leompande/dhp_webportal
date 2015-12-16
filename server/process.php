@@ -22,10 +22,10 @@ if(isset($_GET["file"])) { $test_variable = "for upload";
 
 		if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
             echo "UPLOAD_SUCCESS";
-            echo json_encode($_FILES);
 		   }else{
             echo "UPLOAD_FAILED";
 		    }
+
 		}
 			
 			
@@ -43,6 +43,12 @@ if(isset($_GET["list_files"])){
     $file_list = $dhp->getAppropiatePdfFiles();
     echo json_encode($file_list);
 
+}
+
+
+if(isset($_GET["by_year"])&&isset($_GET["by_orgunit"])){
+    $file_list = $dhp->getAppropiatePdfFiles();
+    echo json_encode($file_list);
 }
 
 if(isset($_GET["by_year"])){
@@ -69,6 +75,15 @@ if(isset($_GET["by_orgunit"])){
     $file_list = $dhp->getAppropiatePdfFiles();
     echo json_encode($file_list);
 
+}
+
+
+if(isset($_GET["delete"])){
+    if($dhp->deleteFile($_GET["delete"])){
+        echo "DELETE SUCCESS";
+    }else{
+        echo "DELETE FAILURE";
+    }
 }
 
 if(isset($_GET["list_files"])&&isset($_GET["orgunit"])&&isset($_GET["year"])){

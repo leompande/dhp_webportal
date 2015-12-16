@@ -1,0 +1,162 @@
+<div class="row" ng-controller="mapController">
+
+<div class="col s12 m4">
+
+    <ul class="collapsible" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header grey-text"><i class="material-icons">place</i>Select DHP Using Organization Unit Tree
+                <!--{{data.organisationUnits}}-->
+            </div>
+            <div class="collapsible-body">
+
+                <input type="text" ng-model="bagSearch" placeholder="Search Organisation Unit" />
+                <div class="grey-text"
+                     ivh-treeview="data.organisationUnits"
+                     ivh-treeview-label-attribute="'name'"
+                     ivh-treeview-id-attribute="'id'"
+                     ivh-treeview-children-attribute="'children'"
+                     ivh-treeview-options="customOpts"
+                     ivh-treeview-filter="bagSearch"
+                        >
+
+                </div>
+
+            </div>
+        </li>
+    </ul>
+    <div class="card white lighten-4 darken-1">
+        <div class="card-content ">
+            <div class="row">
+                <div class="col m8 s12">
+
+                    <span class="card-title grey-text" style="font-size: 20px;">DHP Data Map View   {{main.selectedYear}}</span>
+                </div>
+                <div class="input-field col m4 s12">
+                    <lable for="period_map" class="grey-text">Select Period</lable>
+                    <select  name="period" ng-model="main.selectedYear"id="period_map">
+                        <option selected="selected">2015</option>
+                        <option ng-repeat="period in main.periods" >{{period.name}}</option>
+                    </select>
+
+                </div>
+
+            </div>
+            <div id="maps" class="maps"  style="width: 100%;" >
+
+                <openlayers ol-center="Africa" ol-defaults="defaults" custom-layers="true"  height="400px">
+                    <ol-layer ol-layer-properties="layer" name="test" ng-repeat="layer in layers"></ol-layer>
+                </openlayers>
+                <div id="districtboxz" ng-if="selectedDistrictHover" class="infoh district ">
+                    {{selectedDistrictHover.name}}
+                </div>
+                <div class="card-action">
+                    <div class="col m2 s2">Key:</div>
+                    <div class="col m1 s1"><span style="color:#E38280;"><i class="fa fa-file"></i></span></div>
+
+                    <div class="col m4 s4"><span>No Uploads</span></div>
+                    <div class="col m1 s1"><span style="color:#55CD55;"><i class="fa fa-file"></i></span></div>
+                    <div class="col m4 s4"><span>Uploaded</span></div>
+
+                </div>
+
+            </div><!-- /.map -->
+
+        </div>
+    </div>
+</div>
+<div class="col s12 m8 ">
+    <div class="card white lighten-1 darken-3" >
+        <div class="card-content grey-text" style="padding:13px">
+            DISTRICT HEALTH PROFILE : Visualization of yearly  uploaded health profiles by district.
+        </div>
+    </div>
+
+    <div class="card white lighten-1 darken-3" >
+        <div class="card-content grey-text {{custome_height}}" ng-if="!viewOpen" >
+            <div class="col s12 m12" ng-if="!main.chart_shown">
+                <div class="col s11 m11">
+                    <p style="font-weight: bolder">District Health Available Documents for {{selectedDistrictName}}  {{main.selectedYear}}</p>
+                </div>
+                <div class="col s1 m1"><a class="waves-effect waves-light btn" ng-click="main.backToChart()"><i class="fa fa-arrow-left"></i></a></div>
+            </div>
+            <div class="col s12 m12" style="background-color: #eeeeee;" ng-if="!main.chart_shown">
+                <div ng-if="main.Documents.length==0" style="min-height: 317.5px;text-align: center;margin-top: 5em;">
+                    <p>No uploaded health profile for <b>{{selectedDistrictName}}</b> in {{main.selectedYear}}</p>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <i class="large material-icons" style="color:#cccccc;">info</i>
+                </div>
+                <div class="col s4 m4" ng-repeat="document in main.Documents" title="click to preview document">
+                    <!--<div class="col s3 m3" >-->
+                    <div class="card white lighten-5 darken-1" >
+                        <a href="#" ng-click="main.openPdfFile(document.file)">
+                            <div> <img style="width:100%;" src="assets/images/dhp_portal.png"></div>
+                            <div class="grey-text" style="padding: 10px;font-size: 10px;font-weight: bold;">{{document.facility}} {{main.selectedYear}}</div>
+                        </a>
+                    </div>
+                </div>
+                <div ng-if="main.Documents">
+                    <!--{{main.Documents}}-->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m12 s12" style="font-size: 20px;" ng-if="main.chart_shown">DHP District Submission Statistics:{{main.selectedYear}}</div>
+                <div class="col s12 m6" ng-if="main.chart_shown" style="font-size: 10px;">
+                    <highchart id="chart1" config="chartConfig"></highchart>
+
+                </div>
+
+                <div class="col s12 m6" ng-if="main.chart_shown" style="max-height: 40px;">
+
+                    <table  class="row" style="margin-top: 10px;"  >
+                        <!--<caption><b>Uploaded Districts names</b></caption>-->
+                        <thead><tr>
+                            <!--<th>Region Name</th>-->
+                            <th>District Name</th></tr></thead>
+                        <tbody>
+                        <tr ng-repeat="row in main.orgUnitTable" style="cursor: pointer;"  ng-click="main.getHealthProfileFromTable(row)" title="click to preview profile">
+                            <td  style="text-align: left;">{{row.region}}</td>
+                            <td class="waves-effect waves-block" style="text-align: left;">{{row.district}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!--<table id="foobar" datatable dt-options="main.dtOptions" dt-columns="main.dtColumns" dt-instance="main.dtInstance"></table>-->
+                </div>
+            </div>
+
+        </div>
+        <div class="card-content grey-text " ng-if="viewOpen">
+            <div class="col s12 m12">
+                <div  class="col s11 m11">
+                    <p style="font-weight: bolder">District Health Profile Preview  for: <i>{{main.clickedDistrict}}</i> </p>
+                </div>
+                <div class="col s1 m1"><a class="waves-effect waves-light btn" ng-click="main.backToGrid()"><i class="fa fa-arrow-left"></i></a></div>
+            </div>
+            <br/>
+            <div class="col s12 m12 ">
+                <br/>
+                <object data="{{main.current_pdf_link}}"  type="application/pdf" width="100%" height="1000px">
+                    <p>Document preview is not available go <a href="{{main.current_pdf_link}}">to the PDF!</a> manually.</p>
+                </object>
+            </div>
+
+        </div>
+        <div class="card-action" ng-if="viewOpen">
+            <a href="{{main.current_pdf_link}}" target="_blank">Download</a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="https://twitter.com/intent/tweet?text={{main.current_pdf_link}}"
+               data-size="large"><i class="fa fa-twitter"></i></a>
+            <a href="http://www.linkedin.com/shareArticle?mini=true&url={{main.current_pdf_link}}"><i class="fa fa-linkedin"></i></a>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    $(document).ready(function() {
+        var date = new Date();
+        var year = date.getFullYear();
+        $("select option[value='? number:"+year+" ?']").remove();
+    });
+</script>

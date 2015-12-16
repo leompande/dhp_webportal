@@ -313,6 +313,7 @@
         $scope.$on('yearChangedEvent', function(e) {
             $scope.drawMap();
         });
+        $scope.drawMap();
         /**
          *  THE END
          * */

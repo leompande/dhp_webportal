@@ -12,7 +12,8 @@ class DhpFile {
 		 * */
 		 
 		public static function deleteFile($file_path){
-		if (!unlink($file_path))
+
+		if (!unlink(DhpFile::$dir."/".$file_path))
 		  {
 		  return false;
 		  }

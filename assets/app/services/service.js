@@ -1,0 +1,96 @@
+(function () {
+    'use strict';
+
+    angular
+        .module('dhp')
+        .service('profileService', profileService)
+        .service('utilityService', utilityService);
+    profileService.$inject = ['$http','Upload'];
+    utilityService.$inject = ['$http'];
+    function profileService($http,Upload) {
+      var profile = this;
+        profile.baseDHIS = "http://139.162.204.124/dhis/";
+        profile.basePortal = "server/";
+        profile.listProfileByYear = function(year){
+            return $http.get(profile.basePortal+'process.php?by_year='+year).then(handleSuccess, handleError('Error creating user'));
+        }
+
+        profile.listProfileByOrgUnit = function(orgunits){
+            return $http.get(profile.basePortal+'process.php?by_orgunit='+orgunits).then(handleSuccess, handleError('Error creating user'));
+        }
+
+        profile.listProfileByOrgUnitAndPeriod = function(year,orgunits){
+            return $http.get(profile.basePortal+'process.php?by_year='+year+'&by_orgunit='+orgunits).then(handleSuccess, handleError('Error creating user'));
+        }
+
+        profile.saveProfile = function(data){
+            return Upload.upload({
+                url: 'server/process.php?file=1&new_file_name='+data.file_name,
+                data: {file: data.file_object}
+            }).then(handleSuccess, handleError('Error creating user'));
+        }
+
+        profile.editProfile = function(data){
+            return $http.get(profile.basePortal+'process.php?by_year='+year+'&period='+orgunits).then(handleSuccess, handleError('Error creating user'));
+        }
+
+        profile.delete = function(health_profile){
+            return $http.get(profile.basePortal+"process.php?delete="+health_profile).then(handleSuccess, handleError('Error creating user'));
+        }
+    }
+    function utilityService($http) {
+      var profile = this;
+        profile.baseDHIS = "http://139.162.204.124/dhis/";
+        profile.basePortal = "server/";
+
+        profile.loadOrganisationUnits = function(){
+            return $http.get(profile.basePortal+'organisationUnits_level_1_org.json').then(handleSuccess, handleError('Error creating user'));
+        }
+        profile.getOrgUnits = function(){
+            return $http.get(profile.basePortal+'organisationUnits.json').then(handleSuccess, handleError('Error creating user'));
+        }
+
+        profile.login = function(username,password){
+            return $http.post(profile.baseDHIS+"dhis-web-commons-security/login.action?authOnly=true", {
+                'j_username':username,
+                'j_password':password
+            }).then(handleSuccess, handleError('Error creating user'));
+        }
+
+        profile.getUserDetails = function(){
+            var currentUserUrl = "api/me.json";
+            return $http.get(profile.baseDHIS+currentUserUrl).then(handleSuccess, handleError('Error creating user'));
+
+        }
+
+
+        profile.modifyOrgUnits = function(rawOrgUnits){
+            var Regions = [];
+            var i  = 0;
+            angular.forEach(rawOrgUnits,function(value,index){
+                var regions = {value:value.name,children:[]};
+                angular.forEach(value.children,function(valueChildren,indexChildren){
+                    regions.children.push({name:valueChildren.name,value:value.name+"_"+valueChildren.name});
+                });
+                Regions.push(regions);
+                i++;
+            });
+            return Regions;
+        }
+    }
+
+
+
+    // private functions
+
+    function handleSuccess(res) {
+        return res.data;
+    }
+
+    function handleError(error) {
+        return function () {
+            return { success: false, message: error };
+        };
+    }
+
+})();

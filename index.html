@@ -42,9 +42,11 @@
         <script src="assets/js/bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
 
         <script type="text/javascript" src="assets/app/app.js"></script>
-      <script type="text/javascript" src="assets/app/index.js"></script>
+      <script type="text/javascript" src="assets/app/controllers/mainController.js"></script>
+      <script type="text/javascript" src="assets/app/controllers/adminController.js"></script>
+      <script type="text/javascript" src="assets/app/controllers/mapController.js"></script>
       <script type="text/javascript" src="assets/app/sharedFactory.js"></script>
-      <script type="text/javascript" src="assets/app/mapController.js"></script>
+      <script type="text/javascript" src="assets/app/services/service.js"></script>
     </head>
 
 
@@ -201,66 +203,6 @@
       </div>
 
 		<div class="row">
-		<ul  class="side-nav fixed" style="left: 0px;" ng-show="main.csv_menu">
-
-            <br/>
-            <br/>
-        <li class="logo"><div class="col m12" >DHP Webportal</div></li>
-        <li class="bold">
-            <br/>
-            <br/>
-			 <form class="col s12 m12" name="upload_form" ng-submit="submit(form)">
-			  <div class="row">
-                  <label for="orgunits">* Organisation Unit</label>
-				<div class="input-field col  s12 m12">
-					<select id="orgunits" name="org_unit" ng-model="form.org_unit_selected" required="required">
-						<option ng-repeat="org in modifedOrgunits" value="{{org.value}}">{{org.name}}</option>
-					</select>
-				</div>
-			  </div>
-			  <div class="row">
-                  <label>* Period</label>
-				<div class="input-field col  s12 m12">
-				  <select id="period_upload" name="period" ng-model="form.form_period" required="required">
-						<option value="{{main.current_year}}"  selected>{{main.current_year}}</option>
-						<option ng-repeat="period in main.periods" value="{{period.name}}">{{period.name}}</option>
-					</select>
-				</div>
-			  </div>
-
-                 <div class="row">
-                     <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'application/pdf'"
-                          accept="application/pdf" ><a href="#"><i class="fa fa-file"></i> Select a File</a></div>
-                 </div>
-
-			  <div class="row">
-				<div class="input-field col s12 m12">
-				  <button class="waves-effect waves-light btn col s12 m12" style="background-color:#82b1ff" type="submit" name="submit">Upload DHP</button>
-				</div>
-			  </div>
-                 <div class="row">
-                     <div class="progress" ng-if="showProgress">
-                         <div class="determinate" style="width:{{progressPercent}}%'"></div>
-                     </div>
-
-
-                     <div class="col m12 s12" ng-if="message">
-                         <div class="chip" class="{{message_class}}">
-                             {{message}}
-                         </div>
-                         </div>
-                 </div>
-			</form>
-        </li>
-            <script>
-                $(document).ready(function() {
-//                    $('select#orgunits').material_select();
-//                    $('select#period_upload').material_select();
-//                    $('select#orgunits').hide();
-//                    $('select#period_upload').hide();
-                });
-            </script>
-      </ul>
                     <div class="row">
 
                <nav class=" row " role="navigation" style="background-color: #82b1ff!important;">
@@ -272,196 +214,29 @@
 
                       <ul class="right hide-on-med-and-down">
                         <li ng-if="main.logedIn"><a style="color:#ffffff;" >Logged in as :{{currentLogedUser}}</a></li>
-                        <li><a href="#" style="color:#ffffff;" ng-click="main.getDashboard()">Dashboard</a></li>
-                        <li><a href="#" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Upload DHP</a></li>
-                        <li><a href="#" style="color:#ffffff;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>
-                        <li><a href="#" style="color:#ffffff;" ng-click="main.Logout()" ng-if="main.logedIn">Logout</a></li>
+                        <li><a class="active" href="#/" style="color:#ffffff;" >Dashboard</a></li>
+                        <li><a href="#/admin" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Settings</a></li>
+                        <li><a  style="color:#ffffff;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>
+                        <li><a  style="color:#ffffff;" ng-click="main.Logout()" ng-if="main.logedIn">Logout</a></li>
                       </ul>
 
                       <ul id="nav-mobile" class="side-nav">
-                          <li><a href="#" style="color:#ffffff;" ng-click="main.getDashboard()">Dashboard</a></li>
-                          <li><a href="#" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Upload Form</a></li>
-                          <li><a href="#" style="color:#ffffff;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>
-                          <li><a href="#" style="color:#ffffff;" ng-click="main.Logout()" ng-if="main.logedIn">Logout</a></li>
+                          <li><a href="#/" style="color:#ffffff;" ng-click="main.getDashboard()">Dashboard</a></li>
+                          <li><a href="#/admin" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Settings</a></li>
+                          <li><a style="color:#ffffff;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>
+                          <li><a style="color:#ffffff;" ng-click="main.Logout()" ng-if="main.logedIn">Logout</a></li>
                       </ul>
                       <a href="#" data-activates="nav-mobile" class="right button-collapse"><i class="material-icons">menu</i></a>
                     <!--</div>-->
 			   </nav>
-
-                <div class="row" ng-controller="mapController">
-                    <!--<div class="col s12 m12">-->
-                        <!--<div class="card white lighten-4 darken-1">-->
-                            <!--<div class="card-content "></div></div>-->
-                    <!--</div>-->
-                    <div class="col s12 m4">
-
-                        <ul class="collapsible" data-collapsible="accordion">
-                            <li>
-                                <div class="collapsible-header grey-text"><i class="material-icons">place</i>Select DHP Using Organization Unit Tree
-
-                                </div>
-                                <div class="collapsible-body">
-                                    <input type="text" ng-model="bagSearch" placeholder="Search Organisation Unit" />
-                                    <div class="grey-text"
-                                       ivh-treeview="data.organisationUnits"
-                                       ivh-treeview-label-attribute="'name'"
-                                       ivh-treeview-id-attribute="'id'"
-                                       ivh-treeview-children-attribute="'children'"
-                                       ivh-treeview-options="customOpts"
-                                       ivh-treeview-filter="bagSearch"
-                                          >
-
-                                    </div>
-
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="card white lighten-4 darken-1">
-                            <div class="card-content ">
-                                <div class="row">
-                                <div class="col m8 s12">
-
-                                    <span class="card-title grey-text" style="font-size: 20px;">DHP Data Map View   {{main.selectedYear}}</span>
-                                </div>
-                                <div class="input-field col m4 s12">
-                                    <lable for="period_map" class="grey-text">Select Period</lable>
-                                    <select  name="period" ng-model="main.selectedYear"id="period_map">
-                                        <option selected="selected">2015</option>
-                                        <option ng-repeat="period in main.periods" >{{period.name}}</option>
-                                    </select>
-
-                                </div>
-
-                                    </div>
-                                <div id="maps" class="maps"  style="width: 100%;" >
-
-                                    <openlayers ol-center="Africa" ol-defaults="defaults" custom-layers="true"  height="400px">
-                                        <ol-layer ol-layer-properties="layer" name="test" ng-repeat="layer in layers"></ol-layer>
-                                    </openlayers>
-                                    <div id="districtboxz" ng-if="selectedDistrictHover" class="infoh district ">
-                                       {{selectedDistrictHover.name}}
-                                    </div>
-                                    <div class="card-action">
-                                            <div class="col m2 s2">Key:</div>
-                                            <div class="col m1 s1"><span style="color:#E38280;"><i class="fa fa-file"></i></span></div>
-
-                                            <div class="col m4 s4"><span>No Uploads</span></div>
-                                            <div class="col m1 s1"><span style="color:#55CD55;"><i class="fa fa-file"></i></span></div>
-                                            <div class="col m4 s4"><span>Uploaded</span></div>
-
-                                    </div>
-
-                                </div><!-- /.map -->
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s12 m8 ">
-                        <div class="card white lighten-1 darken-3" >
-                            <div class="card-content grey-text" style="padding:13px">
-                                DISTRICT HEALTH PROFILE : Visualization of yearly  uploaded health profiles by district.
-                            </div>
-                        </div>
-
-                        <div class="card white lighten-1 darken-3" >
-                            <div class="card-content grey-text {{custome_height}}" ng-if="!viewOpen" >
-                                <div class="col s12 m12" ng-if="!main.chart_shown">
-                                    <div class="col s11 m11">
-                                        <p style="font-weight: bolder">District Health Available Documents for {{selectedDistrictName}}  {{main.selectedYear}}</p>
-                                    </div>
-                                    <div class="col s1 m1"><a class="waves-effect waves-light btn" ng-click="main.backToChart()"><i class="fa fa-arrow-left"></i></a></div>
-                                </div>
-                                <div class="col s12 m12" style="background-color: #eeeeee;" ng-if="!main.chart_shown">
-                                    <div ng-if="main.Documents.length==0" style="min-height: 317.5px;text-align: center;margin-top: 5em;">
-                                        <p>No uploaded health profile for <b>{{selectedDistrictName}}</b> in {{main.selectedYear}}</p>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <i class="large material-icons" style="color:#cccccc;">info</i>
-                                    </div>
-                                    <div class="col s4 m4" ng-repeat="document in main.Documents" title="click to preview document">
-                                    <!--<div class="col s3 m3" >-->
-                                        <div class="card white lighten-5 darken-1" >
-                                            <a href="#" ng-click="main.openPdfFile(document.file)">
-                                                <div> <img style="width:100%;" src="assets/images/dhp_portal.png"></div>
-                                                <div class="grey-text" style="padding: 10px;font-size: 10px;font-weight: bold;">{{document.facility}} {{main.selectedYear}}</div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div ng-if="main.Documents">
-                                        <!--{{main.Documents}}-->
-                                    </div>
-                                </div>
-                                <div class="row">
-                                <div class="col m12 s12" style="font-size: 20px;" ng-if="main.chart_shown">DHP District Submission Statistics:{{main.selectedYear}}</div>
-                                <div class="col s12 m6" ng-if="main.chart_shown" style="font-size: 10px;">
-                                    <highchart id="chart1" config="chartConfig"></highchart>
-
-                                </div>
-
-                                <div class="col s12 m6" ng-if="main.chart_shown">
-
-                                    <table  class="row" style="margin-top: 10px;"  >
-                                        <!--<caption><b>Uploaded Districts names</b></caption>-->
-                                        <thead><tr>
-                                            <!--<th>Region Name</th>-->
-                                            <th>District Name</th></tr></thead>
-                                        <tbody>
-                                        <tr ng-repeat="row in main.orgUnitTable" style="cursor: pointer;"  ng-click="main.getHealthProfileFromTable(row)" title="click to preview profile">
-                                            <td  style="text-align: left;">{{row.region}}</td>
-                                            <td class="waves-effect waves-block" style="text-align: left;">{{row.district}}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-
-                                    <!--<table id="foobar" datatable dt-options="main.dtOptions" dt-columns="main.dtColumns" dt-instance="main.dtInstance"></table>-->
-                                </div>
-                        </div>
-
-                            </div>
-                            <div class="card-content grey-text " ng-if="viewOpen">
-                                <div class="col s12 m12">
-                                    <div  class="col s11 m11">
-                                        <p style="font-weight: bolder">District Health Profile Preview  for: <i>{{main.clickedDistrict}}</i> </p>
-                                    </div>
-                                    <div class="col s1 m1"><a class="waves-effect waves-light btn" ng-click="main.backToGrid()"><i class="fa fa-arrow-left"></i></a></div>
-                                </div>
-                                <br/>
-                                <div class="col s12 m12 ">
-                                    <br/>
-                                    <object data="{{main.current_pdf_link}}"  type="application/pdf" width="100%" height="1000px">
-                                        <p>Document preview is not available go <a href="{{main.current_pdf_link}}">to the PDF!</a> manually.</p>
-                                    </object>
-                                </div>
-
-                            </div>
-                            <div class="card-action" ng-if="viewOpen">
-                                <a href="{{main.current_pdf_link}}" target="_blank">Download</a>
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="https://twitter.com/intent/tweet?text={{main.current_pdf_link}}"
-                                   data-size="large"><i class="fa fa-twitter"></i></a>
-                                <a href="http://www.linkedin.com/shareArticle?mini=true&url={{main.current_pdf_link}}"><i class="fa fa-linkedin"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="section no-pad-bot" id="index-banner">
-                        <div class="container">
-                            <div class="row">
-
-                            </div>
-                        </div>
-                    </div>
-
-
-    </div>
-
-
+                <div ng-view></div>
 
 		  </div>
 			
 		</div>
-      <footer class="page-footer" style="background-color: #82b1ff!important;">
+
+
+      <footer class="page-footer" style="background-color: #82b1ff!important;margin-bottom: 0px;">
           <div class="container">
               <div class="row">
                   <div class="col l6 s12">
@@ -469,11 +244,18 @@
                   </div>
                   <div class="col l4 offset-l2 s12">
                       <!--<h5 class="white-text">Links</h5>-->
-                      <ul>
-                          <li><a class="grey-text text-lighten-3" target="_blank" href="https://dhis.moh.go.tz/">DHIS/HMIS</a></li>
-                          <li><a class="grey-text text-lighten-3" target="_blank" href="http://139.162.204.124/hmis/portal/">HMIS Web portal</a></li>
-                          <li><a class="grey-text text-lighten-3" target="_blank" href="http://www.moh.go.tz/">MOH</a></li>
-                      </ul>
+                      <table>
+                          <tr>
+                              <td><a class="grey-text text-lighten-3" target="_blank" href="https://dhis.moh.go.tz/">DHIS/HMIS</a></td>
+                              <td><a class="grey-text text-lighten-3" target="_blank" href="http://139.162.204.124/hmis/portal/">HMIS Web portal</a></td>
+                              <td><a class="grey-text text-lighten-3" target="_blank" href="http://www.moh.go.tz/">MOH</a></td>
+                          </tr>
+                      </table>
+                      <!--<ul>-->
+                          <!--<li><a class="grey-text text-lighten-3" target="_blank" href="https://dhis.moh.go.tz/">DHIS/HMIS</a></li>-->
+                          <!--<li><a class="grey-text text-lighten-3" target="_blank" href="http://139.162.204.124/hmis/portal/">HMIS Web portal</a></li>-->
+                          <!--<li><a class="grey-text text-lighten-3" target="_blank" href="http://www.moh.go.tz/">MOH</a></li>-->
+                      <!--</ul>-->
                   </div>
               </div>
           </div>
@@ -484,12 +266,5 @@
               </div>
           </div>
       </footer>
-       <script>
-           $(document).ready(function() {
-               var date = new Date();
-               var year = date.getFullYear();
-               $("select option[value='? number:"+year+" ?']").remove();
-           });
-       </script>
     </body>
   </html>

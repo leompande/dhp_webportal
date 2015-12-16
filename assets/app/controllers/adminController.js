@@ -1,0 +1,213 @@
+/**
+ * Created by leo on 11/11/15.
+ */
+/**
+ * THE BEGINNING OF MAP CONTROLLER FUNCTION
+ * */
+
+(function() {
+    'use strict';
+
+    angular
+        .module('dhp')
+        .controller('adminController', adminController);
+
+    adminController.$inject   = ['$scope', '$http','$q','$timeout', 'olData','olHelpers','shared','profileService','DTOptionsBuilder','Upload','utilityService'];
+    function adminController($scope, $http,$timeout,$q, olData,olHelpers,shared,profileService,DTOptionsBuilder,Upload,utilityService) {
+    var admin = this;
+        var date = new Date();
+        admin.current_year = date.getFullYear();
+        admin.list = true;
+        admin.addProfileForm = false;
+        admin.criteria = false;
+        admin.districtSelector = false;
+        admin.profiles = null;
+        admin.current_pdf_link = "uploads/";
+        admin.districtName = [];
+        admin.selectedOrgUnit = null;
+        admin.selectedOrgUnitList = null;
+        admin.tanzania = "Tanzania";
+        admin.selectedOrgUnitToDisplay = admin.tanzania;
+        admin.selectedPeriod = admin.current_year;
+        admin.periodCriteria = admin.current_year;
+        admin.regions = [];
+        admin.districts = [];
+        admin.districtsOnly = [];
+        /**
+         * THE BEGINNING OF THE FUNCTION THAT HANDLES ADMIN PAGE FUNCTIONALITY OF PORTAL
+         * */
+        admin.showList = function(){
+            admin.list =true;
+            admin.addProfileForm = false;
+            profileService.listProfileByYear(admin.current_year).then(function(data){
+                admin.profiles = data;
+                $('select').material_select();
+            },function(response){
+            });
+        }
+
+        admin.showList();
+
+        admin.districtSelection = function(){
+            if(typeof(admin.selectedOrgUnitRegion)!=="undefined"){
+                if(admin.districtSelector){
+                    admin.districtSelector = false;
+                    admin.selectedOrgUnitToDisplay = JSON.parse(admin.selectedOrgUnitRegion).value;
+                }else{
+                    admin.districtSelector = true;
+                }
+        }
+
+        }
+
+        admin.showDistricts = function(district){
+
+            admin.districts = JSON.parse(district).children;
+        };
+
+        admin.drawTable = function(year,orgUnit){
+//            var getTableData = function() {
+//                console.log($q)
+//                var deferred = $q;
+//                deferred.resolve([{name:"leonard mpande"},{name:"bianca bree vandamme"},{name:"chris vandamme"}]);
+//                return deferred.promise;
+//            };
+//
+//            admin.dtOptions = DTOptionsBuilder.fromFnPromise(getTableData())
+//                .withPaginationType('full_numbers');
+//            console.log(admin.dtOptions);
+            if(orgUnit==admin.tanzania){
+                profileService.listProfileByYear(year).then(function(data){
+                    console.log(data);
+                },function(response){
+                    console.log(response);
+                });
+            }else{
+                profileService.listProfileByOrgUnitAndPeriod(year,orgUnit).then(function(data){
+                    console.log(data);
+                },function(response){
+                    console.log(response);
+                });
+            }
+
+        }
+        admin.drawTable(admin.selectedPeriod,admin.selectedOrgUnitToDisplay);
+        $scope.$watch("admin.selectedOrgUnitRegion",function(newValue,oldValue){
+            if(typeof(newValue) !=="undefined"){
+               admin.showDistricts(newValue);
+                admin.selectedOrgUnitToDisplay = JSON.parse(newValue).value;
+                admin.drawTable(admin.selectedPeriod,admin.selectedOrgUnitToDisplay);
+            }
+        });
+
+        $scope.$watch("admin.selectedEntryRegion",function(newValue,oldValue){
+            if(typeof(newValue)!=="undefined"){
+                admin.showDistricts(newValue);
+            }
+        });
+
+        $scope.$watch("admin.selectedOrgUnitDistrict",function(newValue,oldValue){
+            if(typeof(newValue) !=="undefined"){
+                admin.selectedOrgUnitToDisplay = JSON.parse(admin.selectedOrgUnitRegion).value+" -> "+newValue.split("_")[1];
+                var district = getDirstrictName(admin.selectedOrgUnitToDisplay);
+                admin.drawTable(admin.selectedPeriod,district);
+            }
+        });
+
+        $scope.$watch("admin.selectedPeriod",function(newValue,oldValue){
+            if(typeof(newValue) !=="undefined"){
+                admin.drawTable(newValue,admin.selectedOrgUnitToDisplay);
+            }
+        });
+
+        admin.newProfile = function(){
+            admin.addProfileForm = true;
+            admin.list =false;
+
+        }
+
+        admin.saveProfile = function(form){
+            var payload = {file_name:admin.selectedEntryDistrict+"_"+form.form_period+".pdf",file_object:admin.file};
+            if(!admin.selectedEntryDistrict&&!form.form_period){
+
+            }else{
+                profileService.saveProfile(payload).then(function(data){
+
+                    admin.showProgress = false;
+                    if(data=="UPLOAD_FAILED"){
+                        admin.message = "upload failed";
+                        admin.message_class = "failed";
+                    }
+
+                    if(data=="UPLOAD_SUCCESS"){
+                        admin.showList();
+                        admin.message = "uploaded successful";
+                        admin.message_class = "success";
+                    }
+
+                    if(data=="FILE_EXIST_ERROR"){
+                        admin.message = "file exist";
+                        admin.message_class = "failed";
+                    }
+
+                    if(data=="INVALID_TYPE_ERROR"){
+                        admin.message = "file is not pdf";
+                        admin.message_class = "failed";
+                    }
+
+                },function(response){});
+            }
+
+        }
+
+        admin.openCriteria = function(){
+            if(admin.criteria){
+                admin.criteria = false;
+            }else{
+                admin.criteria = true;
+            }
+        }
+
+        admin.deleteProfile = function(profile){
+            profileService.delete(profile).then(function(data){
+            },function(response){
+
+            });
+        }
+
+        admin.getDistrictName = function(profile){
+            admin.districtName.push(profile);
+            return admin.districtName;
+
+        }
+
+        admin.filterProfiles = function(criteria){
+            console.log(criteria);
+        }
+
+        utilityService.loadOrganisationUnits().then(function(data){
+             admin.regions = utilityService.modifyOrgUnits(data.organisationUnits[0].children);
+        });
+
+        $scope.$watch("admin.selectedOrgUnitList",function(newValue,oldValue){
+            if(newValue){
+                var OrgUnit = newValue.split("_");
+                admin.selectedOrgUnitToDisplay = OrgUnit[1];
+            }
+        });
+
+        $scope.$watch("admin.periodCriteria",function(newValue,oldValue){
+            admin.selectedPeriod = newValue;
+        });
+            function getDirstrictName(sample_name){
+            var broken_name = sample_name.split(" -> ");
+
+            return broken_name[1];
+            }
+        /**
+         *  THE END
+         * */
+     }
+})()
+
+
