@@ -42,24 +42,23 @@
         $scope.message_class = null;
         $scope.progressPercent = '0%';
         main.orgUnitTable = [];
+        main.organisationUnitTree = []
         main.logedSuccessMessage = "";
-        main.showCh = "active";
-        main.showTab = "active";
         if($cookies.get('dhis_enabled')){
             main.logedIn = true;
             main.logedOut = false;
         }
 
         main.showChart = function(){
-            main.showCh = "active indicator";
-            main.showTab = "";
+            main.showChD = "active";
+            main.showTabD = "";
             main.showChartD = "display:block;";
             main.showTableD = "display:none;";
         }
 
         main.showTable = function(){
-            main.showTab = "active indicator";
-            main.showCh = "";
+            main.showTabD = "active";
+            main.showChD = "";
             main.showChartD = "display:none;";
             main.showTableD = "display:block;";
         }
@@ -163,7 +162,7 @@
                         proposed_files.push({facility:value,file:name+"_"+value+"_"+main.selectedYear+".pdf"});
                     });
                     var correct_names=[];
-                    $http.get("server/process.php?by_year="+main.selectedYear).success(function(data){
+                    $http.get("server/process.php?by_year="+main.selectedYear+"&only=1").success(function(data){
                         var files =[];
                         angular.forEach(proposed_files,function(value,index){
                             files.push(value.file);
@@ -181,7 +180,7 @@
 
                 if(name.indexOf("Council")>=0){
                     var correct_names=[];
-                    $http.get("server/process.php?by_year="+main.selectedYear).success(function(data){
+                    $http.get("server/process.php?by_year="+main.selectedYear+"&only=1").success(function(data){
 
                         var file_template = {facility:name,file:name+"_"+main.selectedYear+".pdf"};
                         angular.forEach(data,function(value,index) {
@@ -248,13 +247,14 @@
 
         // load org unit for tree
         $scope.customOpts = {
-            onCbChange:main.treeCallback
+            onCbChange:main.treeCallback,
+            defaultSelectedState:false
         }
 
         main.loadOrganisationUnit = function(){
             utilityService.loadOrganisationUnits().then(function(data){
-                $scope.data.organisationUnits = data.organisationUnits;
-//                console.log($scope.data);
+                main.organisationUnitTree = data.organisationUnits;
+                console.log(main.organisationUnitTree);
                 $scope.modifedOrgunits = utilityService.modifyOrgUnits(data.organisationUnits[0].children);
 
             },function(status){
@@ -335,28 +335,32 @@
             var password = login.dhis_login_password;
                 utilityService.login(username,password).then(function(data){
                     $scope.progressLogin = false;
-                    utilityService.getUserDetails().then(function(userdata){
+                    console.log(data);
+                    if(!data.success){
 
-                        if(userdata){
-                            $cookies.put('dhis_enabled', 'logedIn');
-                            $cookies.put('current_user', userdata.displayName);
-                            $scope.currentLogedUser = $cookies.get('current_user');
-                            $scope.progressLogin = false;
-                            main.logedIn = true;
-                            main.logedOut = false;
-                            main.logedSuccessMessage = "LoggedIn as "+userdata.displayName+" Successfully.";
-                            $timeout(main.closeLoginForm,3000);
+                        $cookies.remove('dhis_enabled');
+                        $cookies.remove('current_user');
+                        main.logedIn = false;
+                        main.logedOut = true;
+                        main.logedSuccessMessage = "Login Failed : No Connection to DHIS2";
+                        $scope.progressLogin = false;
 
-                        }else{
-                            $cookies.remove('dhis_enabled');
-                            $cookies.remove('current_user');
-                            main.logedIn = false;
-                            main.logedOut = true;
-                            main.logedSuccessMessage = "Login Failed";
-                            $scope.progressLogin = false;
-                        }
+                    }else{
+                        utilityService.getUserDetails().then(function(userdata){
 
-                    },function(response){});
+                                $cookies.put('dhis_enabled', 'logedIn');
+                                $cookies.put('current_user', userdata.displayName);
+                                $scope.currentLogedUser = $cookies.get('current_user');
+                                $scope.progressLogin = false;
+                                main.logedIn = true;
+                                main.logedOut = false;
+                                main.logedSuccessMessage = "LoggedIn as "+userdata.displayName+" Successfully.";
+                                $timeout(main.closeLoginForm,3000);
+
+                        },function(response){});
+
+                    }
+
                 },function(response){
                     $cookies.remove('dhis_enabled');
                     $cookies.remove('current_user');

@@ -12,11 +12,6 @@
                }).
                when('/admin', {
                    templateUrl: 'partials/admin.html',
-                   access: {
-                       requiresLogin: true,
-                       requiredPermissions: ['admin'],
-                       permissionType: 'AtLeastOne'
-                   },
                    controller: 'adminController'
                }).
                otherwise({

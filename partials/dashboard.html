@@ -5,13 +5,12 @@
     <ul class="collapsible" data-collapsible="accordion">
         <li>
             <div class="collapsible-header grey-text"><i class="material-icons">place</i>Select DHP Using Organization Unit Tree
-                <!--{{data.organisationUnits}}-->
+
             </div>
             <div class="collapsible-body">
-
                 <input type="text" ng-model="bagSearch" placeholder="Search Organisation Unit" />
                 <div class="grey-text"
-                     ivh-treeview="data.organisationUnits"
+                     ivh-treeview="main.organisationUnitTree"
                      ivh-treeview-label-attribute="'name'"
                      ivh-treeview-id-attribute="'id'"
                      ivh-treeview-children-attribute="'children'"
@@ -90,7 +89,7 @@
                 <div class="col s4 m4" ng-repeat="document in main.Documents" title="click to preview document">
                     <!--<div class="col s3 m3" >-->
                     <div class="card white lighten-5 darken-1" >
-                        <a href="#" ng-click="main.openPdfFile(document.file)">
+                        <a style="cursor: pointer;" ng-click="main.openPdfFile(document.file)">
                             <div> <img style="width:100%;" src="assets/images/dhp_portal.png"></div>
                             <div class="grey-text" style="padding: 10px;font-size: 10px;font-weight: bold;">{{document.facility}} {{main.selectedYear}}</div>
                         </a>
@@ -166,6 +165,7 @@
         var date = new Date();
         var year = date.getFullYear();
         $("select option[value='? number:"+year+" ?']").remove();
-        $('ul.tabs').tabs();
+            $('.collapsible').collapsible();
+
     });
 </script>
