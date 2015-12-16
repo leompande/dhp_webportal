@@ -335,9 +335,7 @@
             var password = login.dhis_login_password;
                 utilityService.login(username,password).then(function(data){
                     $scope.progressLogin = false;
-                    console.log(data);
-                    if(!data.success){
-
+                    if(data.success){
                         $cookies.remove('dhis_enabled');
                         $cookies.remove('current_user');
                         main.logedIn = false;
@@ -347,7 +345,6 @@
 
                     }else{
                         utilityService.getUserDetails().then(function(userdata){
-
                                 $cookies.put('dhis_enabled', 'logedIn');
                                 $cookies.put('current_user', userdata.displayName);
                                 $scope.currentLogedUser = $cookies.get('current_user');
