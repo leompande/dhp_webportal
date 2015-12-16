@@ -5735,7 +5735,7 @@ small {
     letter-spacing: .8px;
     width: 15%; }
     .tabs .tab a {
-      color: #ee6e73;
+      /*color: #ee6e73;*/
       display: block;
       width: 100%;
       height: 100%;
@@ -5753,7 +5753,7 @@ small {
     position: absolute;
     bottom: 0;
     height: 2px;
-    background-color: #f6b2b5;
+    background-color: #82b1ff!important;
     will-change: left, right; }
 
 .tabs .tab {

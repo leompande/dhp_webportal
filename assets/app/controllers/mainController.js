@@ -17,10 +17,8 @@
         main.current_year = date.getFullYear();
         main.selectedYear = main.current_year;
 
-        //main.selectedYear = 2014;
         main.current_id          = "m0frOspS7JY";
-        $scope.data              = {
-        };
+        $scope.data              = {};
         main.Documents = null;
         main.current_pdf_link = "";
         main.clickedDistrict = "";
@@ -28,16 +26,15 @@
         main.chart_shown = true;
         main.available_files_this_year = null;
         $scope.submitted = 0;
-        $scope.total_facilities = 0;
+        $scope.total_facilities = 166;
         $scope.submitted = 0;
-        $scope.total_facilities = 0;
         main.form_period = null;
         main.orgunit = null;
         main.org_unit_selected = null;
         main.regions = [];
         $scope.form={form_period:main.current_year,org_unit_selected:""};
         $scope.showProgress = false;
-        main.logedIn = true;
+        main.logedIn = false;
         $scope.progressLogin = false;
         main.logedOut = true;
         $scope.currentLogedUser = $cookies.get('current_user');
@@ -46,12 +43,26 @@
         $scope.progressPercent = '0%';
         main.orgUnitTable = [];
         main.logedSuccessMessage = "";
+        main.showCh = "active";
+        main.showTab = "active";
         if($cookies.get('dhis_enabled')){
             main.logedIn = true;
             main.logedOut = false;
         }
 
+        main.showChart = function(){
+            main.showCh = "active indicator";
+            main.showTab = "";
+            main.showChartD = "display:block;";
+            main.showTableD = "display:none;";
+        }
 
+        main.showTable = function(){
+            main.showTab = "active indicator";
+            main.showCh = "";
+            main.showChartD = "display:none;";
+            main.showTableD = "display:block;";
+        }
 
         //front chart for the portal
         main.drawChart = function(){
@@ -324,7 +335,7 @@
             var password = login.dhis_login_password;
                 utilityService.login(username,password).then(function(data){
                     $scope.progressLogin = false;
-                    utilityService.getUserDetails().then(function(data){
+                    utilityService.getUserDetails().then(function(userdata){
 
                         if(userdata){
                             $cookies.put('dhis_enabled', 'logedIn');

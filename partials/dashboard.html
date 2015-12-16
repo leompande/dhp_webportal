@@ -102,28 +102,36 @@
             </div>
             <div class="row">
                 <div class="col m12 s12" style="font-size: 20px;" ng-if="main.chart_shown">DHP District Submission Statistics:{{main.selectedYear}}</div>
-                <div class="col s12 m6" ng-if="main.chart_shown" style="font-size: 10px;">
-                    <highchart id="chart1" config="chartConfig"></highchart>
 
-                </div>
-
-                <div class="col s12 m6" ng-if="main.chart_shown" style="max-height: 40px;">
-
-                    <table  class="row" style="margin-top: 10px;"  >
-                        <!--<caption><b>Uploaded Districts names</b></caption>-->
-                        <thead><tr>
-                            <!--<th>Region Name</th>-->
-                            <th>District Name</th></tr></thead>
+                <div class="row" ng-if="main.chart_shown">
+                    <div class="col s12">
+                        <ul class="tabs">
+                            <li class="tab col s3"><a  class="{{main.showChD}}" style="cursor: pointer" ng-click="main.showChart()">Chart</a></li>
+                            <li class="tab col s3"><a  class="{{main.showTabD}}" style="cursor: pointer" ng-click="main.showTable()">Table</a></li>
+                        </ul>
+                    </div>
+                    <div  class="col s12 " style="{{main.showChartD}}">
+                        <highchart id="chart1" config="chartConfig"></highchart>
+                    </div>
+                    <div  class="col s12 " style="{{main.showTableD}}">
+                        <table  class="row" style="margin-top: 10px;"  >
+                        <thead>
+                        <tr><th>District Name</th></tr>
+                        </thead>
                         <tbody>
                         <tr ng-repeat="row in main.orgUnitTable" style="cursor: pointer;"  ng-click="main.getHealthProfileFromTable(row)" title="click to preview profile">
-                            <td  style="text-align: left;">{{row.region}}</td>
-                            <td class="waves-effect waves-block" style="text-align: left;">{{row.district}}</td>
+                        <td  style="text-align: left;">{{row.region}}</td>
+                        <td class="waves-effect waves-block" style="text-align: left;">{{row.district}}</td>
                         </tr>
                         </tbody>
-                    </table>
-
-                    <!--<table id="foobar" datatable dt-options="main.dtOptions" dt-columns="main.dtColumns" dt-instance="main.dtInstance"></table>-->
+                        </table>
+                    </div>
                 </div>
+                <script>
+                    $('ul.tabs').tabs();
+                </script>
+
+
             </div>
 
         </div>
@@ -158,5 +166,6 @@
         var date = new Date();
         var year = date.getFullYear();
         $("select option[value='? number:"+year+" ?']").remove();
+        $('ul.tabs').tabs();
     });
 </script>

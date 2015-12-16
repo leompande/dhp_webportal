@@ -12,7 +12,7 @@
         profile.baseDHIS = "http://139.162.204.124/dhis/";
         profile.basePortal = "server/";
         profile.listProfileByYear = function(year){
-            return $http.get(profile.basePortal+'process.php?by_year='+year).then(handleSuccess, handleError('Error creating user'));
+            return $http.get(profile.basePortal+'process.php?by_year='+year+'&only=1').then(handleSuccess, handleError('Error creating user'));
         }
 
         profile.listProfileByOrgUnit = function(orgunits){
@@ -24,6 +24,7 @@
         }
 
         profile.saveProfile = function(data){
+            console.log(data.file_object);
             return Upload.upload({
                 url: 'server/process.php?file=1&new_file_name='+data.file_name,
                 data: {file: data.file_object}
@@ -76,6 +77,18 @@
                 i++;
             });
             return Regions;
+        }
+
+        profile.getPropertiesArray = function(profile_string){
+            var stage_one = profile_string.split("_");
+            var region = stage_one[0];
+            var district_name = stage_one[1];
+            var year_and_format = stage_one[2];
+
+            var stage_two = year_and_format.split(".");
+            var year = stage_two[0];
+
+            return {region:region,district:district_name,year:year};
         }
     }
 

@@ -59,10 +59,10 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <label>Period *</label>
+                                        <label>Period</label>
                                         <div class="input-field col  s12 m12">
                                             <select  name="period" ng-model="admin.periodCriteria" required="required" >
-                                                <option selected="selected" value="{{admin.periodCriteria}}">{{admin.periodCriteria}}</option>
+                                                <option selected="selected" value="{{admin.current_year}}">{{admin.current_year}}</option>
                                                 <option ng-repeat="period in main.periods" value="{{period.name}}">{{period.name}}</option>
                                             </select>
                                         </div>
@@ -92,6 +92,7 @@
                                             <a class="waves-effect waves-light red btn btn-small" ng-click="admin.deleteProfile(profile)">Delete</a>
                                         </td>
                                     </tr>
+                                    <tr ng-if="admin.profiles.length==0"><td colspan="3">No health profile available</td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -110,7 +111,7 @@
                         <form class="col s12 m12" name="upload_form" ng-submit="admin.saveProfile(form)" style="color: #000000;">
                             <div >ADDING NEW HEALTH PROFILE</div></br>
                             <div class="row">
-                                <label >Organisation Unit (Region)</label>
+                                <label >* Organisation Unit (Region)</label>
                                 <div class="input-field col  s12 m12">
                                     <select  name="org_unit" ng-model="admin.selectedEntryRegion" required="required">
                                         <option ng-repeat="org in admin.regions" value="{{org}}">{{org.value}}</option>
@@ -119,7 +120,7 @@
                             </div>
 
                             <div class="row" n>
-                                <label >Organisation Unit (District)</label>
+                                <label >* Organisation Unit (District)</label>
                                 <div class="input-field col  s12 m12">
                                     <select  name="org_unit" ng-model="admin.selectedEntryDistrict" required="required">
                                         <option ng-repeat="distr in admin.districts" value="{{distr.value}}">{{distr.name}}</option>
@@ -138,7 +139,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="button" ngf-select ng-model="admin.file" name="admin.file" ngf-pattern="'application/pdf'"
+                                <div class="button" ngf-select ng-model="admin.file" name="file" ngf-pattern="'application/pdf'"
                                      accept="application/pdf" ><a href="#"><i class="fa fa-file"></i> Select a File</a></div>
                             </div>
 
@@ -164,7 +165,69 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="file_edit"></div>
+        <div class="row" id="file_edit" ng-if="admin.editProfileForm">
+            <div class="col s12 m12">
+
+                <div class="card blue-white darken-1">
+                    <div class="card-content grey-text" style="padding:13px">
+            <form class="col s12 m12" name="upload_form" ng-submit="admin.saveProfile(form)" style="color: #000000;">
+                <div >UPDATING HEALTH PROFILE FOR <b>{{admin.editedParrentOrgUnit}}</b> -> <b>{{admin.editedOrgUnit}}</b> <b>{{admin.editedYear}}</b></div></br>
+                <div class="row">
+                    <label >Organisation Unit (Region)</label>
+                    <div class="input-field col  s12 m12">
+                        <select  name="org_unit" ng-model="admin.selectedEntryRegion" required="required">
+                            <option ng-repeat="org in admin.regions" value="{{org}}">{{org.value}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row" n>
+                    <label >Organisation Unit (District)</label>
+                    <div class="input-field col  s12 m12">
+                        <select  name="org_unit" ng-model="admin.selectedEntryDistrict" required="required">
+                            <option ng-repeat="distr in admin.districts" value="{{distr.value}}">{{distr.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <label>* Period</label>
+                    <div class="input-field col  s12 m12">
+
+                        <select  name="period" ng-model="form.form_period" >
+                            <option value="{{main.current_year}}"  selected="selected">{{main.current_year}}</option>
+                            <option ng-repeat="period in main.periods" value="{{period.name}}">{{period.name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="button" ngf-select ng-model="admin.file" name="file" ngf-pattern="'application/pdf'"
+                         accept="application/pdf" ><a href="#"><i class="fa fa-file"></i> Select a File</a></div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12 m12">
+                        <button class="waves-effect waves-light btn col s12 m6" style="background-color:#82b1ff" type="submit" name="submit">Update DHP</button>
+                        <button class="waves-effect waves-light red btn col s12 m6" style="background-color:#82b1ff" type="button" name="cancel" ng-click="admin.cancelUpdate()">CANCEL</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="progress" ng-if="admin.showProgress">
+                        <div class="determinate" style="width:{{admin.progressPercent}}"></div>
+                    </div>
+
+
+                    <div class="col m12 s12" ng-if="admin.message">
+                        <div class="chip" class="{{admin.message_class}}">
+                            {{admin.message}}
+                        </div>
+                    </div>
+                </div>
+            </form>
+                    </div>
+               </div>
+            </div>
+        </div>
     </div>
 </div>
 <script>

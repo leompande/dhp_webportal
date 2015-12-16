@@ -19,6 +19,7 @@
         admin.current_year = date.getFullYear();
         admin.list = true;
         admin.addProfileForm = false;
+        admin.editProfileForm = false;
         admin.criteria = false;
         admin.districtSelector = false;
         admin.profiles = null;
@@ -37,13 +38,42 @@
          * THE BEGINNING OF THE FUNCTION THAT HANDLES ADMIN PAGE FUNCTIONALITY OF PORTAL
          * */
         admin.showList = function(){
-            admin.list =true;
+            admin.editProfileForm = false;
             admin.addProfileForm = false;
-            profileService.listProfileByYear(admin.current_year).then(function(data){
-                admin.profiles = data;
+            admin.list = true;
+            admin.drawTable(admin.current_year,admin.selectedOrgUnitToDisplay);
+            //profileService.listProfileByYear().then(function(data){
+
                 $('select').material_select();
-            },function(response){
-            });
+            //},function(response){
+            //});
+        }
+
+        admin.drawTable = function(year,orgUnit){
+//            var getTableData = function() {
+//                console.log($q)
+//                var deferred = $q;
+//                deferred.resolve([{name:"leonard mpande"},{name:"bianca bree vandamme"},{name:"chris vandamme"}]);
+//                return deferred.promise;
+//            };
+//
+//            admin.dtOptions = DTOptionsBuilder.fromFnPromise(getTableData())
+//                .withPaginationType('full_numbers');
+//            console.log(admin.dtOptions);
+            if(orgUnit==admin.tanzania){
+                profileService.listProfileByYear(year).then(function(data){
+                    admin.profiles = data;
+                },function(response){
+                    console.log(response);
+                });
+            }else{
+                profileService.listProfileByOrgUnitAndPeriod(year,orgUnit).then(function(data){
+                    admin.profiles = data;
+                },function(response){
+                    console.log(response);
+                });
+            }
+
         }
 
         admin.showList();
@@ -65,33 +95,7 @@
             admin.districts = JSON.parse(district).children;
         };
 
-        admin.drawTable = function(year,orgUnit){
-//            var getTableData = function() {
-//                console.log($q)
-//                var deferred = $q;
-//                deferred.resolve([{name:"leonard mpande"},{name:"bianca bree vandamme"},{name:"chris vandamme"}]);
-//                return deferred.promise;
-//            };
-//
-//            admin.dtOptions = DTOptionsBuilder.fromFnPromise(getTableData())
-//                .withPaginationType('full_numbers');
-//            console.log(admin.dtOptions);
-            if(orgUnit==admin.tanzania){
-                profileService.listProfileByYear(year).then(function(data){
-                    console.log(data);
-                },function(response){
-                    console.log(response);
-                });
-            }else{
-                profileService.listProfileByOrgUnitAndPeriod(year,orgUnit).then(function(data){
-                    console.log(data);
-                },function(response){
-                    console.log(response);
-                });
-            }
 
-        }
-        admin.drawTable(admin.selectedPeriod,admin.selectedOrgUnitToDisplay);
         $scope.$watch("admin.selectedOrgUnitRegion",function(newValue,oldValue){
             if(typeof(newValue) !=="undefined"){
                admin.showDistricts(newValue);
@@ -121,12 +125,19 @@
         });
 
         admin.newProfile = function(){
+            admin.editProfileForm = false;
             admin.addProfileForm = true;
-            admin.list =false;
+            admin.list = false;
 
         }
 
         admin.saveProfile = function(form){
+            admin.editProfileForm = false;
+            admin.addProfileForm = true;
+            admin.list = false;
+            form.org_unit_selected = admin.selectedEntryDistrict.split("_")[1];
+
+
             var payload = {file_name:admin.selectedEntryDistrict+"_"+form.form_period+".pdf",file_object:admin.file};
             if(!admin.selectedEntryDistrict&&!form.form_period){
 
@@ -160,6 +171,21 @@
 
         }
 
+        admin.editProfile = function(profile){
+            admin.editProfileForm = true;
+            admin.addProfileForm = false;
+            admin.list = false;
+            var properties = utilityService.getPropertiesArray(profile);
+            admin.editedParrentOrgUnit = properties.region;
+            admin.editedOrgUnit = properties.district;
+            admin.editedYear = properties.year;
+        }
+        admin.cancelUpdate = function(){
+            admin.editProfileForm = false;
+            admin.addProfileForm = false;
+            admin.list = true;
+        }
+
         admin.openCriteria = function(){
             if(admin.criteria){
                 admin.criteria = false;
@@ -170,6 +196,7 @@
 
         admin.deleteProfile = function(profile){
             profileService.delete(profile).then(function(data){
+                admin.showList();
             },function(response){
 
             });

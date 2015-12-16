@@ -23,8 +23,8 @@ if(isset($_GET["file"])) { $test_variable = "for upload";
 		if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
             echo "UPLOAD_SUCCESS";
 		   }else{
-            echo "UPLOAD_FAILED";
-		    }
+           echo "UPLOAD_FAILED";
+        }
 
 		}
 			
@@ -48,10 +48,25 @@ if(isset($_GET["list_files"])){
 
 if(isset($_GET["by_year"])&&isset($_GET["by_orgunit"])){
     $file_list = $dhp->getAppropiatePdfFiles();
-    echo json_encode($file_list);
+    array_shift($file_list);
+    array_shift($file_list);
+    $available_files = array();
+    foreach($file_list as $index=>$value){
+        $orgUnit_array = explode("_",$value);
+        if(is_array($orgUnit_array)){
+//            echo $orgUnit_array[1]."  -->  ".$_GET["by_orgunit"];
+            $orgUnit_array_year = explode(".",$orgUnit_array[2]);
+            if($_GET["by_year"]==$orgUnit_array_year[0]&&($orgUnit_array[0]==$_GET["by_orgunit"]||$orgUnit_array[1]==$_GET["by_orgunit"])){
+                array_push($available_files,$value);
+            }
+        }
+
+    }
+    echo json_encode($available_files);
+
 }
 
-if(isset($_GET["by_year"])){
+if(isset($_GET['only'])&&isset($_GET["by_year"])){
     $file_list_by_year = $dhp->getAppropiatePdfFiles();
     array_shift($file_list_by_year);
     array_shift($file_list_by_year);
@@ -71,7 +86,7 @@ if(isset($_GET["by_year"])){
 
 }
 
-if(isset($_GET["by_orgunit"])){
+if(isset($_GET['only'])&&isset($_GET["by_orgunit"])){
     $file_list = $dhp->getAppropiatePdfFiles();
     echo json_encode($file_list);
 
