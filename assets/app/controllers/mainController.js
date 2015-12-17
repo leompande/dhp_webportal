@@ -329,7 +329,7 @@
             main.logedOut = true;
             main.csv_menu = false;
             main.logedSuccessMessage = "";
-            $location.path("");
+            $location.path("/admin");
         }
         main.login = function(login){
 
