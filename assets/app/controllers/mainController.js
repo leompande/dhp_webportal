@@ -339,23 +339,8 @@
                 utilityService.login(username,password).then(function(data){
                     console.log(username+"  "+password);
                     $scope.progressLogin = false;
-                    //if(!data.success){
-                    //    $cookies.remove('dhis_enabled');
-                    //    $cookies.remove('current_user');
-                    //    main.logedIn = false;
-                    //    main.logedOut = true;
-                    //    main.logedSuccessMessage = "Login Failed : No Connection to DHIS2";
-                    //    $scope.progressLogin = false;
-                    //}else{
                         utilityService.getUserDetails().then(function(userdata){
-                            console.log(userdata);
-                            console.log(typeof(userdata));
-
-                            if(userdata.userCredentials.code==username){
-
-                            }else{
-
-                            }
+                            if(typeof(userdata)=="object"&&userdata.userCredentials.code==username){
                                 $cookies.put('dhis_enabled', 'logedIn');
                                 $cookies.put('current_user', userdata.displayName);
                                 $scope.currentLogedUser = $cookies.get('current_user');
@@ -364,10 +349,17 @@
                                 main.logedOut = false;
                                 main.logedSuccessMessage = "LoggedIn as "+userdata.displayName+" Successfully.";
                                 $timeout(main.closeLoginForm,3000);
+                            }else{
+                                    $cookies.remove('dhis_enabled');
+                                    $cookies.remove('current_user');
+                                    main.logedIn = false;
+                                    main.logedOut = true;
+                                    main.logedSuccessMessage = "Login Failed : No Connection to DHIS2";
+                                    $scope.progressLogin = false;
+                            }
+
 
                         },function(response){});
-                    //}
-
                 },function(response){
                     $cookies.remove('dhis_enabled');
                     $cookies.remove('current_user');
