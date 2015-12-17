@@ -10,6 +10,9 @@
 
     angular
         .module('dhp')
+        .config(function($httpProvider) {
+            $httpProvider.defaults.withCredentials = true;
+        })
         .controller('adminController', adminController);
 
     adminController.$inject   = ['$scope', '$http','$q','$timeout', 'olData','olHelpers','shared','profileService','DTOptionsBuilder','Upload','utilityService'];

@@ -3,6 +3,9 @@
 
     angular
         .module('dhp')
+        .config(function($httpProvider) {
+            $httpProvider.defaults.withCredentials = true;
+        })
         .service('profileService', profileService)
         .service('utilityService', utilityService);
     profileService.$inject = ['$http','Upload'];

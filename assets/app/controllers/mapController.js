@@ -10,6 +10,9 @@
 
     angular
         .module('dhp')
+        .config(function($httpProvider) {
+            $httpProvider.defaults.withCredentials = true;
+        })
         .controller('mapController', mapController);
 
     mapController.$inject   = ['$scope', '$http','$timeout', 'olData','olHelpers','shared'];

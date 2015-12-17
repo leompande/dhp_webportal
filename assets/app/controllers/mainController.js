@@ -3,6 +3,9 @@
 
     angular
         .module('dhp')
+        .config(function($httpProvider) {
+            $httpProvider.defaults.withCredentials = true;
+        })
         .controller('mainController', mainController);
 
     mainController.$inject   = ['$scope','$cookies','$http','$timeout','ivhTreeviewMgr','DTOptionsBuilder', 'DTColumnDefBuilder','profileService','utilityService'];
