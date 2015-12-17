@@ -20,7 +20,6 @@
          * */
 
         $scope.drawMap = function(){
-            console.log($scope.$parent.main.selectedYear);
             $scope.shared = shared;
             shared.facility =3029;
             var url = 'server/organisationUnits.geojson';
@@ -80,7 +79,6 @@
                         }else{
                             percent = number_of_files_available.count/number_of_files_available.total;
                         }
-                        console.log(number_of_files_available.total);
                         var hue = getApproPiateColor(percent.toFixed(3));
 
                         // creating dynamic colors for district

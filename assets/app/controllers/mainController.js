@@ -334,6 +334,7 @@
             var username = login.dhis_login_username;
             var password = login.dhis_login_password;
                 utilityService.login(username,password).then(function(data){
+                    console.log(data);
                     $scope.progressLogin = false;
                     if(!data.success){
                         $cookies.remove('dhis_enabled');
