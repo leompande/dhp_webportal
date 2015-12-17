@@ -55,7 +55,7 @@
         }
 
         profile.login = function(username,password){
-            return $http.post(profile.baseDHIS+"dhis-web-commons-security/login.action?authOnly=true", {
+            return $.post(profile.baseDHIS+"dhis-web-commons-security/login.action?authOnly=true", {
                 'j_username':username,
                 'j_password':password
             }).then(handleSuccess, handleError('Error creating user'));
