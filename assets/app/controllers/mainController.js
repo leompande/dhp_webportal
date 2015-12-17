@@ -338,17 +338,17 @@
             var password = login.dhis_login_password;
                 utilityService.login(username,password).then(function(data){
                     console.log(username+"  "+password);
-                    console.log(data);
                     $scope.progressLogin = false;
-                    if(!data.success){
-                        $cookies.remove('dhis_enabled');
-                        $cookies.remove('current_user');
-                        main.logedIn = false;
-                        main.logedOut = true;
-                        main.logedSuccessMessage = "Login Failed : No Connection to DHIS2";
-                        $scope.progressLogin = false;
-                    }else{
+                    //if(!data.success){
+                    //    $cookies.remove('dhis_enabled');
+                    //    $cookies.remove('current_user');
+                    //    main.logedIn = false;
+                    //    main.logedOut = true;
+                    //    main.logedSuccessMessage = "Login Failed : No Connection to DHIS2";
+                    //    $scope.progressLogin = false;
+                    //}else{
                         utilityService.getUserDetails().then(function(userdata){
+                            console.log(userdata);
                                 $cookies.put('dhis_enabled', 'logedIn');
                                 $cookies.put('current_user', userdata.displayName);
                                 $scope.currentLogedUser = $cookies.get('current_user');
@@ -359,7 +359,7 @@
                                 $timeout(main.closeLoginForm,3000);
 
                         },function(response){});
-                    }
+                    //}
 
                 },function(response){
                     $cookies.remove('dhis_enabled');
