@@ -8,8 +8,8 @@
         })
         .controller('mainController', mainController);
 
-    mainController.$inject   = ['$scope','$cookies','$http','$timeout','ivhTreeviewMgr','DTOptionsBuilder', 'DTColumnDefBuilder','profileService','utilityService'];
-    function mainController($scope,$cookies,$http,$timeout,ivhTreeviewMgr,DTOptionsBuilder, DTColumnDefBuilder,profileService,utilityService) {
+    mainController.$inject   = ['$scope','$cookies','$http','$timeout','$location','ivhTreeviewMgr','DTOptionsBuilder', 'DTColumnDefBuilder','profileService','utilityService'];
+    function mainController($scope,$cookies,$http,$timeout,$location,ivhTreeviewMgr,DTOptionsBuilder, DTColumnDefBuilder,profileService,utilityService) {
         var main  = this;
         var date = new Date();
         $scope.custome_height    ="default";
@@ -329,7 +329,7 @@
             main.logedOut = true;
             main.csv_menu = false;
             main.logedSuccessMessage = "";
-
+            $location.path("");
         }
         main.login = function(login){
 
@@ -337,7 +337,6 @@
             var username = login.dhis_login_username;
             var password = login.dhis_login_password;
                 utilityService.login(username,password).then(function(data){
-                    console.log(username+"  "+password);
                     $scope.progressLogin = false;
                         utilityService.getUserDetails().then(function(userdata){
                             if(typeof(userdata)=="object"&&userdata.userCredentials.code==username){
