@@ -349,6 +349,13 @@
                     //}else{
                         utilityService.getUserDetails().then(function(userdata){
                             console.log(userdata);
+                            console.log(typeof(userdata));
+
+                            if(userdata.userCredentials.code==username){
+
+                            }else{
+
+                            }
                                 $cookies.put('dhis_enabled', 'logedIn');
                                 $cookies.put('current_user', userdata.displayName);
                                 $scope.currentLogedUser = $cookies.get('current_user');

@@ -4,7 +4,6 @@
     <list default="true" id="faf2b6c6-cf65-410e-9119-f837416e3314" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/angular-file-upload" afterPath="$PROJECT_DIR$/assets/angular-file-upload" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/app/controllers/mainController.js" afterPath="$PROJECT_DIR$/assets/app/controllers/mainController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dhp_portal.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,8 +31,8 @@
       <file leaf-file-name="mainController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/app/controllers/mainController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25" vertical-offset="5454" max-vertical-offset="7542">
-              <caret line="341" column="16" selection-start-line="341" selection-start-column="16" selection-end-line="348" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.75" vertical-offset="5508" max-vertical-offset="7596">
+              <caret line="352" column="55" selection-start-line="352" selection-start-column="55" selection-end-line="352" selection-end-column="55" />
               <folding>
                 <element signature="e#2559#3704#0" expanded="false" />
               </folding>
@@ -1008,8 +1007,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/app/controllers/mainController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25" vertical-offset="5454" max-vertical-offset="7542">
-          <caret line="341" column="16" selection-start-line="341" selection-start-column="16" selection-end-line="348" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.75" vertical-offset="5508" max-vertical-offset="7596">
+          <caret line="352" column="55" selection-start-line="352" selection-start-column="55" selection-end-line="352" selection-end-column="55" />
           <folding>
             <element signature="e#2559#3704#0" expanded="false" />
           </folding>
