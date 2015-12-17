@@ -99,33 +99,29 @@
                     <!--{{main.Documents}}-->
                 </div>
             </div>
-            <div class="row">
-                <div class="col m12 s12" style="font-size: 20px;" ng-if="main.chart_shown">DHP District Submission Statistics:{{main.selectedYear}}</div>
-
-                <div class="row" ng-if="main.chart_shown">
-                    <div class="col s12">
-                        <ul class="tabs">
-                            <li class="tab col s3"><a  class="{{main.showChD}}" style="cursor: pointer" ng-click="main.showChart()">Chart</a></li>
-                            <li class="tab col s3"><a  class="{{main.showTabD}}" style="cursor: pointer" ng-click="main.showTable()">Table</a></li>
-                        </ul>
-                    </div>
-                    <div  class="col s12 " style="{{main.showChartD}}">
+            <div class="row" ng-if="main.chart_shown">
+                <div class="col m12 s12" style="font-size: 20px;" >DHP District Submission Statistics:{{main.selectedYear}}</div>
+                    <!--<div class="col s12">Chart:</div>-->
+                    <div  class="col s12 " >
                         <highchart id="chart1" config="chartConfig"></highchart>
                     </div>
-                    <div  class="col s12 " style="{{main.showTableD}}">
+                    <div  class="col s12 " >
+                        <div class="row">PROFILE LIST</div>
+                    </div>
+                    <div  class="col s12 " >
                         <table  class="row" style="margin-top: 10px;"  >
                         <thead>
-                        <tr><th>District Name</th></tr>
+                        <tr><th>Region Name</th><th>District Name</th></tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="row in main.orgUnitTable" style="cursor: pointer;"  ng-click="main.getHealthProfileFromTable(row)" title="click to preview profile">
                         <td  style="text-align: left;">{{row.region}}</td>
                         <td class="waves-effect waves-block" style="text-align: left;">{{row.district}}</td>
                         </tr>
+                        <tr ng-if="main.orgUnitTable.length==0"><td colspan="2">No health profile available</td></tr>
                         </tbody>
                         </table>
                     </div>
-                </div>
                 <script>
                     $('ul.tabs').tabs();
                 </script>

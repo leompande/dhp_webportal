@@ -335,14 +335,13 @@
             var password = login.dhis_login_password;
                 utilityService.login(username,password).then(function(data){
                     $scope.progressLogin = false;
-                    if(data.success){
+                    if(!data.success){
                         $cookies.remove('dhis_enabled');
                         $cookies.remove('current_user');
                         main.logedIn = false;
                         main.logedOut = true;
                         main.logedSuccessMessage = "Login Failed : No Connection to DHIS2";
                         $scope.progressLogin = false;
-
                     }else{
                         utilityService.getUserDetails().then(function(userdata){
                                 $cookies.put('dhis_enabled', 'logedIn');
@@ -355,7 +354,6 @@
                                 $timeout(main.closeLoginForm,3000);
 
                         },function(response){});
-
                     }
 
                 },function(response){
