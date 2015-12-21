@@ -33,11 +33,54 @@ if(isset($_GET["file"])) { $test_variable = "for upload";
 
 }
 
-if(isset($_GET["csv_output"])) { 
-	$csv_file = "../downloads/datavalueset.csv";
-	DhpFile::queryTheDatabase('report_container',$csv_file);
-	
-	}
+//if(isset($_GET["csv_output"])) {
+//	$csv_file = "../downloads/datavalueset.csv";
+//	echo DhpFile::queryTheDatabase('report_container',$csv_file);
+//
+//	}
+if(isset($_GET["csv_input"])){
+
+    $categoryOptionCombo = "uGIJ6IdkP7Q";
+    $attributeOptionCombo = "uGIJ6IdkP7Q";
+    $test_variable = "for upload";
+    $target_file = $_GET['new_file_name'];
+
+    $target_dir = "../dataset/";
+    $target_file = $target_dir . basename($target_file);
+    $uploadOk = 1;
+    $fileType = pathinfo($target_file,PATHINFO_EXTENSION);
+    if (file_exists($target_file)) {
+
+        if(unlink($target_file)){
+            if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
+                print_r($dhp::processUploadsForDHIS($target_file,$_GET['period'],$_GET['orgUnitId'],$categoryOptionCombo,$attributeOptionCombo));
+            }else{
+                echo "UPLOAD_FAILED";
+            }
+        }
+
+
+
+        $uploadOk = 0;
+    }else{
+
+        if($fileType != "csv") {
+            echo "INVALID_TYPE_ERROR";
+            $uploadOk = 0;
+        }else{
+
+            if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
+//                echo "UPLOAD_SUCCESS";
+                echo $dhp::processUploadsForDHIS($target_file,$_GET['period'],$_GET['orgUnitId'],$categoryOptionCombo,$attributeOptionCombo);
+            }else{
+                echo "UPLOAD_FAILED";
+            }
+
+        }
+
+    }
+
+}
 
 if(isset($_GET["list_files"])){
     $file_list = $dhp->getAppropiatePdfFiles();

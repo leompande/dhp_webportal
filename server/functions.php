@@ -53,8 +53,7 @@ class DhpFile {
 					$line_of_text[] = fgetcsv($file_handle);
 				}
 				fclose($file_handle);
-				
-				//~ $available_fields = array('Foreword_Field','Acknowledgements_Field','Executive_Field','Mission_Field','Structure_Field','Facility_Field','Population_Field','Geography_Field','Transportation_Field','Education_Field','DataCollection_Field','KeyMessages_Field','HealthStatusOfPopulation_Field','Morbidity_Field','DistrictHealthStatus_Field','StatusOfHealthServiceDelivery_Field','VaccinationServices_Field','ReproductiveHealthServices_Field','InfectionDisease_Field','DistrictHealthServiceDelivery_Field','StatusOfDistrictHealthSystems_Field','HumanResourcesForHealth_Field','MedicinesDrugs_Field','Infrastructure_Field','DistrictHealthSystemConclusions_Field','Recommendations_Field');
+
 				$available_fields = array('Foreword_Field','Acknowledgements_Field','Executive_Field','Mission_Field','Structure_Field','Facility_Field','Population_Field');
 				$dataelements = array('cKRsMKICQez','edyxVWaBAhu','NL6LIVRNlFI','VuF0VIZMQsh','zunP9DXYltg','CXZmOyNVjSe','BP7gXfZfQrl');
 				
@@ -91,7 +90,7 @@ class DhpFile {
 					}
 
 				DhpFile::saveDataToCSVFile('report_container',$json_object,$available_fields,$period,$orgUnit,$category,$attributeoptioncombo);
-				DhpFile::send_CSV_To_Dhis($csv_file);
+//				DhpFile::send_CSV_To_Dhis($csv_file);
 					return $json_object;
 					
 		}
@@ -254,10 +253,11 @@ class DhpFile {
 			}
 
 		public static function send_CSV_To_Dhis($csv_file){
-		                $old_path = getcwd();
-						chdir('/var/www/html/dhp_portal/downloads');
-						$output = shell_exec('./pushdatavalue.sh');
-						chdir($old_path);
+//		                $old_path = getcwd();
+//						chdir('/var/www/html/dhp_portal/downloads');
+//						$output = shell_exec('./pushdatavalue.sh');
+//						chdir($old_path);
+            echo $csv_file;
 
 			}
 

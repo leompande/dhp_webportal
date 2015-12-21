@@ -27,9 +27,17 @@
         }
 
         profile.saveProfile = function(data){
-            console.log(data.file_object);
+            console.log(data);
             return Upload.upload({
                 url: 'server/process.php?file=1&new_file_name='+data.file_name,
+                data: {file: data.file_object}
+            }).then(handleSuccess, handleError('Error creating user'));
+        }
+
+        profile.uploadCSVProfile = function(data){
+            console.log(data);
+            return Upload.upload({
+                url: 'server/process.php?csv_input=1&new_file_name='+data.file_name+'&orgUnitId='+data.orgunit+'&period='+data.period,
                 data: {file: data.file_object}
             }).then(handleSuccess, handleError('Error creating user'));
         }
@@ -44,7 +52,7 @@
     }
     function utilityService($http) {
       var profile = this;
-        profile.baseDHIS = "http://139.162.204.124/dhis/";
+        profile.baseDHIS = "http://139.162.204.124/training/";
         profile.basePortal = "server/";
 
         profile.loadOrganisationUnits = function(){
@@ -66,6 +74,11 @@
             return $http.get(profile.baseDHIS+currentUserUrl).then(handleSuccess, handleError('Error creating user'));
 
         }
+        profile.getDataElements = function(){
+            var url = "api/dataElementGroups/TWx3Doxh1jG.json?fields=id,name,dataElements[id,name]";
+            return $http.get(profile.baseDHIS+url).then(handleSuccess, handleError('Error creating user'));
+
+        }
 
 
         profile.modifyOrgUnits = function(rawOrgUnits){
@@ -74,7 +87,7 @@
             angular.forEach(rawOrgUnits,function(value,index){
                 var regions = {value:value.name,children:[]};
                 angular.forEach(value.children,function(valueChildren,indexChildren){
-                    regions.children.push({name:valueChildren.name,value:value.name+"_"+valueChildren.name});
+                    regions.children.push({name:valueChildren.name,value:value.name+"_"+valueChildren.name,id:value.id});
                 });
                 Regions.push(regions);
                 i++;
