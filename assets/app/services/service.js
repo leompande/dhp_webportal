@@ -82,14 +82,28 @@
 
         profile.prepareDataElementUid = function(data){
             localStorage.removeItem('dataElementsNames');
-            localStorage.setItem('dataElementsNames',JSON.stringify(data));
-            console.log(data);
+            var elementsNames = [];
+
+            angular.forEach(data.dataElements,function(value,index){
+                elementsNames.push(value.id);
+            });
+
+            localStorage.setItem('dataElementsNames',JSON.stringify(elementsNames));
+            console.log(elementsNames);
         }
 
         profile.prepareDataElementNames = function(data){
             localStorage.removeItem('dataElementsUids');
             localStorage.setItem('dataElementsUids',JSON.stringify(data));
-            console.log(data);
+
+            var elementsUids = [];
+
+            angular.forEach(data.dataElements,function(value,index){
+                elementsUids.push(value.id);
+            });
+
+            localStorage.setItem('dataElementsUids',JSON.stringify(elementsUids));
+            console.log(elementsUids);
         }
 
 
