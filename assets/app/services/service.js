@@ -85,7 +85,7 @@
             var elementsNames = [];
 
             angular.forEach(data.dataElements,function(value,index){
-                elementsNames.push(value.id);
+                elementsNames.push(value.name);
             });
 
             localStorage.setItem('dataElementsNames',JSON.stringify(elementsNames));
