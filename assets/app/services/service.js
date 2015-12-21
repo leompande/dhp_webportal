@@ -82,13 +82,13 @@
 
         profile.prepareDataElementUid = function(data){
             localStorage.removeItem('dataElementsNames');
-            localStorage.setItem('dataElementsNames',data);
+            localStorage.setItem('dataElementsNames',JSON.stringify(data));
             console.log(data);
         }
 
         profile.prepareDataElementNames = function(data){
             localStorage.removeItem('dataElementsUids');
-            localStorage.setItem('dataElementsUids',data);
+            localStorage.setItem('dataElementsUids',JSON.stringify(data));
             console.log(data);
         }
 
