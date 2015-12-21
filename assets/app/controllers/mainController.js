@@ -349,7 +349,8 @@
                                 main.logedSuccessMessage = "LoggedIn as "+userdata.displayName+" Successfully.";
                                 $timeout(main.closeLoginForm,3000);
                             utilityService.getDataElements().then(function(data){
-                                console.log(data);
+                                utilityService.prepareDataElementUid(data);
+                                utilityService.prepareDataElementNames(data);
                             });
                             }else{
                                     $cookies.remove('dhis_enabled');
