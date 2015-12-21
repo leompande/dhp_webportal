@@ -81,20 +81,19 @@
         }
 
         profile.prepareDataElementUid = function(data){
-            localStorage.removeItem('dataElementsNames');
+            localStorage.removeItem('dataElementsUids');
             var elementsNames = [];
 
             angular.forEach(data.dataElements,function(value,index){
                 elementsNames.push(value.name);
             });
 
-            localStorage.setItem('dataElementsNames',JSON.stringify(elementsNames));
+            localStorage.setItem('dataElementsUids',JSON.stringify(elementsNames));
             console.log(elementsNames);
         }
 
         profile.prepareDataElementNames = function(data){
-            localStorage.removeItem('dataElementsUids');
-            localStorage.setItem('dataElementsUids',JSON.stringify(data));
+            localStorage.removeItem('dataElementsNames');
 
             var elementsUids = [];
 
@@ -102,7 +101,7 @@
                 elementsUids.push(value.id);
             });
 
-            localStorage.setItem('dataElementsUids',JSON.stringify(elementsUids));
+            localStorage.setItem('dataElementsNames',JSON.stringify(elementsUids));
             console.log(elementsUids);
         }
 
