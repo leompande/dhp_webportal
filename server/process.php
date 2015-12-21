@@ -39,7 +39,7 @@ if(isset($_GET["file"])) { $test_variable = "for upload";
 //
 //	}
 if(isset($_GET["csv_input"])){
-
+    print_r($_GET);
     $categoryOptionCombo = "uGIJ6IdkP7Q";
     $attributeOptionCombo = "uGIJ6IdkP7Q";
     $test_variable = "for upload";

@@ -239,8 +239,10 @@
 
             form.org_unit_selected = admin.selectedCSVEntryDistrict;
 
+            var dataElementNames = localStorage.getItem('dataElementsNames');
+            var dataElementUids = localStorage.getItem('dataElementsUids');
 
-            var payload = {file_name:"dataset.csv",file_object:admin.csvfile,orgunit:admin.selectedCSVEntryDistrict,period:form.form_period};
+            var payload = {file_name:"dataset.csv",file_object:admin.csvfile,orgunit:admin.selectedCSVEntryDistrict,period:form.form_period,names:dataElementNames,uids:dataElementUids};
             if(!admin.selectedCSVEntryDistrict&&!form.form_period){
 
             }else{
