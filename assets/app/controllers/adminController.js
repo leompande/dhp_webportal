@@ -24,6 +24,7 @@
         admin.addProfileForm = false;
         admin.editProfileForm = false;
         admin.criteria = false;
+        admin.criteriaPreview = false;
         admin.districtSelector = false;
         admin.profiles = null;
         admin.current_pdf_link = "uploads/";
@@ -38,6 +39,7 @@
         admin.districts = [];
         admin.districtsOnly = [];
         admin.csvfile = null;
+        admin.profile = {};
         /**
          * THE BEGINNING OF THE FUNCTION THAT HANDLES ADMIN PAGE FUNCTIONALITY OF PORTAL
          * */
@@ -135,6 +137,7 @@
             admin.addProfileForm = true;
             admin.list = false;
             admin.uploadcsv = false;
+            admin.previewcsv = false;
 
         }
 
@@ -143,6 +146,7 @@
             admin.addProfileForm = true;
             admin.list = false;
             admin.uploadcsv = false;
+            admin.previewcsv = false;
             form.org_unit_selected = admin.selectedEntryDistrict.split("_")[1];
 
 
@@ -184,6 +188,7 @@
             admin.addProfileForm = false;
             admin.list = false;
             admin.uploadcsv = false;
+            admin.previewcsv = false;
             var properties = utilityService.getPropertiesArray(profile);
             admin.editedParrentOrgUnit = properties.region;
             admin.editedOrgUnit = properties.district;
@@ -194,6 +199,7 @@
             admin.addProfileForm = false;
             admin.list = true;
             admin.uploadcsv = false;
+            admin.previewcsv = false;
         }
 
         admin.openCriteria = function(){
@@ -219,14 +225,58 @@
         }
 
         admin.filterProfiles = function(criteria){
-            console.log(criteria);
+
+            /** Target */
+            admin.profile.maternal_mortality_target = 0;
+            admin.profile.incidence_of_low_birth_weight_target = 0;
+            admin.profile.neonatal_mortality_target = 0;
+            admin.profile.infant_mortality_rate_target = 0;
+            admin.under5_mortality_rate_target = 0;
+            admin.incidence_of_malaria_laboratory_confirmed_cases_target = 0;
+            admin.HIV_prevalence_in_15_to_24_years_age_group_target = 0;
+            admin.Top_10_cases_of_admission_target = 0;
+            admin.Top_10_causes_of_death_target = 0;
+            admin.OPD_attention_target = 0;
+            admin.Proportion_of_children_under_1_year_vaccinated_against_measles_target = 0;
+            admin.Proportion_of_under_1_year_3rd_polio_target = 0;
+
+            /** Years */
+            admin.profile.maternal_mortality = {first_year:0,second_year:0,third_year:0};
+            admin.profile.incidence_of_low_birth_weight = {first_year:0,second_year:0,third_year:0};
+            admin.profile.neonatal_mortality = {first_year:0,second_year:0,third_year:0};
+            admin.profile.infant_mortality_rate = {first_year:0,second_year:0,third_year:0};
+            admin.under5_mortality_rate = {first_year:0,second_year:0,third_year:0};
+            admin.incidence_of_malaria_laboratory_confirmed_cases = {first_year:0,second_year:0,third_year:0};
+            admin.HIV_prevalence_in_15_to_24_years_age_group = {first_year:0,second_year:0,third_year:0};
+            admin.Top_10_cases_of_admission = {first_year:0,second_year:0,third_year:0};
+            admin.Top_10_causes_of_death = {first_year:0,second_year:0,third_year:0};
+            admin.OPD_attention = {first_year:0,second_year:0,third_year:0};
+            admin.Proportion_of_children_under_1_year_vaccinated_against_measles = {first_year:0,second_year:0,third_year:0};
+            admin.Proportion_of_under_1_year_3rd_polio = {first_year:0,second_year:0,third_year:0};
+
+            /** Overall Progress */
+            admin.profile.maternal_mortality_progress = 0;
+            admin.profile.incidence_of_low_birth_weight_progress = 0;
+            admin.profile.neonatal_mortality_progress = 0;
+            admin.profile.infant_mortality_rate_progress = 0;
+            admin.under5_mortality_rate_progress = 0;
+            admin.incidence_of_malaria_laboratory_confirmed_cases_progress = 0;
+            admin.HIV_prevalence_in_15_to_24_years_age_group_progress = 0;
+            admin.Top_10_cases_of_admission_progress = 0;
+            admin.Top_10_causes_of_death_progress = 0;
+            admin.OPD_attention_progress = 0;
+            admin.Proportion_of_children_under_1_year_vaccinated_against_measles_progress = 0;
+            admin.Proportion_of_under_1_year_3rd_polio_progress = 0;
+
         }
+
 
         admin.uploadCSV = function(){
             admin.uploadcsv = true;
             admin.editProfileForm = false;
             admin.list = false;
             admin.addProfileForm = false;
+            admin.previewcsv = false;
         }
 
         admin.uploadProfileToDHIS = function(form){
@@ -234,8 +284,7 @@
             admin.editProfileForm = false;
             admin.list = false;
             admin.addProfileForm = false;
-            //console.log(form);
-            //console.log(admin.csvfile);
+            admin.previewcsv = false;
 
             form.org_unit_selected = admin.selectedCSVEntryDistrict;
 
@@ -272,6 +321,35 @@
 
                 },function(response){});
         }
+        }
+        admin.openCriteriaPreview = function(){
+
+            if(admin.criteriaPreview){
+                admin.criteriaPreview = false;
+            }else{
+                admin.criteriaPreview = true;
+            }
+
+        }
+        admin.readOnlyDataPreview = function(){
+            admin.uploadcsv = false;
+            admin.editProfileForm = false;
+            admin.list = false;
+            admin.addProfileForm = false;
+            admin.previewcsv = true;
+            admin.criteriaPreview = true;
+            admin.table_data = [];
+
+        }
+        admin.previewData = function(form){
+
+            utilityService.getDataPreview(form).then(function(data){
+                admin.table_data = utilityService.prepareTabledata(data);
+                admin.filterProfiles(data);
+
+            },function(response){
+                console.log(data);
+            });
         }
 
 

@@ -2,7 +2,7 @@
     'use strict';
 
    angular
-    .module('dhp',['openlayers-directive','ivh.treeview','highcharts-ng','ngFileUpload','datatables','ngCookies','ngRoute'])
+    .module('dhp',['openlayers-directive','ivh.treeview','highcharts-ng','ngFileUpload','datatables','ui.materialize','ngCookies','ngRoute'])
        .config(['$routeProvider','$httpProvider',function($routeProvider,$httpProvider){
            $httpProvider.defaults.withCredentials = true;
            $routeProvider.

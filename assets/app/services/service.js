@@ -74,6 +74,15 @@
             return $http.get(profile.baseDHIS+currentUserUrl).then(handleSuccess, handleError('Error creating user'));
 
         }
+
+        profile.getDataPreview = function(form){
+            var organisation_unit = form.org_unit_selected;
+            var period = form.form_period;
+            var dataset="Pc2t6Tq5era";
+            var url = "api/dataValueSets.json?dataSet="+dataset+"&period="+period+"&orgUnit="+organisation_unit;
+
+            return $http.get(profile.baseDHIS+url).then(handleSuccess, handleError('Error creating user'));
+        }
         profile.getDataElements = function(){
             var url = "api/dataElementGroups/TWx3Doxh1jG.json?fields=id,name,dataElements[id,name]";
             return $http.get(profile.baseDHIS+url).then(handleSuccess, handleError('Error creating user'));
@@ -106,13 +115,15 @@
         }
 
 
+
+
         profile.modifyOrgUnits = function(rawOrgUnits){
             var Regions = [];
             var i  = 0;
             angular.forEach(rawOrgUnits,function(value,index){
                 var regions = {value:value.name,children:[]};
                 angular.forEach(value.children,function(valueChildren,indexChildren){
-                    regions.children.push({name:valueChildren.name,value:value.name+"_"+valueChildren.name,id:value.id});
+                    regions.children.push({name:valueChildren.name,value:value.name+"_"+valueChildren.name,id:valueChildren.id});
                 });
                 Regions.push(regions);
                 i++;
@@ -120,6 +131,15 @@
             return Regions;
         }
 
+        profile.prepareTabledata = function(data){
+            console.log(data);
+            if(typeof(data.dataValues)!=="undefined"){
+                angular.forEach(data.data,function(value,index){
+                    console.log(value);
+                })
+            }
+
+        }
         profile.getPropertiesArray = function(profile_string){
             var stage_one = profile_string.split("_");
             var region = stage_one[0];

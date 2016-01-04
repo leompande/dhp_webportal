@@ -32,9 +32,9 @@
                 </div>
                 <div class="input-field col m4 s12">
                     <lable for="period_map" class="grey-text">Select Period</lable>
-                    <select  name="period" ng-model="main.selectedYear"id="period_map">
-                        <option selected="selected">2015</option>
-                        <option ng-repeat="period in main.periods" >{{period.name}}</option>
+                    <select  name="period" ng-change="main.changePeriod()" ng-model="main.selectedYear"  class="browser-default" >
+                        <option ng-selected="selected" value="{{main.selectedYear}}">{{main.selectedYear}}</option>
+                        <option ng-repeat="period in main.periods" ng-show="main.selectedYear!=period.name">{{period.name}}</option>
                     </select>
 
                 </div>
@@ -137,21 +137,198 @@
                 </div>
                 <div class="col s1 m1"><a class="waves-effect waves-light btn" ng-click="main.backToGrid()"><i class="fa fa-arrow-left"></i></a></div>
             </div>
+
             <br/>
             <div class="col s12 m12 ">
+                <style>
+                    table.profile_table {
+                        border:1px solid #ccc;
+                        color:#000000!important;
+                        margin-bottom:20px;
+                    }
+                    table.profile_table tr{
+                        border:1px solid #ccc;
+                    }
+                    table.profile_table tr td{
+                        border:1px solid #ccc;
+                        padding:5px;
+                    }
+                    .align_left{
+                        text-align:left;
+                    }
+                    .header_one{
+                        background-color:#D2E1B5!important;
+                        font-weight:bold;
+                    }
+
+                    .header_two{
+                        background-color:#FCC48C!important;
+                        font-weight:bold;
+                    }
+
+                    .preview_profile{
+                        overflow: -moz-scrollbars-vertical;
+                        overflow-y: scroll;
+                        max-height:1000px;
+                    }
+
+                </style>
                 <br/>
-                <object data="{{main.current_pdf_link}}"  type="application/pdf" width="100%" height="1000px">
+                <div class="col s12 m12">
+                    <a class="btn " ng-click="main.showHtml()">HTML</a>
+                    <a class="btn " ng-click="main.showPdf()">PDF</a>
+                </div>
+                <br/>
+                <br/>
+                <div class="col s12 m12 preview_profile"  ng-if="main.shownHtml">
+                    <table class="profile_table">
+                        <tr class="header_one">
+                            <td class="align_left ">
+                                HEALTH STATUS OF THE DISTRICT POPULATION
+                            </td>
+                            <td>TARGET</td>
+                            <td>2010</td>
+                            <td>2011</td>
+                            <td>2012</td>
+                            <td>OVERALL PROGRESS (+/-)</td>
+                        </tr>
+                        <tr class="header_two">
+                            <td colspan="6" class="align_left">Marternal,Newborn and Child Health</td>
+                        </tr>
+                        <tr>
+                            <td class="align_left">Maternal mortality ratio</td>
+                            <td>{{main.profile.maternal_mortality_target}}</td>
+                            <td>{{main.profile.maternal_mortality.first_year}}</td>
+                            <td>{{main.profile.maternal_mortality.second_year}}</td>
+                            <td>{{main.profile.maternal_mortality.third_year}}</td>
+                            <td>{{main.profile.maternal_mortality_progress}}</td>
+                        </tr>
+                        <tr>
+                            <td class="align_left">Nutritional Status: Incidence of low birth weight among humans</td>
+                            <td>{{main.profile.incidence_of_low_birth_weight_target}}</td>
+                            <td>{{main.profile.incidence_of_low_birth_weight.first_year}}</td>
+                            <td>{{main.profile.incidence_of_low_birth_weight.second_year}}</td>
+                            <td>{{main.profile.incidence_of_low_birth_weight.third_year}}</td>
+                            <td>{{main.profile.incidence_of_low_birth_weight_progress}}</td>
+                        </tr>
+                        <tr>
+                            <td class="align_left">Neonatal mortality rates (per 1,000)</td>
+                            <td>{{main.profile.neonatal_mortality_target}}</td>
+                            <td>{{main.profile.neonatal_mortality.first_year}}</td>
+                            <td>{{main.profile.neonatal_mortality.second_year}}</td>
+                            <td>{{main.profile.neonatal_mortality.third_year}}</td>
+                            <td>{{main.profile.neonatal_mortality_progress}}</td>
+                        </tr>
+                        <tr>
+                            <td class="align_left">Infant mortality rates (per 1,000)</td>
+                            <td>{{main.profile.infant_mortality_rate_target}}</td>
+                            <td>{{main.profile.infant_mortality_rate.first_year}}</td>
+                            <td>{{main.profile.infant_mortality_rate.second_year}}</td>
+                            <td>{{main.profile.infant_mortality_rate.third_year}}</td>
+                            <td>{{main.profile.infant_mortality_rate_progress}}</td>
+                        </tr>
+                        <tr>
+                            <td class="align_left">Under 5 mortality rates (per 1,000)</td>
+                            <td>{{main.profile.under5_mortality_rate_target}}</td>
+                            <td>{{main.profile.under5_mortality_rate.first_year}}</td>
+                            <td>{{main.profile.under5_mortality_rate.second_year}}</td>
+                            <td>{{main.profile.under5_mortality_rate.third_year}}</td>
+                            <td>{{main.profile.under5_mortality_rate_progress}}</td>
+                        </tr>
+                        <tr class="header_two">
+                            <td colspan="6" class="align_left">Morbidity</td>
+                        </tr>
+                        <tr>
+                            <td class="align_left">Incidence of malaria/laboratory confirmed cases</td>
+                            <td>{{main.profile.incidence_of_malaria_laboratory_confirmed_cases_target}}</td>
+                            <td>{{main.profile.incidence_of_malaria_laboratory_confirmed_cases.first_year}}</td>
+                            <td>{{main.profile.incidence_of_malaria_laboratory_confirmed_cases.second_year}}</td>
+                            <td>{{main.profile.incidence_of_malaria_laboratory_confirmed_cases.third_year}}</td>
+                            <td>{{main.profile.incidence_of_malaria_laboratory_confirmed_cases_progress}}</td>
+                        </tr>
+                        <tr>
+                            <td class="align_left">HIV prevalence in 15 to 24 years age group</td>
+                            <td>{{main.profile.HIV_prevalence_in_15_to_24_years_age_group_target}}</td>
+                            <td>{{main.profile.HIV_prevalence_in_15_to_24_years_age_group.first_year}}</td>
+                            <td>{{main.profile.HIV_prevalence_in_15_to_24_years_age_group.second_year}}</td>
+                            <td>{{main.profile.HIV_prevalence_in_15_to_24_years_age_group.third_year}}</td>
+                            <td>{{main.profile.HIV_prevalence_in_15_to_24_years_age_group_progress}}</td>
+                        </tr>
+                        <tr>
+                            <td class="align_left">Top 10 cases of admission (List #1 cause)</td>
+                            <td>{{main.profile.Top_10_cases_of_admission_target}}</td>
+                            <td>{{main.profile.Top_10_cases_of_admission.first_year}}</td>
+                            <td>{{main.profile.Top_10_cases_of_admission.second_year}}</td>
+                            <td>{{main.profile.Top_10_cases_of_admission.third_year}}</td>
+                            <td>{{main.profile.Top_10_cases_of_admission_progress}}</td>
+                        </tr>
+                        <tr class="header_two">
+                            <td colspan="6" class="align_left">Mortality</td>
+                        </tr>
+                        <tr>
+                            <td class="align_left">Top 10 causes of death (List # cause)</td>
+                            <td>{{main.profile.Top_10_causes_of_death_target}}</td>
+                            <td>{{main.profile.Top_10_causes_of_death.first_year}}</td>
+                            <td>{{main.profile.Top_10_causes_of_death.second_year}}</td>
+                            <td>{{main.profile.Top_10_causes_of_death.third_year}}</td>
+                            <td>{{main.profile.Top_10_causes_of_death_progress}}</td>
+                        </tr>
+                        <tr class="header_one">
+                            <td>DISTRICT HEALTH SERVICE DELIVERY</td>
+                            <td>TARGET</td>
+                            <td>2010</td>
+                            <td>2011</td>
+                            <td>2012</td>
+                            <td>OVERALL PROGRESS (+/-)</td>
+                        </tr>
+                        <tr class="header_two">
+                            <td colspan="6" class="align_left">General</td>
+                        </tr>
+                        <tr>
+                            <td class="align_left">OPD attention</td>
+                            <td>{{main.profile.OPD_attention_target}}</td>
+                            <td>{{main.profile.OPD_attention.first_year}}</td>
+                            <td>{{main.profile.OPD_attention.second_year}}</td>
+                            <td>{{main.profile.OPD_attention.third_year}}</td>
+                            <td>{{main.profile.OPD_attention_progress}}</td>
+                        </tr>
+                        <tr class="header_two">
+                            <td colspan="6" class="align_left">Vaccination</td>
+                        </tr>
+                        <tr>
+                            <td class="align_left">Proportion of children under 1 year vaccinated against measles</td>
+                            <td>{{main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles_target}}</td>
+                            <td>{{main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles.first_year}}</td>
+                            <td>{{main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles.second_year}}</td>
+                            <td>{{main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles.third_year}}</td>
+                            <td>{{main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles_progress}}</td>
+                        </tr>
+                        <tr>
+                            <td class="align_left">Proportion of under 1 year 3rd polio (OPV3)</td>
+                            <td>{{main.profile.Proportion_of_under_1_year_3rd_polio_target}}</td>
+                            <td>{{main.profile.Proportion_of_under_1_year_3rd_polio.first_year}}</td>
+                            <td>{{main.profile.Proportion_of_under_1_year_3rd_polio.second_year}}</td>
+                            <td>{{main.profile.Proportion_of_under_1_year_3rd_polio.third_year}}</td>
+                            <td>{{main.profile.Proportion_of_under_1_year_3rd_polio_progress}}</td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="col s12 m12 " ng-if="main.shownPdf">
+                    <object data="{{main.current_pdf_link}}"  type="application/pdf" width="100%" height="1000px">
                     <p>Document preview is not available go <a href="{{main.current_pdf_link}}">to the PDF!</a> manually.</p>
-                </object>
+                    </object>
+                </div>
+
             </div>
 
         </div>
         <div class="card-action" ng-if="viewOpen">
             <a href="{{main.current_pdf_link}}" target="_blank">Download</a>
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="https://twitter.com/intent/tweet?text={{main.current_pdf_link}}"
-               data-size="large"><i class="fa fa-twitter"></i></a>
-            <a href="http://www.linkedin.com/shareArticle?mini=true&url={{main.current_pdf_link}}"><i class="fa fa-linkedin"></i></a>
+            <!--<a href="#"><i class="fa fa-facebook"></i></a>-->
+            <!--<a href="https://twitter.com/intent/tweet?text={{main.current_pdf_link}}"-->
+               <!--data-size="large"><i class="fa fa-twitter"></i></a>-->
+            <!--<a href="http://www.linkedin.com/shareArticle?mini=true&url={{main.current_pdf_link}}"><i class="fa fa-linkedin"></i></a>-->
         </div>
     </div>
 </div>
@@ -160,7 +337,8 @@
     $(document).ready(function() {
         var date = new Date();
         var year = date.getFullYear();
-        $("select option[value='? number:"+year+" ?']").remove();
+
+//        angular.element($("select option[value='? number:"+year+" ?']")).remove();
             $('.collapsible').collapsible();
 
     });

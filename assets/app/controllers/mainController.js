@@ -37,9 +37,11 @@
         main.regions = [];
         $scope.form={form_period:main.current_year,org_unit_selected:""};
         $scope.showProgress = false;
-        main.logedIn = false;
+        main.logedIn = true;
         $scope.progressLogin = false;
         main.logedOut = true;
+        main.shownHtml = true;
+        main.shownPdf = false;
         $scope.currentLogedUser = $cookies.get('current_user');
         $scope.selectedDistrictName = "";
         $scope.message_class = null;
@@ -47,6 +49,8 @@
         main.orgUnitTable = [];
         main.organisationUnitTree = []
         main.logedSuccessMessage = "";
+        main.profile = {};
+
         if($cookies.get('dhis_enabled')){
             main.logedIn = true;
             main.logedOut = false;
@@ -103,6 +107,7 @@
             });
         }
         main.drawChart();
+
         main.backToChart = function(){
             $scope.viewOpen = false;
             main.chart_shown = true;
@@ -112,6 +117,15 @@
 
         }
 
+        main.showHtml = function(){
+            main.shownHtml = true;
+            main.shownPdf = false;
+        }
+
+        main.showPdf = function(){
+            main.shownHtml = false;
+            main.shownPdf = true;
+        }
 
         //broadcast event that year has changed
         $scope.$watch("main.selectedYear",function(oldOne,newOne){
@@ -147,7 +161,7 @@
             main.current_id = id;
         }
         main.getHealthProfileFromTable = function(row){
-            main.openPdfFile(row.file)
+            main.openPdfFile(row.file);
         }
         main.processView = function(orgUnit,name,id){
             if(orgUnit.children!=null){
@@ -211,7 +225,66 @@
             main.clickedDistrict = details[1]+" "+year[0];
             $scope.viewOpen = true;
             $scope.custome_height ="not_found";
+            main.previewData($scope.form);
 
+        }
+
+        main.filterProfiles = function(data){
+
+
+            /** Target */
+            main.profile.maternal_mortality_target = 0;
+            main.profile.incidence_of_low_birth_weight_target = 0;
+            main.profile.neonatal_mortality_target = 0;
+            main.profile.infant_mortality_rate_target = 0;
+            main.profile.under5_mortality_rate_target = 0;
+            main.profile.incidence_of_malaria_laboratory_confirmed_cases_target = 0;
+            main.profile.HIV_prevalence_in_15_to_24_years_age_group_target = 0;
+            main.profile.Top_10_cases_of_admission_target = 0;
+            main.profile.Top_10_causes_of_death_target = 0;
+            main.profile.OPD_attention_target = 0;
+            main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles_target = 0;
+            main.profile.Proportion_of_under_1_year_3rd_polio_target = 0;
+
+            /** Years */
+            main.profile.maternal_mortality = {first_year:0,second_year:0,third_year:0};
+            main.profile.incidence_of_low_birth_weight = {first_year:0,second_year:0,third_year:0};
+            main.profile.neonatal_mortality = {first_year:0,second_year:0,third_year:0};
+            main.profile.infant_mortality_rate = {first_year:0,second_year:0,third_year:0};
+            main.profile.under5_mortality_rate = {first_year:0,second_year:0,third_year:0};
+            main.profile.incidence_of_malaria_laboratory_confirmed_cases = {first_year:0,second_year:0,third_year:0};
+            main.profile.HIV_prevalence_in_15_to_24_years_age_group = {first_year:0,second_year:0,third_year:0};
+            main.profile.Top_10_cases_of_admission = {first_year:0,second_year:0,third_year:0};
+            main.profile.Top_10_causes_of_death = {first_year:0,second_year:0,third_year:0};
+            main.profile.OPD_attention = {first_year:0,second_year:0,third_year:0};
+            main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles = {first_year:0,second_year:0,third_year:0};
+            main.profile.Proportion_of_under_1_year_3rd_polio = {first_year:0,second_year:0,third_year:0};
+
+            /** Overall Progress */
+            main.profile.maternal_mortality_progress = 0;
+            main.profile.incidence_of_low_birth_weight_progress = 0;
+            main.profile.neonatal_mortality_progress = 0;
+            main.profile.infant_mortality_rate_progress = 0;
+            main.profile.under5_mortality_rate_progress = 0;
+            main.profile.incidence_of_malaria_laboratory_confirmed_cases_progress = 0;
+            main.profile.HIV_prevalence_in_15_to_24_years_age_group_progress = 0;
+            main.profile.Top_10_cases_of_admission_progress = 0;
+            main.profile.Top_10_causes_of_death_progress = 0;
+            main.profile.OPD_attention_progress = 0;
+            main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles_progress = 0;
+            main.profile.Proportion_of_under_1_year_3rd_polio_progress = 0;
+
+        }
+
+        main.previewData = function(form){
+
+            utilityService.getDataPreview(form).then(function(data){
+                main.table_data = utilityService.prepareTabledata(data);
+                main.filterProfiles(data);
+
+            },function(response){
+                console.log(data);
+            });
         }
 
 
@@ -295,7 +368,7 @@
         main.getPeriod = function(start_period){
             var date = new Date();
             var periods = [];
-            var thisyear = date.getFullYear()-1;
+            var thisyear = date.getFullYear();
             for(var i=Number(thisyear);i>=Number(start_period);i--){
                 periods.push({name:i,value:i})
             }
@@ -353,23 +426,31 @@
                                 utilityService.prepareDataElementNames(data);
                             });
                             }else{
-                                    $cookies.remove('dhis_enabled');
-                                    $cookies.remove('current_user');
-                                    main.logedIn = false;
-                                    main.logedOut = true;
-                                    main.logedSuccessMessage = "Login Failed : No Connection to DHIS2";
-                                    $scope.progressLogin = false;
+                                $cookies.remove('dhis_enabled');
+                                $cookies.remove('current_user');
+                                main.logedIn = false;
+                                main.logedOut = true;
+                                main.logedSuccessMessage = "Login Failed : No Connection to DHIS2";
+                                $scope.progressLogin = false;
                             }
 
 
-                        },function(response){});
+                        },function(response){
+                                $cookies.remove('dhis_enabled');
+                                $cookies.remove('current_user');
+                                main.logedIn = false;
+                                main.logedOut = true;
+                                main.logedSuccessMessage = "Login Failed";
+                                $scope.progressLogin = false;
+                        });
                 },function(response){
-                    $cookies.remove('dhis_enabled');
-                    $cookies.remove('current_user');
-                    main.logedIn = false;
-                    main.logedOut = true;
-                    main.logedSuccessMessage = "Login Failed";
-                    $scope.progressLogin = false;
+                    console.log(response);
+                                $cookies.remove('dhis_enabled');
+                                $cookies.remove('current_user');
+                                main.logedIn = false;
+                                main.logedOut = true;
+                                main.logedSuccessMessage = "Login Failed";
+                                $scope.progressLogin = false;
                 });
 
 

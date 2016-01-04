@@ -43,9 +43,11 @@ if(isset($_GET["csv_input"])){
     $categoryOptionCombo = "uGIJ6IdkP7Q";
     $attributeOptionCombo = "uGIJ6IdkP7Q";
     $test_variable = "for upload";
+    $names = json_decode($_GET['names']);
+    $uids = json_decode($_GET['uids']);
     $target_file = $_GET['new_file_name'];
 
-    $target_dir = "../dataset/";
+    $target_dir = "dataset/";
     $target_file = $target_dir . basename($target_file);
     $uploadOk = 1;
     $fileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -53,7 +55,7 @@ if(isset($_GET["csv_input"])){
 
         if(unlink($target_file)){
             if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
-                print_r($dhp::processUploadsForDHIS($target_file,$_GET['period'],$_GET['orgUnitId'],$categoryOptionCombo,$attributeOptionCombo));
+                $dhp::processUploadsForDHIS($target_file,$_GET['period'],$_GET['orgUnitId'],$categoryOptionCombo,$attributeOptionCombo,$names,$uids);
             }else{
                 echo "UPLOAD_FAILED";
             }
@@ -71,7 +73,7 @@ if(isset($_GET["csv_input"])){
 
             if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
 //                echo "UPLOAD_SUCCESS";
-                echo $dhp::processUploadsForDHIS($target_file,$_GET['period'],$_GET['orgUnitId'],$categoryOptionCombo,$attributeOptionCombo);
+                echo $dhp::processUploadsForDHIS($target_file,$_GET['period'],$_GET['orgUnitId'],$categoryOptionCombo,$attributeOptionCombo,$names,$uids);
             }else{
                 echo "UPLOAD_FAILED";
             }
