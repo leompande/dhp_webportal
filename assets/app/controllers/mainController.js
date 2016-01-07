@@ -291,7 +291,9 @@
 
         main.previewData = function(form){
             var profiledata = {};
+
             utilityService.getDataPreview(form).then(function(data){
+                main.filterProfiles(data);
                 utilityService.prepareTabledata(data).then(function(){
                     profiledata = utilityService.tableDatas;
                     angular.forEach(profiledata,function(profileValue,profileIndex){
@@ -300,7 +302,7 @@
                         }
                     });
                 });
-                main.filterProfiles(data);
+
 
             },function(response){
                 console.log(data);
