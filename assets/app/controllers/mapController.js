@@ -26,7 +26,7 @@
             var promise = $.post( map.baseUrl + "dhis-web-commons-security/login.action?authOnly=true", {
                 j_username: "Demo", j_password: "HMISDEMO2015"
             },function(response){
-                console.log(response);
+                $scope.drawMap();
             });
 
             return promise;
@@ -349,9 +349,7 @@
         $scope.$on('yearChangedEvent', function(e) {
             $scope.drawMap();
         });
-        map.authenticateDHIS().then(function(){
-            $scope.drawMap();
-        });
+        map.authenticateDHIS();
 
         /**
          *  THE END
