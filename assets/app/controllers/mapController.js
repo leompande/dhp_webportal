@@ -26,7 +26,7 @@
             $scope.shared = shared;
             shared.facility =3029;
             var baseUrl = "http://139.162.204.124/training/";
-            var url = baseUrl+'api/geoFeatures.json?ou=ou:LEVEL-4;m0frOspS7JY&displayProperty=NAME&viewClass=detailed'
+            var url = baseUrl+'api/organisationUnits.geojson?parent=m0frOspS7JY&level=3'
 
 
             $http({
