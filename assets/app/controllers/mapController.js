@@ -22,12 +22,22 @@
         /**
          * THE BEGINNING OF THE FUNCTION THAT HANDLES HOME PAGE FUNCTIONALITY OF MAP
          * */
+        map.authenticateDHIS = function () {
+            var promise = $.post( map.baseUrl + "dhis-web-commons-security/login.action?authOnly=true", {
+                j_username: "portal", j_password: "Portal123"
+            },function(response){
+                console.log(response);
+            });
+
+
+            return promise;
+        }
 
         $scope.drawMap = function(){
             $scope.shared = shared;
             shared.facility =3029;
 
-            var url = map.baseUrl+'api/organisationUnits.geojson?parent=m0frOspS7JY&level=3'
+            var url = map.baseUrl+'api/organisationUnits.geojson?parent=m0frOspS7JY&level=3';
 
             map.authenticateDHIS().then(function(){
                 $http({
@@ -345,16 +355,7 @@
          *  THE END
          * */
 
-        map.authenticateDHIS = function () {
-            var promise = $.post( map.baseUrl + "dhis-web-commons-security/login.action?authOnly=true", {
-                j_username: "portal", j_password: "Portal123"
-            },function(response){
-                console.log(response);
-            });
 
-
-            return promise;
-        }
 
 
      }
