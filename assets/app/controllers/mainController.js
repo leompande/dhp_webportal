@@ -278,9 +278,13 @@
         }
 
         main.previewData = function(form){
-
+            console.log("START PREVIEW");
+            var profiledata = {};
             utilityService.getDataPreview(form).then(function(data){
-                main.table_data = utilityService.prepareTabledata(data);
+                utilityService.prepareTabledata(data).then(function(){
+                    profiledata = utilityService.tableDatas;
+                    console.log(profiledata);
+                });
                 main.filterProfiles(data);
 
             },function(response){

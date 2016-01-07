@@ -18,6 +18,7 @@
             return $http.get(profile.basePortal+'process.php?by_year='+year+'&only=1').then(handleSuccess, handleError('Error creating user'));
         }
 
+        profile.tableDatas = {};
         profile.listProfileByOrgUnit = function(orgunits){
             return $http.get(profile.basePortal+'process.php?by_orgunit='+orgunits).then(handleSuccess, handleError('Error creating user'));
         }
@@ -54,7 +55,7 @@
       var profile = this;
         profile.baseDHIS = "http://139.162.204.124/training/";
         profile.basePortal = "server/";
-
+        profile.dataelementsUrl = profile.baseDHIS+"/api/dataElements.json?filter=dataElementGroups.id:eq:TWx3Doxh1jG&fields=[name,id]&paging=false";
         profile.loadOrganisationUnits = function(){
             return $http.get(profile.basePortal+'organisationUnits_level_1_org.json').then(handleSuccess, handleError('Error creating user'));
         }
@@ -84,7 +85,7 @@
             return $http.get(profile.baseDHIS+url).then(handleSuccess, handleError('Error creating user'));
         }
         profile.getDataElements = function(){
-            var url = "api/dataElementGroups/TWx3Doxh1jG.json?fields=id,name,dataElements[id,name]";
+            var url = profile.dataelementsUrl;
             return $http.get(profile.baseDHIS+url).then(handleSuccess, handleError('Error creating user'));
 
         }
@@ -132,12 +133,23 @@
         }
 
         profile.prepareTabledata = function(data){
-            console.log(data);
-            if(typeof(data.dataValues)!=="undefined"){
-                angular.forEach(data.data,function(value,index){
-                    console.log(value);
-                })
-            }
+
+           return profile.getDataElements().then(function(dataElements){
+               var dElements =[];
+               angular.forEach(dataElements.dataElements,function(value,index){
+                   dElements.push({id:value.id,name:value.name,value:null});
+               });
+               if(typeof(data.dataValues)!=="undefined"){
+                   angular.forEach(data.dataValues,function(value,index){
+                       angular.forEach(dElements,function(dElementvalue,dElementindex){
+                            if(value.dataElement==dElementvalue.id){
+                                dElements[dElementindex].value=value.value;
+                            }
+                       })
+                   })
+               }
+               profile.tableDatas = dElements;
+           });
 
         }
         profile.getPropertiesArray = function(profile_string){
