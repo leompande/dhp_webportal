@@ -25,7 +25,9 @@
         $scope.drawMap = function(){
             $scope.shared = shared;
             shared.facility =3029;
-            var url = 'server/organisationUnits.geojson';
+            var baseUrl = "http://139.162.204.124/training/";
+            var url = baseUrl+'api/geoFeatures.json?ou=ou:LEVEL-4;m0frOspS7JY&displayProperty=NAME&viewClass=detailed'
+
 
             $http({
                 method: 'GET',
@@ -309,8 +311,6 @@
                     }
 
                 });
-            var url = 'https://dhis.moh.go.tz/api/geoFeatures.json?ou=ou:LEVEL-4;m0frOspS7JY&displayProperty=NAME&viewClass=detailed'
-
 
             $scope.saveColorInlocalStorage  = function(id,value){
 
