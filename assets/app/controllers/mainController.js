@@ -233,57 +233,72 @@
         main.filterProfiles = function(data){
 
 
-            /** Target */
-            main.profile.maternal_mortality_target = 0;
-            main.profile.incidence_of_low_birth_weight_target = 0;
-            main.profile.neonatal_mortality_target = 0;
-            main.profile.infant_mortality_rate_target = 0;
-            main.profile.under5_mortality_rate_target = 0;
-            main.profile.incidence_of_malaria_laboratory_confirmed_cases_target = 0;
-            main.profile.HIV_prevalence_in_15_to_24_years_age_group_target = 0;
-            main.profile.Top_10_cases_of_admission_target = 0;
-            main.profile.Top_10_causes_of_death_target = 0;
-            main.profile.OPD_attention_target = 0;
-            main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles_target = 0;
-            main.profile.Proportion_of_under_1_year_3rd_polio_target = 0;
+            /** hard coded profiles */
+            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear1 = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear2 = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear3 = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityTarget = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityProgress = 0;
 
-            /** Years */
-            main.profile.maternal_mortality = {first_year:0,second_year:0,third_year:0};
-            main.profile.incidence_of_low_birth_weight = {first_year:0,second_year:0,third_year:0};
-            main.profile.neonatal_mortality = {first_year:0,second_year:0,third_year:0};
-            main.profile.infant_mortality_rate = {first_year:0,second_year:0,third_year:0};
-            main.profile.under5_mortality_rate = {first_year:0,second_year:0,third_year:0};
-            main.profile.incidence_of_malaria_laboratory_confirmed_cases = {first_year:0,second_year:0,third_year:0};
-            main.profile.HIV_prevalence_in_15_to_24_years_age_group = {first_year:0,second_year:0,third_year:0};
-            main.profile.Top_10_cases_of_admission = {first_year:0,second_year:0,third_year:0};
-            main.profile.Top_10_causes_of_death = {first_year:0,second_year:0,third_year:0};
-            main.profile.OPD_attention = {first_year:0,second_year:0,third_year:0};
-            main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles = {first_year:0,second_year:0,third_year:0};
-            main.profile.Proportion_of_under_1_year_3rd_polio = {first_year:0,second_year:0,third_year:0};
+            main.profile.DHP_Maternal_MaternalNCHealthLowBWYear1 = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthLowBWYear2 = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthLowBWYear3 = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthLowBWTarget = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthLowBWProgress = 0;
 
-            /** Overall Progress */
-            main.profile.maternal_mortality_progress = 0;
-            main.profile.incidence_of_low_birth_weight_progress = 0;
-            main.profile.neonatal_mortality_progress = 0;
-            main.profile.infant_mortality_rate_progress = 0;
-            main.profile.under5_mortality_rate_progress = 0;
-            main.profile.incidence_of_malaria_laboratory_confirmed_cases_progress = 0;
-            main.profile.HIV_prevalence_in_15_to_24_years_age_group_progress = 0;
-            main.profile.Top_10_cases_of_admission_progress = 0;
-            main.profile.Top_10_causes_of_death_progress = 0;
-            main.profile.OPD_attention_progress = 0;
-            main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles_progress = 0;
-            main.profile.Proportion_of_under_1_year_3rd_polio_progress = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear1 = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear2 = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear3 = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityTarget = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityProgress = 0;
+
+            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear1 = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear2 = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear3 = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityTarget = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityProgress = 0;
+
+            main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear1 = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear2 = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear3 = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityTarget = 0;
+            main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityProgress = 0;
+
+            main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear1=0;
+            main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear2=0;
+            main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear3=0;
+            main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaTarget=0;
+            main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaProgress=0;
+
+            main.profile.DHP_Morbidity_MorbidityHIVAIDSYear1=0;
+            main.profile.DHP_Morbidity_MorbidityHIVAIDSYear2=0;
+            main.profile.DHP_Morbidity_MorbidityHIVAIDSYear3=0;
+            main.profile.DHP_Morbidity_MorbidityHIVAIDSTarget=0;
+            main.profile.DHP_Morbidity_MorbidityHIVAIDSProgress=0;
+
+
+            main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear1 = 0;
+            main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear2 = 0;
+            main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear3 = 0;
+
+            main.profile.DHP_Mortality_MortalityTopTenDeathYear1 = 0;
+            main.profile.DHP_Mortality_MortalityTopTenDeathYear2 = 0;
+            main.profile.DHP_Mortality_MortalityTopTenDeathYear3 = 0;
+
+
 
         }
 
         main.previewData = function(form){
-            console.log("START PREVIEW");
             var profiledata = {};
             utilityService.getDataPreview(form).then(function(data){
                 utilityService.prepareTabledata(data).then(function(){
                     profiledata = utilityService.tableDatas;
-                    console.log(profiledata);
+                    angular.forEach(profiledata,function(profileValue,profileIndex){
+                        if(main.profile[profileValue.name]){
+                            main.profile[profileValue.name] = profileValue.value;
+                        }
+                    });
                 });
                 main.filterProfiles(data);
 
