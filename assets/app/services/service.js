@@ -55,7 +55,7 @@
       var profile = this;
         profile.baseDHIS = "http://139.162.204.124/training/";
         profile.basePortal = "server/";
-        profile.dataelementsUrl = profile.baseDHIS+"/api/dataElements.json?filter=dataElementGroups.id:eq:TWx3Doxh1jG&fields=[name,id]&paging=false";
+        profile.dataelementsUrl = profile.baseDHIS+"api/dataElements.json?filter=dataElementGroups.id:eq:TWx3Doxh1jG&fields=[name,id]&paging=false";
         profile.loadOrganisationUnits = function(){
             return $http.get(profile.basePortal+'organisationUnits_level_1_org.json').then(handleSuccess, handleError('Error creating user'));
         }
