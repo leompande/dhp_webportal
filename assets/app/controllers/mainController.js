@@ -225,7 +225,8 @@
             main.clickedDistrict = details[1]+" "+year[0];
             $scope.viewOpen = true;
             $scope.custome_height ="not_found";
-            main.previewData($scope.form);
+            var form = {org_unit_selected:main.org_unit_selected,form_period:main.selectedYear};
+            main.previewData(form);
 
         }
 
