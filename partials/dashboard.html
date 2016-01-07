@@ -181,160 +181,181 @@
                 <br/>
                 <br/>
                 <div class="col s12 m12 preview_profile"  ng-if="main.shownHtml">
-                    <table class="table">
-                        <tr>
-                            <td colspan="3">
-                                <img src="assets/images/dhp_portal.png" style="width:100%;">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width:50%;height:100%;background-color:#4E6C54;">
-                               <div class="col s12 m12" style="font-weight:bolder;font-size:20px;color:#ffffff;">{{main.clickedDistrict | uppercase}}</div>
-                               <div class="col s12 m12" style="font-weight:bolder;font-size:20px;color:#C9A36A;">District Health Profile</div>
-                            </td>
-                            <td style="width:25%">
-                                <div class="col s12 m12" style="font-weight:bolder;font-size:20px;color:#ffffff;">
-                                    <img src="assets/images/lowerdhp.png">
-                                </div>
-                            </td>
-                            <td style="width:25%;background-color:#7F7F7F;">
-                                <div class="col s12 m12" style="font-weight:bolder;font-size:20px;color:#ffffff;">&nbsp;</div>
-                            </td>
-                        </tr>
-                    </table>
+                    <div class="row">
+                        <table class="table">
+                            <tr>
+                                <td colspan="3">
+                                    <img src="assets/images/dhp_portal.png" style="width:100%;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%;height:100%;background-color:#4E6C54;">
+                                    <div class="col s12 m12" style="font-weight:bolder;font-size:20px;color:#ffffff;">{{main.clickedDistrict | uppercase}}</div>
+                                    <div class="col s12 m12" style="font-weight:bolder;font-size:20px;color:#C9A36A;">District Health Profile</div>
+                                </td>
+                                <td style="width:25%">
+                                    <div class="col s12 m12" style="font-weight:bolder;font-size:20px;color:#ffffff;">
+                                        <img src="assets/images/lowerdhp.png">
+                                    </div>
+                                </td>
+                                <td style="width:25%;background-color:#7F7F7F;">
+                                    <div class="col s12 m12" style="font-weight:bolder;font-size:20px;color:#ffffff;">&nbsp;</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                     <br/>
-                    <table class="profile_table">
-                        <tr class="header_one">
-                            <td class="align_left ">
-                                HEALTH STATUS OF THE DISTRICT POPULATION
-                            </td>
-                            <td>TARGET</td>
-                            <td>2010</td>
-                            <td>2011</td>
-                            <td>2012</td>
-                            <td>OVERALL PROGRESS (+/-)</td>
-                        </tr>
-                        <tr class="header_two">
-                            <td colspan="6" class="align_left">Marternal,Newborn and Child Health</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Maternal mortality ratio</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityTarget}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear1}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear2}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear3}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityProgress}}</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Nutritional Status: Incidence of low birth weight among humans</td>
-                            <td></td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthLowBWYear1}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthLowBWYear2}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthLowBWYear3}}</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Neonatal mortality rates (per 1,000)</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityTarget}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear1}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear2}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear3}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityProgress}}</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Infant mortality rates (per 1,000)</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityTarget}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear1}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear2}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear3}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityProgress}}</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Under 5 mortality rates (per 1,000)</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityTarget}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear1}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear2}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear3}}</td>
-                            <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityProgress}}</td>
-                        </tr>
-                        <tr class="header_two">
-                            <td colspan="6" class="align_left">Morbidity</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Incidence of malaria/laboratory confirmed cases</td>
-                            <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaTarget}}</td>
-                            <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear1}}</td>
-                            <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear2}}</td>
-                            <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear3}}</td>
-                            <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaProgress}}</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">HIV prevalence in 15 to 24 years age group</td>
-                            <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSTarget}}</td>
-                            <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSYear1}}</td>
-                            <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSYear2}}</td>
-                            <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSYear3}}</td>
-                            <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSProgress}}</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Top 10 cases of admission (List #1 cause)</td>
-                            <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionTarget}}</td>
-                            <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear1}}</td>
-                            <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear2}}</td>
-                            <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear3}}</td>
-                            <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionProgress}}</td>
-                        </tr>
-                        <tr class="header_two">
-                            <td colspan="6" class="align_left">Mortality</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Top 10 causes of death (List # cause)</td>
-                            <td></td>
-                            <td>{{main.profile.DHP_Mortality_MortalityTopTenDeathYear1}}</td>
-                            <td>{{main.profile.DHP_Mortality_MortalityTopTenDeathYear2}}</td>
-                            <td>{{main.profile.DHP_Mortality_MortalityTopTenDeathYear3}}</td>
-                            <td></td>
-                        </tr>
-                        <tr class="header_one">
-                            <td>DISTRICT HEALTH SERVICE DELIVERY</td>
-                            <td>TARGET</td>
-                            <td>2010</td>
-                            <td>2011</td>
-                            <td>2012</td>
-                            <td>OVERALL PROGRESS (+/-)</td>
-                        </tr>
-                        <tr class="header_two">
-                            <td colspan="6" class="align_left">General</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">OPD attention</td>
-                            <td>{{main.profile.OPD_attention_target}}</td>
-                            <td>{{main.profile.OPD_attention.first_year}}</td>
-                            <td>{{main.profile.OPD_attention.second_year}}</td>
-                            <td>{{main.profile.OPD_attention.third_year}}</td>
-                            <td>{{main.profile.OPD_attention_progress}}</td>
-                        </tr>
-                        <tr class="header_two">
-                            <td colspan="6" class="align_left">Vaccination</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Proportion of children under 1 year vaccinated against measles</td>
-                            <td>{{main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles_target}}</td>
-                            <td>{{main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles.first_year}}</td>
-                            <td>{{main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles.second_year}}</td>
-                            <td>{{main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles.third_year}}</td>
-                            <td>{{main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles_progress}}</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Proportion of under 1 year 3rd polio (OPV3)</td>
-                            <td>{{main.profile.Proportion_of_under_1_year_3rd_polio_target}}</td>
-                            <td>{{main.profile.Proportion_of_under_1_year_3rd_polio.first_year}}</td>
-                            <td>{{main.profile.Proportion_of_under_1_year_3rd_polio.second_year}}</td>
-                            <td>{{main.profile.Proportion_of_under_1_year_3rd_polio.third_year}}</td>
-                            <td>{{main.profile.Proportion_of_under_1_year_3rd_polio_progress}}</td>
-                        </tr>
+                    <br/>
+                    <br/>
+                    <div class="row" style="color:#000000;">
+                        <p style="font-weight: bolder;text-align: center;color: #000000;">{{main.profileTitle | uppercase}}</p>
 
-                    </table>
+                        <br/>
+                        <br/>
+                        <h4>I. FOREWORD</h4>
+                        <p>
+                            {{main.profile.DHP_Foreword_Foreword_Field}}
+
+                        </p>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <table class="profile_table">
+                            <tr class="header_one">
+                                <td class="align_left ">
+                                    HEALTH STATUS OF THE DISTRICT POPULATION
+                                </td>
+                                <td>TARGET</td>
+                                <td>2010</td>
+                                <td>2011</td>
+                                <td>2012</td>
+                                <td>OVERALL PROGRESS (+/-)</td>
+                            </tr>
+                            <tr class="header_two">
+                                <td colspan="6" class="align_left">Marternal,Newborn and Child Health</td>
+                            </tr>
+                            <tr>
+                                <td class="align_left">Maternal mortality ratio</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityTarget}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear1}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear2}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear3}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityProgress}}</td>
+                            </tr>
+                            <tr>
+                                <td class="align_left">Nutritional Status: Incidence of low birth weight among humans</td>
+                                <td></td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthLowBWYear1}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthLowBWYear2}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthLowBWYear3}}</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="align_left">Neonatal mortality rates (per 1,000)</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityTarget}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear1}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear2}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear3}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityProgress}}</td>
+                            </tr>
+                            <tr>
+                                <td class="align_left">Infant mortality rates (per 1,000)</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityTarget}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear1}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear2}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear3}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityProgress}}</td>
+                            </tr>
+                            <tr>
+                                <td class="align_left">Under 5 mortality rates (per 1,000)</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityTarget}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear1}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear2}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear3}}</td>
+                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityProgress}}</td>
+                            </tr>
+                            <tr class="header_two">
+                                <td colspan="6" class="align_left">Morbidity</td>
+                            </tr>
+                            <tr>
+                                <td class="align_left">Incidence of malaria/laboratory confirmed cases</td>
+                                <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaTarget}}</td>
+                                <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear1}}</td>
+                                <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear2}}</td>
+                                <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear3}}</td>
+                                <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaProgress}}</td>
+                            </tr>
+                            <tr>
+                                <td class="align_left">HIV prevalence in 15 to 24 years age group</td>
+                                <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSTarget}}</td>
+                                <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSYear1}}</td>
+                                <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSYear2}}</td>
+                                <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSYear3}}</td>
+                                <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSProgress}}</td>
+                            </tr>
+                            <tr>
+                                <td class="align_left">Top 10 cases of admission (List #1 cause)</td>
+                                <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionTarget}}</td>
+                                <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear1}}</td>
+                                <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear2}}</td>
+                                <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear3}}</td>
+                                <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionProgress}}</td>
+                            </tr>
+                            <tr class="header_two">
+                                <td colspan="6" class="align_left">Mortality</td>
+                            </tr>
+                            <tr>
+                                <td class="align_left">Top 10 causes of death (List # cause)</td>
+                                <td></td>
+                                <td>{{main.profile.DHP_Mortality_MortalityTopTenDeathYear1}}</td>
+                                <td>{{main.profile.DHP_Mortality_MortalityTopTenDeathYear2}}</td>
+                                <td>{{main.profile.DHP_Mortality_MortalityTopTenDeathYear3}}</td>
+                                <td></td>
+                            </tr>
+                            <tr class="header_one">
+                                <td>DISTRICT HEALTH SERVICE DELIVERY</td>
+                                <td>TARGET</td>
+                                <td>2010</td>
+                                <td>2011</td>
+                                <td>2012</td>
+                                <td>OVERALL PROGRESS (+/-)</td>
+                            </tr>
+                            <tr class="header_two">
+                                <td colspan="6" class="align_left">General</td>
+                            </tr>
+                            <tr>
+                                <td class="align_left">OPD attention</td>
+                                <td>{{main.profile.OPD_attention_target}}</td>
+                                <td>{{main.profile.OPD_attention.first_year}}</td>
+                                <td>{{main.profile.OPD_attention.second_year}}</td>
+                                <td>{{main.profile.OPD_attention.third_year}}</td>
+                                <td>{{main.profile.OPD_attention_progress}}</td>
+                            </tr>
+                            <tr class="header_two">
+                                <td colspan="6" class="align_left">Vaccination</td>
+                            </tr>
+                            <tr>
+                                <td class="align_left">Proportion of children under 1 year vaccinated against measles</td>
+                                <td>{{main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles_target}}</td>
+                                <td>{{main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles.first_year}}</td>
+                                <td>{{main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles.second_year}}</td>
+                                <td>{{main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles.third_year}}</td>
+                                <td>{{main.profile.Proportion_of_children_under_1_year_vaccinated_against_measles_progress}}</td>
+                            </tr>
+                            <tr>
+                                <td class="align_left">Proportion of under 1 year 3rd polio (OPV3)</td>
+                                <td>{{main.profile.Proportion_of_under_1_year_3rd_polio_target}}</td>
+                                <td>{{main.profile.Proportion_of_under_1_year_3rd_polio.first_year}}</td>
+                                <td>{{main.profile.Proportion_of_under_1_year_3rd_polio.second_year}}</td>
+                                <td>{{main.profile.Proportion_of_under_1_year_3rd_polio.third_year}}</td>
+                                <td>{{main.profile.Proportion_of_under_1_year_3rd_polio_progress}}</td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+
+
                 </div>
                 <div class="col s12 m12 " ng-if="main.shownPdf">
                     <object data="{{main.current_pdf_link}}"  type="application/pdf" width="100%" height="1000px">

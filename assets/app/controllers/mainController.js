@@ -226,6 +226,7 @@
             $scope.viewOpen = true;
             $scope.custome_height ="not_found";
             var form = {org_unit_selected:main.org_unit_selected,form_period:main.selectedYear};
+            main.profileTitle = main.clickedDistrict.split(" ")[0]+" DISTRICT HEALTH PROFILE";
             main.previewData(form);
 
         }
@@ -234,6 +235,20 @@
 
 
             /** hard coded profiles */
+            main.profile.DHP_Foreword_Foreword_Field = "";
+            main.profile.DHP_Acknowledgements_Acknowledgements_Field = "";
+            main.profile.DHP_Executive_Executive_Field = "";
+            main.profile.DHP_MissionAndVision_MissionAndVision = "";
+            //not created yet
+            main.profile.DHP_StructureOfDistrict_StructureOfDistrict = "";
+            main.profile.DHP_FacilityDistribution_FacilityDistribution = "";
+            main.profile.DHP_Population_Population = "";
+            main.profile.DHP_Geography_Geography = "";
+            main.profile.DHP_TransportationAndCommunication_TransportationAndCommunication = "";
+            main.profile.DHP_Education_Education = "";
+            main.profile.DHP_DataSourcesCollecctionAnalysisMethods_DataSourcesCollecctionAnalysisMethods = "";
+            // end of not creatded
+
             main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear1 = "";
             main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear2 = "";
             main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear3 = "";
