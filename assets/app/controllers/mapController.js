@@ -29,7 +29,6 @@
                 console.log(response);
             });
 
-
             return promise;
         }
 
@@ -350,7 +349,10 @@
         $scope.$on('yearChangedEvent', function(e) {
             $scope.drawMap();
         });
-        $scope.drawMap();
+        map.authenticateDHIS().then(function(){
+            $scope.drawMap();
+        });
+
         /**
          *  THE END
          * */
