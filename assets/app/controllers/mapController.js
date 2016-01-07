@@ -39,7 +39,7 @@
 
             var url = map.baseUrl+'api/organisationUnits.geojson?parent=m0frOspS7JY&level=3';
 
-            map.authenticateDHIS().then(function(){
+            //map.authenticateDHIS().then(function(){
                 $http({
                     method: 'GET',
                     url: url,
@@ -323,7 +323,7 @@
                         }
 
                     });
-            });
+            //});
 
 
 
