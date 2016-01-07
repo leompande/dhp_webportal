@@ -135,7 +135,6 @@
                         return color;
                     }
                     var getStyle = function(feature){
-
                         var style = olHelpers.createStyle({
                             fill:{
                                 color:getColor($scope.districts[feature.getId()]),
@@ -144,10 +143,26 @@
                             stroke:{
                                 color:'white',
                                 width:2
-                            }
+                            },
+                            text:  new ol.style.Text({
+                                textAlign: 'center',
+                                textBaseline: 'middle',
+                                font: 'Arial',
+                                text: formatText(districtProperties[feature.getId()].name),
+                                fill: new ol.style.Fill({color: "#000000"}),
+                                //stroke: new ol.style.Stroke({color: "#000000", width: 0}),
+                                offsetX: 0,
+                                offsetY: 0,
+                                rotation: 0
+                            })
                         });
                         return [ style ];
 
+                    }
+
+                    function formatText(orgunitname){
+                        var textArray = orgunitname.split(" ");
+                        return "";
                     }
 
                     angular.extend($scope, {
@@ -163,7 +178,8 @@
                                     type: 'TileJSON',
                                     url:'http://api.tiles.mapbox.com/v3/mapbox.geography-class.jsonp'
                                 }
-                            } ,
+                            }
+                            ,
                             {
                                 name:'geojson',
                                 source: {
@@ -218,11 +234,16 @@
                             }
                             overlay.setPosition(map.getEventCoordinate(olEvent));
                             if (feature) {
-                                //feature.setStyle(olHelpers.createStyle({
-                                //    fill: {
-                                //        color: '#A3CEC5'
-                                //    }
-                                //}));
+                                feature.setStyle(olHelpers.createStyle({
+                                    fill: {
+                                        color: getColor($scope.districts[feature.getId()])
+                                    },
+                                    stroke: {
+                                        color: '#A3CEC5',
+                                    width:2
+
+                                    }
+                                }));
                                 if (previousFeature && feature !== previousFeature) {
                                     previousFeature.setStyle(getStyle(previousFeature));
                                 }
