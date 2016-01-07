@@ -412,7 +412,7 @@
                 utilityService.login(username,password).then(function(data){
                     $scope.progressLogin = false;
                         utilityService.getUserDetails().then(function(userdata){
-                            if(typeof(userdata)=="object"&&userdata.userCredentials.code==username&&username!="portal"){
+                            if(typeof(userdata)=="object"&&userdata.userCredentials.code==username&&username!="Demo"){
                                 $cookies.put('dhis_enabled', 'logedIn');
                                 $cookies.put('current_user', userdata.displayName);
                                 $scope.currentLogedUser = $cookies.get('current_user');
