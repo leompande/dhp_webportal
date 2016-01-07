@@ -86,7 +86,7 @@
         }
         profile.getDataElements = function(){
             var url = profile.dataelementsUrl;
-            return $http.get(profile.baseDHIS+url).then(handleSuccess, handleError('Error creating user'));
+            return $http.get(url).then(handleSuccess, handleError('Error creating user'));
 
         }
 
