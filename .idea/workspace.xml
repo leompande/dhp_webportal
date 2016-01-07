@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="365bce8f-a288-4b4f-b50a-277b587a0143" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/angular-file-upload" afterPath="$PROJECT_DIR$/assets/angular-file-upload" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/app/controllers/mainController.js" afterPath="$PROJECT_DIR$/assets/app/controllers/mainController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/app/controllers/mapController.js" afterPath="$PROJECT_DIR$/assets/app/controllers/mapController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -68,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mapController.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mapController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/app/controllers/mapController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.12" vertical-offset="265" max-vertical-offset="6696">
-              <caret line="26" column="53" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="53" />
+            <state vertical-scroll-proportion="0.6195219" vertical-offset="265" max-vertical-offset="6696">
+              <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -80,10 +79,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mainController.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="mainController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/app/controllers/mainController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.47609562" vertical-offset="7285" max-vertical-offset="9666">
+            <state vertical-scroll-proportion="-46.28" vertical-offset="6367" max-vertical-offset="9666">
               <caret line="418" column="61" selection-start-line="418" selection-start-column="61" selection-end-line="418" selection-end-column="61" />
               <folding />
             </state>
@@ -114,8 +113,8 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/partials/dashboard.html" />
-        <option value="$PROJECT_DIR$/assets/app/controllers/mapController.js" />
         <option value="$PROJECT_DIR$/assets/app/controllers/mainController.js" />
+        <option value="$PROJECT_DIR$/assets/app/controllers/mapController.js" />
       </list>
     </option>
   </component>
@@ -861,21 +860,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/app/controllers/mapController.js">
+    <entry file="file://$PROJECT_DIR$/assets/app/controllers/mainController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.12" vertical-offset="265" max-vertical-offset="6696">
-          <caret line="26" column="53" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="53" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-46.28" vertical-offset="6367" max-vertical-offset="9666">
+          <caret line="418" column="61" selection-start-line="418" selection-start-column="61" selection-end-line="418" selection-end-column="61" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/app/controllers/mainController.js">
+    <entry file="file://$PROJECT_DIR$/assets/app/controllers/mapController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47609562" vertical-offset="7285" max-vertical-offset="9666">
-          <caret line="418" column="61" selection-start-line="418" selection-start-column="61" selection-end-line="418" selection-end-column="61" />
-          <folding />
+        <state vertical-scroll-proportion="0.6195219" vertical-offset="265" max-vertical-offset="6696">
+          <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -24,7 +24,7 @@
          * */
         map.authenticateDHIS = function () {
             var promise = $.post( map.baseUrl + "dhis-web-commons-security/login.action?authOnly=true", {
-                j_username: "Demo", j_password: "Demo"
+                j_username: "Demo", j_password: "HMISDEMO2015"
             },function(response){
                 console.log(response);
             });
