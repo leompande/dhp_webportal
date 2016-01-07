@@ -171,17 +171,35 @@
                         overflow-y: scroll;
                         max-height:1000px;
                     }
+                    .paragraph-style{
+                        padding-left:40px;
+                        white-space: pre-wrap;
 
+                    }
+
+                    .subpage {
+                        margin-left: 8cm;
+                        margin-top: 10cm;
+                    }
+
+                    .profile-pages{
+                        width: 21cm;
+                        min-height: 29.7cm;
+                        padding: 2cm;
+                        margin: 1cm auto;
+                        border: 1px #D3D3D3 solid;
+                        border-radius: 5px;
+                        background: white;
+                        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+                    }
                 </style>
                 <br/>
                 <div class="col s12 m12">
                     <a class="btn " ng-click="main.showHtml()">HTML</a>
                     <a class="btn " ng-click="main.showPdf()">PDF</a>
                 </div>
-                <br/>
-                <br/>
                 <div class="col s12 m12 preview_profile"  ng-if="main.shownHtml">
-                    <div class="row">
+                    <div class="row profile-pages">
                         <table class="table">
                             <tr>
                                 <td colspan="3">
@@ -204,46 +222,34 @@
                             </tr>
                         </table>
                     </div>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <div class="row profile_pages" style="color:#000000;">
+                    <div class="row profile-pages" style="color:#000000;">
                         <p style="font-weight: bolder;text-align: center;color: #000000;">{{main.profileTitle | uppercase}}</p>
 
                         <br/>
                         <br/>
                         <h4>I. FOREWORD</h4>
-                        <p>
-                            {{main.profile.DHP_Foreword_Foreword_Field}}
+                        <p class="paragraph-style" ng-bind-html="main.profile.DHP_Foreword_Foreword_Field | renderItLikeHTML "></p>
 
-                        </p>
                     </div>
-                    <br/>
-                    <div class="row profile_pages" style="color:#000000;">
+                    <div class="row profile-pages" style="color:#000000;">
                         <p style="font-weight: bolder;text-align: center;color: #000000;">{{main.profileTitle | uppercase}}</p>
 
                         <br/>
                         <br/>
                         <h4>II. ACKNOWLEDGEMENTS</h4>
-                        <p>
-                            {{main.profile.DHP_Acknowledgements_Acknowledgements_Field}}
+                        <p class="paragraph-style" ng-bind-html="main.profile.DHP_Acknowledgements_Acknowledgements_Field | renderItLikeHTML "></p>
 
-                        </p>
                     </div>
-                    <br/>
-                    <div class="row profile_pages" style="color:#000000;">
+                    <div class="row profile-pages" style="color:#000000;">
                         <p style="font-weight: bolder;text-align: center;color: #000000;">{{main.profileTitle | uppercase}}</p>
 
                         <br/>
                         <br/>
                         <h4>III. EXECUTIVE SUMMARY</h4>
-                        <p>
-                            {{main.profile.DHP_Executive_Executive_Field}}
+                        <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>
 
-                        </p>
                     </div>
-                    <br/>
-                    <div class="row profile_pages" style="color:#000000;">
+                    <div class="row profile-pages" style="color:#000000;">
                         <p style="font-weight: bolder;text-align: center;color: #000000;">{{main.profileTitle | uppercase}}</p>
 
                         <br/>
@@ -254,8 +260,7 @@
 
                         </p>
                     </div>
-                    <br/>
-                    <div class="row">
+                    <div class="row profile-pages">
                         <table class="profile_table">
                             <tr class="header_one">
                                 <td class="align_left ">
