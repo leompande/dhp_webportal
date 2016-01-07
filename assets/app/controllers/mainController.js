@@ -297,7 +297,7 @@
                 utilityService.prepareTabledata(data).then(function(){
                     profiledata = utilityService.tableDatas;
                     angular.forEach(profiledata,function(profileValue,profileIndex){
-                        if(main.profile[profileValue.name]){
+                        if(main.profile[profileValue.name] !="undefined"){
                             main.profile[profileValue.name] = profileValue.value;
                         }
                     });

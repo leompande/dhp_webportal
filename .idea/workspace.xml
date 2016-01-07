@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="365bce8f-a288-4b4f-b50a-277b587a0143" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/angular-file-upload" afterPath="$PROJECT_DIR$/assets/angular-file-upload" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/app/controllers/mainController.js" afterPath="$PROJECT_DIR$/assets/app/controllers/mainController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dhp_portal.iws" />
@@ -78,11 +79,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="adminController.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="adminController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/app/controllers/adminController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.14134276" vertical-offset="6170" max-vertical-offset="6966">
-              <caret line="345" column="41" selection-start-line="345" selection-start-column="27" selection-end-line="345" selection-end-column="41" />
+            <state vertical-scroll-proportion="-6.64" vertical-offset="6116" max-vertical-offset="6966">
+              <caret line="349" column="33" selection-start-line="349" selection-start-column="33" selection-end-line="349" selection-end-column="33" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -90,11 +91,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mainController.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mainController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/app/controllers/mainController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.68" vertical-offset="4289" max-vertical-offset="10026">
-              <caret line="242" column="12" selection-start-line="242" selection-start-column="12" selection-end-line="246" selection-end-column="72" />
+            <state vertical-scroll-proportion="0.49116609" vertical-offset="5261" max-vertical-offset="10098">
+              <caret line="300" column="58" selection-start-line="300" selection-start-column="58" selection-end-line="300" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -135,8 +136,8 @@
       <list>
         <option value="$PROJECT_DIR$/assets/app/controllers/mapController.js" />
         <option value="$PROJECT_DIR$/assets/app/services/service.js" />
-        <option value="$PROJECT_DIR$/assets/app/controllers/mainController.js" />
         <option value="$PROJECT_DIR$/partials/dashboard.html" />
+        <option value="$PROJECT_DIR$/assets/app/controllers/mainController.js" />
       </list>
     </option>
   </component>
@@ -939,21 +940,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/app/controllers/mainController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.68" vertical-offset="4289" max-vertical-offset="10026">
-          <caret line="242" column="12" selection-start-line="242" selection-start-column="12" selection-end-line="246" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/app/controllers/adminController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14134276" vertical-offset="6170" max-vertical-offset="6966">
-          <caret line="345" column="41" selection-start-line="345" selection-start-column="27" selection-end-line="345" selection-end-column="41" />
+        <state vertical-scroll-proportion="-6.64" vertical-offset="6116" max-vertical-offset="6966">
+          <caret line="349" column="33" selection-start-line="349" selection-start-column="33" selection-end-line="349" selection-end-column="33" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/app/controllers/mainController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49116609" vertical-offset="5261" max-vertical-offset="10098">
+          <caret line="300" column="58" selection-start-line="300" selection-start-column="58" selection-end-line="300" selection-end-column="58" />
+          <folding />
         </state>
       </provider>
     </entry>
