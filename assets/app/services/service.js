@@ -112,7 +112,6 @@
             });
 
             localStorage.setItem('dataElementsNames',JSON.stringify(elementsUids));
-            console.log(elementsUids);
         }
 
 

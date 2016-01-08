@@ -239,7 +239,7 @@
             main.profile.DHP_Acknowledgements_Acknowledgements_Field = "";
             main.profile.DHP_Executive_Executive_Field = "";
             main.profile.DHP_MissionAndVision_MissionAndVision = "";
-            //not created yet
+
             main.profile.DHP_StructureOfDistrict_StructureOfDistrict = "";
             main.profile.DHP_FacilityDistribution_FacilityDistribution = "";
             main.profile.DHP_Population_Population = "";
@@ -247,7 +247,7 @@
             main.profile.DHP_TransportationAndCommunication_TransportationAndCommunication = "";
             main.profile.DHP_Education_Education = "";
             main.profile.DHP_DataSourcesCollecctionAnalysisMethods_DataSourcesCollecctionAnalysisMethods = "";
-            // end of not creatded
+
 
             main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear1 = "";
             main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear2 = "";
