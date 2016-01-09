@@ -18,7 +18,7 @@
     mapController.$inject   = ['$scope', '$http','$timeout', 'olData','olHelpers','shared'];
     function mapController($scope, $http,$timeout, olData,olHelpers,shared) {
         var map = this;
-        map.baseUrl = "http://139.162.204.124/training/";
+        map.baseUrl = "https://139.162.204.124/training/";
         /**
          * THE BEGINNING OF THE FUNCTION THAT HANDLES HOME PAGE FUNCTIONALITY OF MAP
          * */
@@ -181,7 +181,7 @@
                                     name:'mapbox',
                                     source: {
                                         type: 'TileJSON',
-                                        url:'http://api.tiles.mapbox.com/v3/mapbox.geography-class.jsonp'
+                                        url:'https://api.tiles.mapbox.com/v3/mapbox.geography-class.jsonp'
                                     }
                                 }
                                 ,

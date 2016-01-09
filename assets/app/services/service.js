@@ -53,7 +53,7 @@
     }
     function utilityService($http) {
       var profile = this;
-        profile.baseDHIS = "http://139.162.204.124/training/";
+        profile.baseDHIS = "https://139.162.204.124/training/";
         profile.basePortal = "server/";
         profile.dataelementsUrl = profile.baseDHIS+"api/dataElements.json?filter=dataElementGroups.id:eq:TWx3Doxh1jG&fields=[name,id]&paging=false";
         profile.loadOrganisationUnits = function(){
