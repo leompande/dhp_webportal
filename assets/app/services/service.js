@@ -61,7 +61,7 @@
         }
         profile.getOrgUnits = function(){
             //return $http.get(profile.basePortal+'organisationUnits.json').then(handleSuccess, handleError('Error creating user'));
-            return $http.get(profile.basePortal+'/api/organisationUnits.json?level=3&fields=[name]&paging=false').then(handleSuccess, handleError('Error creating user'));
+            return $http.get(profile.basePortal+'api/organisationUnits.json?level=3&fields=[name]&paging=false').then(handleSuccess, handleError('Error creating user'));
         }
 
         profile.login = function(username,password){
