@@ -61,8 +61,8 @@
             //return $http.get(profile.baseDHIS+'api/organisationUnits.json?parent=m0frOspS7JY&level=1&fields=id,name,children[id,name,children[id,name]]&paging=false').then(handleSuccess, handleError('Error creating user'));
         }
         profile.getOrgUnits = function(){
-            //return $http.get(profile.basePortal+'organisationUnits.json').then(handleSuccess, handleError('Error creating user'));
-            return $http.get(profile.baseDHIS+'api/organisationUnits.json?level=3&fields=[name]&paging=false').then(handleSuccess, handleError('Error creating user'));
+            return $http.get(profile.basePortal+'organisationUnits.json').then(handleSuccess, handleError('Error creating user'));
+            //return $http.get(profile.baseDHIS+'api/organisationUnits.json?level=3&fields=[name]&paging=false').then(handleSuccess, handleError('Error creating user'));
         }
 
         profile.login = function(username,password){

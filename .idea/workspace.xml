@@ -115,8 +115,8 @@
       <file leaf-file-name="mapController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/app/controllers/mapController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.207547" vertical-offset="141" max-vertical-offset="2268">
-              <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+            <state vertical-scroll-proportion="-6.4716983" vertical-offset="413" max-vertical-offset="2268">
+              <caret line="46" column="39" selection-start-line="46" selection-start-column="39" selection-end-line="46" selection-end-column="39" />
               <folding>
                 <element signature="e#1344#1430#0" expanded="false" />
                 <element signature="e#1520#1645#0" expanded="false" />
@@ -163,8 +163,8 @@
       <file leaf-file-name="service.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/app/services/service.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.939759" vertical-offset="918" max-vertical-offset="3078">
-              <caret line="64" column="110" selection-start-line="64" selection-start-column="110" selection-end-line="64" selection-end-column="110" />
+            <state vertical-scroll-proportion="-0.14457831" vertical-offset="1134" max-vertical-offset="3078">
+              <caret line="61" column="9" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
               <folding>
                 <element signature="e#5668#6041#0" expanded="false" />
                 <element signature="e#7012#7375#0" expanded="false" />
@@ -1657,10 +1657,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/app/controllers/mainController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="79.64" vertical-offset="8291" max-vertical-offset="8730">
+          <caret line="440" column="34" selection-start-line="440" selection-start-column="34" selection-end-line="440" selection-end-column="34" />
+          <folding>
+            <element signature="e#2422#2597#0" expanded="false" />
+            <element signature="e#2671#3816#0" expanded="false" />
+            <element signature="e#5847#7594#0" expanded="false" />
+            <element signature="e#7805#8338#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/app/controllers/mapController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.207547" vertical-offset="141" max-vertical-offset="2268">
-          <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+        <state vertical-scroll-proportion="-6.4716983" vertical-offset="413" max-vertical-offset="2268">
+          <caret line="46" column="39" selection-start-line="46" selection-start-column="39" selection-end-line="46" selection-end-column="39" />
           <folding>
             <element signature="e#1344#1430#0" expanded="false" />
             <element signature="e#1520#1645#0" expanded="false" />
@@ -1678,23 +1691,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/app/controllers/mainController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="79.64" vertical-offset="8291" max-vertical-offset="8730">
-          <caret line="440" column="34" selection-start-line="440" selection-start-column="34" selection-end-line="440" selection-end-column="34" />
-          <folding>
-            <element signature="e#2422#2597#0" expanded="false" />
-            <element signature="e#2671#3816#0" expanded="false" />
-            <element signature="e#5847#7594#0" expanded="false" />
-            <element signature="e#7805#8338#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/app/services/service.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.939759" vertical-offset="918" max-vertical-offset="3078">
-          <caret line="64" column="110" selection-start-line="64" selection-start-column="110" selection-end-line="64" selection-end-column="110" />
+        <state vertical-scroll-proportion="-0.14457831" vertical-offset="1134" max-vertical-offset="3078">
+          <caret line="61" column="9" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
           <folding>
             <element signature="e#5668#6041#0" expanded="false" />
             <element signature="e#7012#7375#0" expanded="false" />
