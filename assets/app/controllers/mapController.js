@@ -352,7 +352,7 @@
             var promise = $.post( map.baseUrl + "dhis-web-commons-security/login.action?authOnly=true", {
                 j_username: "Demo", j_password: "HMISDEMO2015"
             },function(response){
-                $scope.$parent.main.main.Logout();
+                $scope.$parent.main.Logout();
             });
 
             return promise;
