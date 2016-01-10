@@ -57,8 +57,8 @@
         profile.basePortal = "server/";
         profile.dataelementsUrl = profile.baseDHIS+"api/dataElements.json?filter=dataElementGroups.id:eq:TWx3Doxh1jG&fields=[name,id]&paging=false";
         profile.loadOrganisationUnits = function(){
-            //return $http.get(profile.basePortal+'organisationUnits_level_1_org.json').then(handleSuccess, handleError('Error creating user'));
-            return $http.get(profile.baseDHIS+'api/organisationUnits.json?parent=m0frOspS7JY&level=1&fields=id,name,children[id,name,children[id,name]]&paging=false').then(handleSuccess, handleError('Error creating user'));
+            return $http.get(profile.basePortal+'organisationUnits_level_1_org.json').then(handleSuccess, handleError('Error creating user'));
+            //return $http.get(profile.baseDHIS+'api/organisationUnits.json?parent=m0frOspS7JY&level=1&fields=id,name,children[id,name,children[id,name]]&paging=false').then(handleSuccess, handleError('Error creating user'));
         }
         profile.getOrgUnits = function(){
             //return $http.get(profile.basePortal+'organisationUnits.json').then(handleSuccess, handleError('Error creating user'));
