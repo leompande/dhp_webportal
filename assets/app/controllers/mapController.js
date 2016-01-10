@@ -18,7 +18,7 @@
     mapController.$inject   = ['$scope', '$http','$timeout', 'olData','olHelpers','shared'];
     function mapController($scope, $http,$timeout, olData,olHelpers,shared) {
         var map = this;
-        map.baseUrl = "https://139.162.204.124/training/";
+        map.baseUrl = "https://hmisportal.moh.go.tz/training/";
         /**
          * THE BEGINNING OF THE FUNCTION THAT HANDLES HOME PAGE FUNCTIONALITY OF MAP
          * */
