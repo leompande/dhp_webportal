@@ -30,7 +30,6 @@
 
             var url = map.baseUrl+'api/organisationUnits.geojson?parent=m0frOspS7JY&level=3';
             //var url = "server/organisationUnits.geojson";
-            map.authenticateDHIS().then(function(){
                 $http({
                     method: 'GET',
                     url: url,
@@ -315,7 +314,7 @@
                         }
 
                     });
-            });
+
 
 
 
@@ -342,7 +341,6 @@
         $scope.$on('yearChangedEvent', function(e) {
             $scope.drawMap();
         });
-        //map.authenticateDHIS();
 
         /**
          *  THE END
@@ -357,6 +355,10 @@
 
             return promise;
         }
+
+        map.authenticateDHIS().then(function(){
+            $scope.drawMap();
+        });
 
 
      }
