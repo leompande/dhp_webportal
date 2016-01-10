@@ -28,9 +28,9 @@
             $scope.shared = shared;
             shared.facility =3029;
 
-            //var url = map.baseUrl+'api/organisationUnits.geojson?parent=m0frOspS7JY&level=3';
-            var url = "server/organisationUnits.geojson";
-            //map.authenticateDHIS().then(function(){
+            var url = map.baseUrl+'api/organisationUnits.geojson?parent=m0frOspS7JY&level=3';
+            //var url = "server/organisationUnits.geojson";
+            map.authenticateDHIS().then(function(){
                 $http({
                     method: 'GET',
                     url: url,
@@ -315,7 +315,7 @@
                         }
 
                     });
-            //});
+            });
 
 
 
@@ -347,16 +347,16 @@
         /**
          *  THE END
          * */
-                $scope.drawMap();
-//map.authenticateDHIS = function () {
-        //    var promise = $.post( map.baseUrl + "dhis-web-commons-security/login.action?authOnly=true", {
-        //        j_username: "Demo", j_password: "HMISDEMO2015"
-        //    },function(response){
-        //        $scope.drawMap();
-        //    });
-        //
-        //    return promise;
-        //}
+
+        map.authenticateDHIS = function () {
+            var promise = $.post( map.baseUrl + "dhis-web-commons-security/login.action?authOnly=true", {
+                j_username: "Demo", j_password: "HMISDEMO2015"
+            },function(response){
+                $scope.$parent.main.main.Logout();
+            });
+
+            return promise;
+        }
 
 
      }
