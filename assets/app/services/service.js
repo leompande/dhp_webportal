@@ -12,7 +12,7 @@
     utilityService.$inject = ['$http'];
     function profileService($http,Upload) {
       var profile = this;
-        profile.baseDHIS = "http://139.162.204.124/training/";
+        profile.baseDHIS = "https://139.162.204.124/training/";
         profile.basePortal = "server/";
         profile.listProfileByYear = function(year){
             return $http.get(profile.basePortal+'process.php?by_year='+year+'&only=1').then(handleSuccess, handleError('Error creating user'));

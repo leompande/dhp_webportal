@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="365bce8f-a288-4b4f-b50a-277b587a0143" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/angular-file-upload" afterPath="$PROJECT_DIR$/assets/angular-file-upload" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dhp_portal.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -116,7 +115,7 @@
         <entry file="file://$PROJECT_DIR$/assets/app/controllers/mapController.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.2857143" vertical-offset="3168" max-vertical-offset="6642">
-              <caret line="183" column="49" selection-start-line="183" selection-start-column="45" selection-end-line="183" selection-end-column="49" />
+              <caret line="183" column="45" selection-start-line="183" selection-start-column="45" selection-end-line="183" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -1579,7 +1578,7 @@
     <entry file="file://$PROJECT_DIR$/assets/app/controllers/mapController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2857143" vertical-offset="3168" max-vertical-offset="6642">
-          <caret line="183" column="49" selection-start-line="183" selection-start-column="45" selection-end-line="183" selection-end-column="49" />
+          <caret line="183" column="45" selection-start-line="183" selection-start-column="45" selection-end-line="183" selection-end-column="45" />
           <folding />
         </state>
       </provider>
