@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="365bce8f-a288-4b4f-b50a-277b587a0143" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/angular-file-upload" afterPath="$PROJECT_DIR$/assets/angular-file-upload" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/app/controllers/mapController.js" afterPath="$PROJECT_DIR$/assets/app/controllers/mapController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/downloads/pushdatavalue.sh" afterPath="$PROJECT_DIR$/downloads/pushdatavalue.sh" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dhp_portal.iws" />
@@ -99,7 +97,7 @@
       <file leaf-file-name="process.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/process.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1507" max-vertical-offset="2952">
+            <state vertical-scroll-proportion="-12.851851" vertical-offset="1507" max-vertical-offset="2952">
               <caret line="103" column="37" selection-start-line="103" selection-start-column="37" selection-end-line="103" selection-end-column="37" />
               <folding />
             </state>
@@ -118,10 +116,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pushdatavalue.sh" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pushdatavalue.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/downloads/pushdatavalue.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.04017857" vertical-offset="0" max-vertical-offset="448">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="126">
               <caret line="1" column="42" selection-start-line="1" selection-start-column="42" selection-end-line="1" selection-end-column="42" />
               <folding />
             </state>
@@ -164,8 +162,8 @@
       <file leaf-file-name="adminController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/app/controllers/adminController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4917" max-vertical-offset="6930">
-              <caret line="293" column="215" selection-start-line="293" selection-start-column="215" selection-end-line="293" selection-end-column="215" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="489" max-vertical-offset="6930">
+              <caret line="68" column="43" selection-start-line="68" selection-start-column="43" selection-end-line="68" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -174,7 +172,7 @@
       <file leaf-file-name="mainController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/app/controllers/mainController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2901" max-vertical-offset="9450">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="9450">
               <caret line="173" column="69" selection-start-line="173" selection-start-column="69" selection-end-line="173" selection-end-column="69" />
               <folding>
                 <element signature="e#2421#2596#0" expanded="false" />
@@ -185,11 +183,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="service.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="service.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/app/services/service.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3402">
-              <caret line="17" column="51" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
+            <state vertical-scroll-proportion="2.25" vertical-offset="0" max-vertical-offset="3402">
+              <caret line="56" column="33" selection-start-line="56" selection-start-column="33" selection-end-line="56" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -228,9 +226,9 @@
         <option value="$PROJECT_DIR$/assets/app/controllers/adminController.js" />
         <option value="$PROJECT_DIR$/server/functions.php" />
         <option value="$PROJECT_DIR$/server/process.php" />
-        <option value="$PROJECT_DIR$/assets/app/services/service.js" />
         <option value="$PROJECT_DIR$/assets/app/controllers/mapController.js" />
         <option value="$PROJECT_DIR$/downloads/pushdatavalue.sh" />
+        <option value="$PROJECT_DIR$/assets/app/services/service.js" />
       </list>
     </option>
   </component>
@@ -502,7 +500,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="48" y="-4" width="1319" height="773" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20313725" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -512,7 +510,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23287672" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23287672" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1706,26 +1704,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/app/controllers/adminController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4917" max-vertical-offset="6930">
-          <caret line="293" column="215" selection-start-line="293" selection-start-column="215" selection-end-line="293" selection-end-column="215" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/standard_8.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3501006" vertical-offset="17142" max-vertical-offset="19836">
           <caret line="962" column="9" selection-start-line="962" selection-start-column="9" selection-end-line="962" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/process.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1507" max-vertical-offset="2952">
-          <caret line="103" column="37" selection-start-line="103" selection-start-column="37" selection-end-line="103" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1736,26 +1718,6 @@
           <folding>
             <element signature="e#4205#4374#0#PHP" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/app/controllers/mainController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2901" max-vertical-offset="9450">
-          <caret line="173" column="69" selection-start-line="173" selection-start-column="69" selection-end-line="173" selection-end-column="69" />
-          <folding>
-            <element signature="e#2421#2596#0" expanded="false" />
-            <element signature="e#2670#3815#0" expanded="false" />
-            <element signature="e#7804#8337#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/app/services/service.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3402">
-          <caret line="17" column="51" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1782,8 +1744,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/downloads/pushdatavalue.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.04017857" vertical-offset="0" max-vertical-offset="448">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="126">
           <caret line="1" column="42" selection-start-line="1" selection-start-column="42" selection-end-line="1" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/process.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.851851" vertical-offset="1507" max-vertical-offset="2952">
+          <caret line="103" column="37" selection-start-line="103" selection-start-column="37" selection-end-line="103" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/app/controllers/adminController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="489" max-vertical-offset="6930">
+          <caret line="68" column="43" selection-start-line="68" selection-start-column="43" selection-end-line="68" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/app/controllers/mainController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2901" max-vertical-offset="9450">
+          <caret line="173" column="69" selection-start-line="173" selection-start-column="69" selection-end-line="173" selection-end-column="69" />
+          <folding>
+            <element signature="e#2421#2596#0" expanded="false" />
+            <element signature="e#2670#3815#0" expanded="false" />
+            <element signature="e#7804#8337#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/app/services/service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.25" vertical-offset="0" max-vertical-offset="3402">
+          <caret line="56" column="33" selection-start-line="56" selection-start-column="33" selection-end-line="56" selection-end-column="33" />
           <folding />
         </state>
       </provider>
