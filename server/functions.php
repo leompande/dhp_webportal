@@ -262,8 +262,9 @@ class DhpFile {
 		public static function send_CSV_To_Dhis($csv_file){
 		                $old_path = getcwd();
 
-//						chdir('/usr/share/nginx/html/dhp_portal/downloads');
-						chdir('/var/www/html/dhp_portal/downloads');$new_path = getcwd();
+						chdir('/usr/share/nginx/html/dhp_portal/downloads');
+//						chdir('/var/www/html/dhp_portal/downloads');
+                        $new_path = getcwd();
 						$output = shell_exec('./pushdatavalue.sh');
 						chdir($old_path);
 
