@@ -12,7 +12,8 @@
     utilityService.$inject = ['$http'];
     function profileService($http,Upload) {
       var profile = this;
-        profile.baseDHIS = "https://hmisportal.moh.go.tz/training/";
+        profile.baseDHIS = "http://139.162.204.124/training/";
+        //profile.baseDHIS = "https://hmisportal.moh.go.tz/training/";
         profile.basePortal = "server/";
         profile.listProfileByYear = function(year){
             return $http.get(profile.basePortal+'process.php?by_year='+year+'&only=1').then(handleSuccess, handleError('Error creating user'));
@@ -36,7 +37,6 @@
         }
 
         profile.uploadCSVProfile = function(data){
-            console.log(data);
             return Upload.upload({
                 url: 'server/process.php?csv_input=1&new_file_name='+data.file_name+'&orgUnitId='+data.orgunit+'&period='+data.period+'&dataElementsUid='+data.uids+'&dataElementsNames='+data.names,
                 data: {file: data.file_object}
@@ -53,7 +53,8 @@
     }
     function utilityService($http) {
       var profile = this;
-        profile.baseDHIS = "https://hmisportal.moh.go.tz/training/";
+        //profile.baseDHIS = "https://hmisportal.moh.go.tz/training/";
+        profile.baseDHIS = "http://139.162.204.124/training/";
         profile.basePortal = "server/";
         profile.dataelementsUrl = profile.baseDHIS+"api/dataElements.json?filter=dataElementGroups.id:eq:TWx3Doxh1jG&fields=[name,id]&paging=false";
         profile.loadOrganisationUnits = function(){

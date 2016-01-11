@@ -33,19 +33,20 @@ if(isset($_GET["file"])) { $test_variable = "for upload";
 
 }
 
-//if(isset($_GET["csv_output"])) {
-//	$csv_file = "../downloads/datavalueset.csv";
-//	echo DhpFile::queryTheDatabase('report_container',$csv_file);
-//
-//	}
+
 if(isset($_GET["csv_input"])){
-    print_r($_GET);
     $categoryOptionCombo = "uGIJ6IdkP7Q";
     $attributeOptionCombo = "uGIJ6IdkP7Q";
     $test_variable = "for upload";
-    $names = json_decode($_GET['names']);
-    $uids = json_decode($_GET['uids']);
+    $names = $_GET['dataElementsNames'];
+    $uids = $_GET['dataElementsUid'];
     $target_file = $_GET['new_file_name'];
+
+    // changing
+    $decodedNames = html_entity_decode($names);
+    $decodedUids = html_entity_decode($uids);
+    $namesArray = json_decode($decodedNames, true);
+    $uidsArray = json_decode($decodedUids, true);
 
     $target_dir = "dataset/";
     $target_file = $target_dir . basename($target_file);
@@ -55,7 +56,10 @@ if(isset($_GET["csv_input"])){
 
         if(unlink($target_file)){
             if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
-                $dhp::processUploadsForDHIS($target_file,$_GET['period'],$_GET['orgUnitId'],$categoryOptionCombo,$attributeOptionCombo,$names,$uids);
+
+
+                $output = $dhp::processUploadsForDHIS($target_file,$_GET['period'],$_GET['orgUnitId'],$categoryOptionCombo,$attributeOptionCombo,$namesArray,$uidsArray);
+
             }else{
                 echo "UPLOAD_FAILED";
             }
@@ -72,8 +76,7 @@ if(isset($_GET["csv_input"])){
         }else{
 
             if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
-//                echo "UPLOAD_SUCCESS";
-                echo $dhp::processUploadsForDHIS($target_file,$_GET['period'],$_GET['orgUnitId'],$categoryOptionCombo,$attributeOptionCombo,$names,$uids);
+                $dhp::processUploadsForDHIS($target_file,$_GET['period'],$_GET['orgUnitId'],$categoryOptionCombo,$attributeOptionCombo,$namesArray,$uidsArray);
             }else{
                 echo "UPLOAD_FAILED";
             }
@@ -99,7 +102,6 @@ if(isset($_GET["by_year"])&&isset($_GET["by_orgunit"])){
     foreach($file_list as $index=>$value){
         $orgUnit_array = explode("_",$value);
         if(is_array($orgUnit_array)){
-//            echo $orgUnit_array[1]."  -->  ".$_GET["by_orgunit"];
             $orgUnit_array_year = explode(".",$orgUnit_array[2]);
             if($_GET["by_year"]==$orgUnit_array_year[0]&&($orgUnit_array[0]==$_GET["by_orgunit"]||$orgUnit_array[1]==$_GET["by_orgunit"])){
                 array_push($available_files,$value);
