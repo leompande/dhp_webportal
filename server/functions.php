@@ -127,7 +127,7 @@ class DhpFile {
 				}
 
 		    if (file_exists($csv_file)) {
-				DhpFile::deleteFile($csv_file);
+                unlink($csv_file);
 			}
             clearstatcache();
 			$file = fopen($csv_file,"w");
