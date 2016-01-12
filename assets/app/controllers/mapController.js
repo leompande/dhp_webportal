@@ -79,59 +79,66 @@
                             //}
                         }
                         angular.forEach(data.features, function (value, index) {
+                            var percent = 0;
                             var number_of_files_available = $scope.$parent.main.getOrgunitFileStatistics(value.properties.name);
                             var profilePromise = profileService.checkProfileByOrgUnitAndPeriod(value.id,$scope.$parent.main.selectedYear);
                             profilePromise.then(function(data){
-                                console.log(data);
+                                if(data.dataValues !=='undefined'){
+                                    number_of_files_available = {orgUnit:value.properties.name,count:1,total:166}
+                                }
+
+                                if(number_of_files_available.total==0){
+                                    percent = 0;
+                                }else{
+                                    percent = number_of_files_available.count/number_of_files_available.total;
+                                }
+                                var hue = getApproPiateColor(percent.toFixed(3));
+
+                                // creating dynamic colors for district
+                                $scope.saveColorInlocalStorage(value.id,hue);
+
+                                // prepare objects of district for properties to display on tooltip
+                                districtProperties[value.id] = {
+                                    district_id:value.id,
+                                    year:$scope.thisyear,
+                                    name:value.properties.name,
+                                    "color":hue,
+                                    "facility":Math.floor(Math.random() * 256)
+                                };
+
+                                $scope.DistrictFreeObject.push(districtProperties[value.id]);
+                                $scope.districts[value.id]= districtProperties;
+
+                                // creating geojson object
+                                var Object =
+                                {
+                                    "type":"Feature",
+                                    "id":value.id,
+                                    "properties":{
+                                        "name":value.properties
+                                    },
+                                    "geometry":{
+                                        "type":value.geometry.type,
+                                        "coordinates":value.geometry.coordinates
+                                    },
+                                    "style":{
+                                        fill:{
+                                            color:$scope.getColorFromLocalStorage(value.id),
+                                            opacity:5
+                                        },
+                                        stroke:{
+                                            color:'white',
+                                            width:2
+                                        }
+                                    }
+                                };
+                                TotalGeo.features.push(Object);
+
+
                             });
 
-                            var percent = 0;
-                            if(number_of_files_available.total==0){
-                                percent = 0;
-                            }else{
-                                percent = number_of_files_available.count/number_of_files_available.total;
-                            }
-                            var hue = getApproPiateColor(percent.toFixed(3));
 
-                            // creating dynamic colors for district
-                            $scope.saveColorInlocalStorage(value.id,hue);
 
-                            // prepare objects of district for properties to display on tooltip
-                            districtProperties[value.id] = {
-                                district_id:value.id,
-                                year:$scope.thisyear,
-                                name:value.properties.name,
-                                "color":hue,
-                                "facility":Math.floor(Math.random() * 256)
-                            };
-
-                            $scope.DistrictFreeObject.push(districtProperties[value.id]);
-                            $scope.districts[value.id]= districtProperties;
-
-                            // creating geojson object
-                            var Object =
-                            {
-                                "type":"Feature",
-                                "id":value.id,
-                                "properties":{
-                                    "name":value.properties
-                                },
-                                "geometry":{
-                                    "type":value.geometry.type,
-                                    "coordinates":value.geometry.coordinates
-                                },
-                                "style":{
-                                    fill:{
-                                        color:$scope.getColorFromLocalStorage(value.id),
-                                        opacity:5
-                                    },
-                                    stroke:{
-                                        color:'white',
-                                        width:2
-                                    }
-                                }
-                            };
-                            TotalGeo.features.push(Object);
 
                         });
 
