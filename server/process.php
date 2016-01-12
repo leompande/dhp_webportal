@@ -35,26 +35,26 @@ if(isset($_GET["file"])) { $test_variable = "for upload";
 
 
 if(isset($_GET["csv_input"])){
-    $categoryOptionCombo = "uGIJ6IdkP7Q";
-    $attributeOptionCombo = "uGIJ6IdkP7Q";
-    $test_variable = "for upload";
-    $names = $_GET['dataElementsNames'];
-    $uids = $_GET['dataElementsUid'];
-    $target_file = $_GET['new_file_name'];
+    $categoryOptionCombo     = "uGIJ6IdkP7Q";
+    $attributeOptionCombo    = "uGIJ6IdkP7Q";
+    $test_variable           = "for upload";
+    $names                   = $_GET['dataElementsNames'];
+    $uids                    = $_GET['dataElementsUid'];
+    $target_file             = $_GET['new_file_name'];
 
     // changing
-    $decodedNames = html_entity_decode($names);
-    $decodedUids = html_entity_decode($uids);
-    $namesArray = json_decode($decodedNames, true);
-    $uidsArray = json_decode($decodedUids, true);
+    $decodedNames            = html_entity_decode($names);
+    $decodedUids             = html_entity_decode($uids);
+    $namesArray              = json_decode($decodedNames, true);
+    $uidsArray               = json_decode($decodedUids, true);
 
-    $target_dir = "dataset/";
-    $target_file = $target_dir . basename($target_file);
-    $uploadOk = 1;
-    $fileType = pathinfo($target_file,PATHINFO_EXTENSION);
+//    $target_dir              = "dataset/";
+    $target_dir              = "/usr/share/nginx/html/dhpportal/server/dataset/";
+    $target_file             = $target_dir . basename($target_file);
+    $uploadOk                = 1;
+    $fileType                = pathinfo($target_file,PATHINFO_EXTENSION);
+
     if (file_exists($target_file)) {
-        // setting permission to the directory
-        chmod($target_file, 0777);
         if(unlink($target_file)){
             if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
 

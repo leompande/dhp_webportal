@@ -112,7 +112,7 @@ class DhpFile {
 		 * */
 		 
 		public static function saveDataToCSVFile($table_name,$json_object,$available_fields,$period,$names,$uids,$orgUnit,$category,$attributeoptioncombo){
-			$csv_file = "../downloads/datavalueset.csv";
+			$csv_file = "/usr/share/nginx/html/dhpportal/downloads/datavalueset.csv";
 			$query_string = "";
 			$csv_array = array();
 
