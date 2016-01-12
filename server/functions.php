@@ -266,7 +266,10 @@ class DhpFile {
 						$output = shell_exec('./pushdatavalue.sh');$new_path = getcwd();
 						chdir($old_path);
             echo $new_path;
+            echo " ->";
             echo $old_path;
+            echo " ->";
+            echo $output;
 
 			}
 
