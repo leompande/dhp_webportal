@@ -15,11 +15,11 @@
         })
         .controller('mapController', mapController);
 
-    mapController.$inject   = ['$scope', '$http','$timeout', 'olData','olHelpers','profileService','shared'];
-    function mapController($scope, $http,$timeout, olData,olHelpers,profileService,shared) {
+    mapController.$inject   = ['$scope', '$http','$timeout', 'olData','olHelpers','profileService','utilityService','shared'];
+    function mapController($scope, $http,$timeout, olData,olHelpers,profileService,utilityService,shared) {
         var map = this;
-        map.baseUrl = "https://hmisportal.moh.go.tz/training/";
-        //map.baseUrl = "https://139.162.204.124/training/";
+        //map.baseUrl = "https://hmisportal.moh.go.tz/training/";
+        map.baseUrl = "https://139.162.204.124/training/";
         /**
          * THE BEGINNING OF THE FUNCTION THAT HANDLES HOME PAGE FUNCTIONALITY OF MAP
          * */
@@ -78,12 +78,17 @@
                             //    return "#DE877E"
                             //}
                         }
+
+                        var orgUnitsString = utilityService.prepareOrgString(data.features);
+
+                        var profilePromise = profileService.checkProfileByOrgUnitAndPeriod(orgunitsString,$scope.$parent.main.selectedYear);
+                        profilePromise.then(function(data){
+                            console.log(data);
+                        });
+
                         angular.forEach(data.features, function (value, index) {
                             var number_of_files_available = $scope.$parent.main.getOrgunitFileStatistics(value.properties.name);
-                            var profilePromise = profileService.checkProfileByOrgUnitAndPeriod(value.id,$scope.$parent.main.selectedYear);
-                            profilePromise.then(function(data){
-                                //if()
-                            });
+
 
                             var percent = 0;
                             if(number_of_files_available.total==0){

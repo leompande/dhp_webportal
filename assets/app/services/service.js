@@ -12,8 +12,8 @@
     utilityService.$inject = ['$http'];
     function profileService($http,Upload) {
       var profile = this;
-        //profile.baseDHIS = "https://139.162.204.124/training/";
-        profile.baseDHIS = "https://hmisportal.moh.go.tz/training/";
+        profile.baseDHIS = "https://139.162.204.124/training/";
+        //profile.baseDHIS = "https://hmisportal.moh.go.tz/training/";
         profile.basePortal = "server/";
         profile.listProfileByYear = function(year){
             return $http.get(profile.basePortal+'process.php?by_year='+year+'&only=1').then(handleSuccess, handleError('Error creating user'));
@@ -24,8 +24,8 @@
             return $http.get(profile.basePortal+'process.php?by_orgunit='+orgunits).then(handleSuccess, handleError('Error creating user'));
         }
         profile.checkProfileByOrgUnitAndPeriod = function(orgunits,period){
-            //return profile.baseDHIS+'/api/dataValueSets.json?dataSet=Pc2t6Tq5era&period='+period+'&orgUnit='+orgunits;
-            return $http.get(profile.baseDHIS+'/api/dataValueSets.json?dataSet=Pc2t6Tq5era&period='+period+'&orgUnit='+orgunits).then(handleSuccess, handleError('Error creating user'));
+            var url=profile.baseDHIS+"/api/completeDataSetRegistrations?dataSet=Pc2t6Tq5era&startDate="+period+"-01-01&endDate="+period+"-12-31&"+orgunits;
+            return $http.get(url).then(handleSuccess, handleError('Error creating user'));
         }
 
         profile.listProfileByOrgUnitAndPeriod = function(year,orgunits){
@@ -57,8 +57,8 @@
     }
     function utilityService($http) {
       var profile = this;
-        profile.baseDHIS = "https://hmisportal.moh.go.tz/training/";
-        //profile.baseDHIS = "https://139.162.204.124/training/";
+        //profile.baseDHIS = "https://hmisportal.moh.go.tz/training/";
+        profile.baseDHIS = "https://139.162.204.124/training/";
         profile.basePortal = "server/";
         profile.dataelementsUrl = profile.baseDHIS+"api/dataElements.json?filter=dataElementGroups.id:eq:TWx3Doxh1jG&fields=[name,id]&paging=false";
         profile.loadOrganisationUnits = function(){
@@ -75,6 +75,11 @@
                 'j_username':username,
                 'j_password':password
             }).then(handleSuccess, handleError('Error creating user'));
+        }
+        profile.prepareOrgString = function(data){
+            angular.forEach(data,function(value,index){
+                console.log(value);
+            })
         }
 
         profile.getUserDetails = function(){
