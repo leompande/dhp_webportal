@@ -23,6 +23,10 @@
         profile.listProfileByOrgUnit = function(orgunits){
             return $http.get(profile.basePortal+'process.php?by_orgunit='+orgunits).then(handleSuccess, handleError('Error creating user'));
         }
+        profile.checkProfileByOrgUnitAndPeriod = function(orgunits,period){
+            //return profile.baseDHIS+'/api/dataValueSets.json?dataSet=Pc2t6Tq5era&period='+period+'&orgUnit='+orgunits;
+            return $http.get(profile.baseDHIS+'/api/dataValueSets.json?dataSet=Pc2t6Tq5era&period='+period+'&orgUnit='+orgunits).then(handleSuccess, handleError('Error creating user'));
+        }
 
         profile.listProfileByOrgUnitAndPeriod = function(year,orgunits){
             return $http.get(profile.basePortal+'process.php?by_year='+year+'&by_orgunit='+orgunits).then(handleSuccess, handleError('Error creating user'));

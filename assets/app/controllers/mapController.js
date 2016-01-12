@@ -15,8 +15,8 @@
         })
         .controller('mapController', mapController);
 
-    mapController.$inject   = ['$scope', '$http','$timeout', 'olData','olHelpers','shared'];
-    function mapController($scope, $http,$timeout, olData,olHelpers,shared) {
+    mapController.$inject   = ['$scope', '$http','$timeout', 'olData','olHelpers','profileService','shared'];
+    function mapController($scope, $http,$timeout, olData,olHelpers,profileService,shared) {
         var map = this;
         map.baseUrl = "https://hmisportal.moh.go.tz/training/";
         //map.baseUrl = "https://139.162.204.124/training/";
@@ -79,8 +79,12 @@
                             //}
                         }
                         angular.forEach(data.features, function (value, index) {
-
                             var number_of_files_available = $scope.$parent.main.getOrgunitFileStatistics(value.properties.name);
+                            var profilePromise = profileService.checkProfileByOrgUnitAndPeriod(value.id,$scope.$parent.main.selectedYear);
+                            profilePromise.then(function(data){
+                                console.log(data);
+                            });
+
                             var percent = 0;
                             if(number_of_files_available.total==0){
                                 percent = 0;
