@@ -49,7 +49,7 @@ if(isset($_GET["csv_input"])){
     $uidsArray               = json_decode($decodedUids, true);
 
 //    $target_dir              = "dataset/";
-    $target_dir              = "/usr/share/nginx/html/dhpportal/server/dataset/";
+    $target_dir              = "/usr/share/nginx/html/dhpportal/dataset/";
     $target_file             = $target_dir . basename($target_file);
     $uploadOk                = 1;
     $fileType                = pathinfo($target_file,PATHINFO_EXTENSION);
