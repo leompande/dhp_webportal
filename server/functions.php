@@ -265,6 +265,8 @@ class DhpFile {
 						chdir('/usr/share/nginx/html/dhpportal/downloads/');
 						$output = shell_exec('./pushdatavalue.sh');$new_path = getcwd();
 						chdir($old_path);
+            echo $new_path;
+            echo $old_path;
 
 			}
 
