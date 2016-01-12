@@ -53,7 +53,8 @@ if(isset($_GET["csv_input"])){
     $uploadOk = 1;
     $fileType = pathinfo($target_file,PATHINFO_EXTENSION);
     if (file_exists($target_file)) {
-
+        // setting permission to the directory
+        chmod($target_file, 0755);
         if(unlink($target_file)){
             if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
 

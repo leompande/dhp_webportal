@@ -115,8 +115,8 @@ class DhpFile {
 			$csv_file = "../downloads/datavalueset.csv";
 			$query_string = "";
 			$csv_array = array();
+
 			foreach($available_fields as $field){
-//                var_dump($field);
 				foreach($json_object as $json_value){
 					if (array_key_exists($field, $json_value)) {
 						$csv_array[$field] = $json_value[$field];
@@ -125,15 +125,16 @@ class DhpFile {
 							}
 				}
 				}
+
 		    if (file_exists($csv_file)) {
 				DhpFile::deleteFile($csv_file);
 			}
-			
+            clearstatcache();
 			$file = fopen($csv_file,"w");
 			
 			$countTitle = 0;
 			$Headers = array('dataelement','period','orgunit','categoryoptioncombo','attributeoptioncombo','value');//,'storedby','lastupdated','comment','followup');
-//			$available_fields = $names;
+
 			$dataelements = $uids;
 				
 			$colCount = count($Headers);
