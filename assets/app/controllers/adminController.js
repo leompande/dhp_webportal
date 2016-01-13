@@ -302,7 +302,7 @@
                         admin.message_class = "success";
                         console.log(admin.current_year);
                         console.log(admin.selectedOrgUnitToDisplay);
-                        //utilityService.completeDataset(orgUnit,period);
+                        utilityService.completeDataset(orgUnit,period);
                     }
 
                     if(data=="FILE_EXIST_ERROR"){
