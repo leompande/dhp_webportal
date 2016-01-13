@@ -58,7 +58,7 @@ class DhpFile {
 				$dataelements = $uids;
                 $available_fields = array();
                 foreach(json_decode($names) as $index => $data_array){
-                    echo $data_array;
+                    echo $data_array."  -  ";
                         $news_data_array = explode("_",$data_array);
                     if(sizeof($news_data_array)>3){
                         $available_fields[$index] = $news_data_array[sizeof($news_data_array)-2]."_".$news_data_array[sizeof($news_data_array)-1];
