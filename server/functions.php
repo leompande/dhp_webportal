@@ -78,7 +78,7 @@ class DhpFile {
 						}
 
 
-					if(strpos($value,'Field',0)>0||strpos($value,'Page',0)<0){
+					if(strpos($value,'Page',0)<0){
 
 							if(strpos($field_value,"content here...")>=0){
                                 echo array_push($json_object,array($value=> ""));
