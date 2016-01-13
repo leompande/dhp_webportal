@@ -122,11 +122,10 @@
             var elementsNames = [];
 
             angular.forEach(data.dataElements,function(value,index){
-                elementsNames.push(value.name);
+                elementsNames.push(value.id);
             });
 
             localStorage.setItem('dataElementsUids',JSON.stringify(elementsNames));
-            console.log(elementsNames);
         }
 
         profile.prepareDataElementNames = function(data){
@@ -135,14 +134,26 @@
             var elementsUids = [];
 
             angular.forEach(data.dataElements,function(value,index){
-                elementsUids.push(value.id);
+                elementsUids.push(value.name);
             });
 
             localStorage.setItem('dataElementsNames',JSON.stringify(elementsUids));
         }
 
 
-
+profile.completeDataset = function(orgunit,period){
+    var completenessUrl = profile.baseDHIS+"/api/completeDataSetRegistrations?ds=&pe="+orgunit+"&ou="+period;
+            $http({
+                method: 'POST',
+                url: completenessUrl,
+                dataType: "json",
+                cache: true,
+                ifModified: true
+            }).success(
+                function(data) {
+                    console.log("DATASET COMPLETED"+data)
+            });
+}
 
         profile.modifyOrgUnits = function(rawOrgUnits){
             var Regions = [];
