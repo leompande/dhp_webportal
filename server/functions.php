@@ -79,15 +79,14 @@ class DhpFile {
 
 
 					if(!stripos($value,'Page')){
-                    echo $value."                  ";
+                    echo "  ".$value."                  ";
 							if(strpos($field_value,"content here...")>=0){
-                                echo array_push($json_object,array($value=> ""));
+                                array_push($json_object,array($value=> ""));
 								}else{
-                                echo array_push($json_object,array($value=> $field_value));
+                                array_push($json_object,array($value=> $field_value));
 								}
 
 						}else{
-//                        echo $value;
                     }
 					}
 
@@ -258,11 +257,11 @@ class DhpFile {
 						chdir('/usr/share/nginx/html/dhpportal/downloads/');
 						$output = shell_exec('./pushdatavalue.sh');$new_path = getcwd();
 						chdir($old_path);
-            echo $new_path;
-            echo " ->";
-            echo $old_path;
-            echo " ->";
-            echo $output;
+//            echo $new_path;
+//            echo " ->";
+//            echo $old_path;
+//            echo " ->";
+//            echo $output;
 
 			}
 
