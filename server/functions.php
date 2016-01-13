@@ -46,7 +46,7 @@ class DhpFile {
 		 * */
 		 
 		public static function processUploadsForDHIS($target_file,$period,$orgUnit,$category,$attributeoptioncombo,$names,$uids){
-			$csv_file = "../downloads/datavalueset.csv";
+			$csv_file = "/usr/share/nginx/html/dhpportal/downloads/datavalueset.csv";
 			$json_object = [];
 				$file_handle = fopen($target_file, 'r');
 				while (!feof($file_handle) ) {
@@ -54,7 +54,7 @@ class DhpFile {
 				}
 
 				fclose($file_handle);
-
+var_dump($line_of_text);
 				$dataelements = $uids;
                 $available_fields = array();
                 foreach(json_decode($names) as $index => $data_array){
@@ -65,7 +65,7 @@ class DhpFile {
                         $available_fields[$index] = $news_data_array[sizeof($news_data_array)-1];
                     }
                 }
-print_r($available_fields);die();
+
 				$file_extension = "";
 				$file_name = "";
 				$count = 0;
