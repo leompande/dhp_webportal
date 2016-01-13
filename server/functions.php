@@ -54,7 +54,6 @@ class DhpFile {
 				}
 
 				fclose($file_handle);
-var_dump($line_of_text);
 				$dataelements = $uids;
                 $available_fields = array();
                 foreach(json_decode($names) as $index => $data_array){
@@ -71,12 +70,14 @@ var_dump($line_of_text);
 				$count = 0;
 				foreach ($line_of_text[0] as $key => $value)
 				{
+
 					$field_value = $line_of_text[1][$key];
 					if(substr($field_value, -4)==".pdf"){
 						$file_extension = substr($field_value, -4);
 						$file_name	    =	substr($field_value, 0, strlen($field_value)-4);
 						}
 
+                    echo $field_value;
 
 					if(strpos($value,'Field',0)>0||strpos($value,'Page',0)<0){
 
