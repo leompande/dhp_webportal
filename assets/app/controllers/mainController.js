@@ -8,8 +8,8 @@
         })
         .controller('mainController', mainController);
 
-    mainController.$inject   = ['$scope','$cookies','$http','$timeout','$location','ivhTreeviewMgr','DTOptionsBuilder', 'DTColumnDefBuilder','profileService','utilityService'];
-    function mainController($scope,$cookies,$http,$timeout,$location,ivhTreeviewMgr,DTOptionsBuilder, DTColumnDefBuilder,profileService,utilityService) {
+    mainController.$inject   = ['$scope','$cookies','$http','$timeout','$location','ivhTreeviewMgr','DTOptionsBuilder', 'DTColumnDefBuilder','profileService','utilityService','chartService'];
+    function mainController($scope,$cookies,$http,$timeout,$location,ivhTreeviewMgr,DTOptionsBuilder, DTColumnDefBuilder,profileService,utilityService,chartService) {
         var main  = this;
         var date = new Date();
         $scope.custome_height    ="default";
@@ -50,7 +50,10 @@
         main.organisationUnitTree = []
         main.logedSuccessMessage = "";
         main.profile = {};
-
+        main.chartConfig = false;
+        if(localStorage.getItem("seriesObject")||localStorage.getItem("seriesObject")!=null){
+            localStorage.removeItem("seriesObject");
+        }
         if($cookies.get('dhis_enabled')){
             main.logedIn = true;
             main.logedOut = false;
@@ -69,45 +72,6 @@
             main.showChartD = "display:none;";
             main.showTableD = "display:block;";
         }
-
-        //front chart for the portal
-        main.drawChart = function(){
-            $scope.$watch("main.available_files_this_year",function(newOne,oldOne){
-                if(main.available_files_this_year!=null){
-                    $scope.submitted = main.available_files_this_year.length;
-                }
-
-                $scope.chartConfig = {
-                    options: {
-                        chart: {
-                            type: 'pie',
-                            zoomType: 'x'
-                        }
-                        ,colors:
-                            ['#E38280', '#50B432']
-
-
-                    },
-                    series: [{
-                        type: 'pie',
-                        name: 'Distribution',
-                        data: [
-                            ['Not Submitted',$scope.total_facilities-$scope.submitted],
-                            ['Submitted',  $scope.submitted]
-
-                        ]
-                    }],
-                    title: {
-                        text: ''
-                    },
-                    xAxis: {currentMin: 0, currentMax: 10, minRange: 1},
-                    loading: false
-                }
-
-            });
-        }
-        main.drawChart();
-
         main.backToChart = function(){
             $scope.viewOpen = false;
             main.chart_shown = true;
@@ -129,13 +93,22 @@
 
         //broadcast event that year has changed
         $scope.$watch("main.selectedYear",function(oldOne,newOne){
-            main.getAvailableFilesThisYear(main.selectedYear);
             main.chart_shown = true;
+
             $scope.$watch("main.available_files_this_year",function(oldOneI,newOneI){
                 $scope.$broadcast ('yearChangedEvent');
-                console.log(main.available_files_this_year);
             });
+
+            main.drawChart();
         });
+
+        main.drawChart = function(){
+            main.chartConfig = null;
+            $scope.$on("drawChartNow", function(e, data) {
+                var chartobject = chartService.getChartObject();
+                main.chartConfig = chartobject;
+            });
+        }
 
 
         main.getChildren = function(children){
@@ -161,7 +134,7 @@
             main.current_id = id;
         }
         main.getHealthProfileFromTable = function(row){
-            main.openPdfFile(row.file);
+            main.openPdfFile(row);
         }
         main.processView = function(orgUnit,name,id){
             if(orgUnit.children!=null){
@@ -218,15 +191,15 @@
         main.backToGrid = function(){
             $scope.viewOpen = false;
         }
-        main.openPdfFile = function(document){
-            main.current_pdf_link = "uploads/"+document;
-            var details = document.split("_");
-            var year = details[2].split(".");
-            main.clickedDistrict = details[1]+" "+year[0];
+        main.openPdfFile = function(row){
+            var form = {org_unit_selected:row.id,form_period:main.selectedYear};
+            main.profileTitle = row.name.split(" ")[0]+" DISTRICT HEALTH PROFILE";
+
+            main.current_pdf_link = "uploads/";
+            main.clickedDistrict = row.name+" "+main.selectedYear;
             $scope.viewOpen = true;
             $scope.custome_height ="not_found";
-            var form = {org_unit_selected:main.org_unit_selected,form_period:main.selectedYear};
-            main.profileTitle = main.clickedDistrict.split(" ")[0]+" DISTRICT HEALTH PROFILE";
+
             main.previewData(form);
 
         }
@@ -337,24 +310,23 @@
             });
             return {orgUnit:facility_name,count:file_counts,total:total};
         }
-        main.getAvailableFilesThisYear = function(selectedYear){
-            profileService.listProfileByYear(selectedYear).then(function(data){
-                main.available_files_this_year = data;
-            },function(response){
-            });
-        }
-        main.getAvailableFilesThisYear(main.selectedYear);
+        //main.getAvailableFilesThisYear = function(selectedYear){
+        //    profileService.listProfileByYear(selectedYear).then(function(data){
+        //        main.available_files_this_year = data;
+        //    },function(response){
+        //    });
+        //}
+        //main.getAvailableFilesThisYear(main.selectedYear);
         main.getOrgUnitWithAvailableFilesThisYear = function(){
-            $scope.$watch("main.available_files_this_year",function(newValue,oldOne){
-                $scope.orgUnitTable = [];
+            $scope.$on("drawChartNow", function(e, data) {
+                var objectSeries = JSON.parse(localStorage.getItem("seriesObject"));
                 main.orgUnitTable = [];
-                angular.forEach(newValue,function(value,index){
-                    var str_array = value.split("_");
-                    $scope.orgUnitTable.push({region:str_array[0],district:str_array[1],file:value});
-                    main.orgUnitTable.push({region:str_array[0],district:str_array[1],file:value});
+                angular.forEach(objectSeries,function(valueObject,indexObject){
+                        if(valueObject.count>0){
+                            main.orgUnitTable.push({name:valueObject.orgUnit+"  Health Profile",id:valueObject.id});
+                        }
                 });
             });
-            main.drawTable();
         };
         main.getOrgUnitWithAvailableFilesThisYear();
 
@@ -368,7 +340,6 @@
         main.loadOrganisationUnit = function(){
             utilityService.loadOrganisationUnits().then(function(data){
                 main.organisationUnitTree = data.organisationUnits;
-                console.log(main.organisationUnitTree);
                 $scope.modifedOrgunits = utilityService.modifyOrgUnits(data.organisationUnits[0].children);
 
             },function(status){

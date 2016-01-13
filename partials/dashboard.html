@@ -41,8 +41,28 @@
 
             </div>
             <div id="maps" class="maps"  style="width: 100%;" >
-
-                <openlayers ol-center="Africa" ol-defaults="defaults" custom-layers="true"  height="400px">
+                <div style="min-height:380px" ng-if="!Africa" class="row">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="col m12">
+                    <div class="col m6 offset-m3">
+                        <div class="preloader-wrapper small active">
+                            <div class="spinner-layer spinner-blue-only">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                            </div>
+                        </div>
+                        &nbsp;&nbsp;loading ...
+                    </div>
+                    </div>
+                </div>
+                <openlayers ol-center="Africa" ng-if="Africa" ol-defaults="defaults" custom-layers="true"  height="400px">
                     <ol-layer ol-layer-properties="layer" name="test" ng-repeat="layer in layers"></ol-layer>
                 </openlayers>
                 <div id="districtboxz" ng-if="selectedDistrictHover" class="infoh district ">
@@ -105,22 +125,46 @@
                 <div class="col m12 s12" style="font-size: 20px;" >DHP District Submission Statistics:{{main.selectedYear}}</div>
                     <!--<div class="col s12">Chart:</div>-->
                     <div  class="col s12 " >
-                        <highchart id="chart1" config="chartConfig"></highchart>
+                            <div style="min-height:380px" ng-if="!main.chartConfig" >
+                                <br>
+                                <br>
+                                <br>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <div class="col m12">
+                                    <div class="col m6 offset-m3">
+                                        <div class="preloader-wrapper small active">
+                                            <div class="spinner-layer spinner-blue-only">
+                                                <div class="circle-clipper left">
+                                                    <div class="circle"></div>
+                                                </div><div class="gap-patch">
+                                                <div class="circle"></div>
+                                            </div><div class="circle-clipper right">
+                                                <div class="circle"></div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        &nbsp;&nbsp;loading ...
+                                    </div>
+                                </div>
+                            </div>
+                        <highchart id="chart1" config="main.chartConfig" ng-if="main.chartConfig"></highchart>
                     </div>
-                    <div  class="col s12 " >
+                    <div  class="col s12 " ng-if="main.chartConfig">
                         <div class="row">PROFILE LIST</div>
                     </div>
-                    <div  class="col s12 " >
+                    <div  class="col s12 " ng-if="main.chartConfig">
                         <table  class="row" style="margin-top: 10px;"  >
                         <thead>
-                        <tr><th>Region Name</th><th>District Name</th></tr>
+                        <tr><th>#</th><th>Available Health Profiles</th></tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="row in main.orgUnitTable" style="cursor: pointer;"  ng-click="main.getHealthProfileFromTable(row)" title="click to preview profile">
-                        <td  style="text-align: left;">{{row.region}}</td>
-                        <td class="waves-effect waves-block" style="text-align: left;">{{row.district}}</td>
+                        <td>{{$index+1}}</td>
+                            <td class="waves-effect waves-block" style="text-align: left;">{{row.name}}</td>
                         </tr>
-                        <tr ng-if="main.orgUnitTable.length==0"><td colspan="2">No health profile available</td></tr>
+                        <tr ng-if="main.orgUnitTable.length==0"><td >No health profile available</td></tr>
                         </tbody>
                         </table>
                     </div>

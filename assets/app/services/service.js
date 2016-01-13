@@ -24,12 +24,25 @@
             return $http.get(profile.basePortal+'process.php?by_orgunit='+orgunits).then(handleSuccess, handleError('Error creating user'));
         }
         profile.checkProfileByOrgUnitAndPeriod = function(orgunits,period){
-            var url=profile.baseDHIS+"/api/completeDataSetRegistrations?dataSet=Pc2t6Tq5era&startDate="+period+"-01-01&endDate="+period+"-12-31&"+orgunits;
+            var url=profile.baseDHIS+"api/completeDataSetRegistrations?dataSet=Pc2t6Tq5era&startDate="+period+"-01-01&endDate="+period+"-12-31&"+orgunits;
             return $http.get(url).then(handleSuccess, handleError('Error creating user'));
         }
 
         profile.listProfileByOrgUnitAndPeriod = function(year,orgunits){
             return $http.get(profile.basePortal+'process.php?by_year='+year+'&by_orgunit='+orgunits).then(handleSuccess, handleError('Error creating user'));
+        }
+
+        profile.profileStatistics = function(orgUnit,completedObject){
+            var facility_name = orgUnit.properties.name;
+            var returnvalue  = {orgUnit:facility_name,id:orgUnit.id,count:0,total:166};
+            angular.forEach(completedObject,function(valueObj,indexOb){
+               if(valueObj == orgUnit.id){
+                   returnvalue.count = 1;
+               }else{
+                   returnvalue.count = 0;
+               }
+            });
+            return returnvalue;
         }
 
         profile.saveProfile = function(data){
@@ -77,9 +90,11 @@
             }).then(handleSuccess, handleError('Error creating user'));
         }
         profile.prepareOrgString = function(data){
+            var orgs = "";
             angular.forEach(data,function(value,index){
-                console.log(value);
-            })
+                orgs+="&orgUnit="+value.id;
+            });
+            return orgs;
         }
 
         profile.getUserDetails = function(){
