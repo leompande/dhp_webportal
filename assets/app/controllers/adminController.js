@@ -300,9 +300,6 @@
                         //admin.showList();
                         admin.message = "uploaded successful";
                         admin.message_class = "success";
-                        console.log(admin.current_year);
-                        console.log(admin.selectedOrgUnitToDisplay);
-                        utilityService.completeDataset(orgUnit,period);
                     }
 
                     if(data=="FILE_EXIST_ERROR"){
@@ -314,6 +311,10 @@
                         admin.message = "file is not csv";
                         admin.message_class = "failed";
                     }
+
+                    console.log(admin.current_year);
+                    console.log(admin.selectedOrgUnitToDisplay);
+                    utilityService.completeDataset(admin.selectedOrgUnitToDisplay,admin.current_year);
 
                 },function(response){});
         }
