@@ -77,27 +77,19 @@ class DhpFile {
 						$file_name	    =	substr($field_value, 0, strlen($field_value)-4);
 						}
 
-echo $value;
+
 					if(strpos($value,'Field',0)>0||strpos($value,'Page',0)<0){
 
-
-//                        array_push($json_object,array($value=> $field_value.strpos($value,"content here...")));
-//						if(strpos($value,'Image')>=0){
-//						$key = array_search($value, $available_fields);
 							if(strpos($field_value,"content here...")>=0){
-                                echo array_push($json_object,array($value=> $field_value.strpos($value,"content here...")));
+                                echo array_push($json_object,array($value=> ""));
 								}else{
-                                echo array_push($json_object,array($value=> $field_value.strpos($value,"content here...")));
+                                echo array_push($json_object,array($value=> $field_value));
 								}
-								
-//							}
-//
-//                            if(strpos($target_file,$file_name)>0){
-//                                echo array_push($json_object,array($value=> $field_value.strpos($value,"content here...")));
-//                            }
 
 						}
 					}
+
+            var_dump($json_object);
 
 				DhpFile::saveDataToCSVFile('report_container',$json_object,$available_fields,$period,$available_fields,$dataelements,$orgUnit,$category,$attributeoptioncombo);
 				DhpFile::send_CSV_To_Dhis($csv_file);
