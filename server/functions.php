@@ -79,14 +79,16 @@ class DhpFile {
 
 //echo "      Id: ".strpos($value,'Page',0)."      Value: ".$value;
 					if(!strpos($value,'Page')){
-                        echo $value;
+
 							if(strpos($field_value,"content here...")>=0){
                                 echo array_push($json_object,array($value=> ""));
 								}else{
                                 echo array_push($json_object,array($value=> $field_value));
 								}
 
-						}
+						}else{
+                        echo $value;
+                    }
 					}
 
 //            var_dump($json_object);
