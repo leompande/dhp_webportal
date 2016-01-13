@@ -77,7 +77,7 @@ class DhpFile {
 						$file_name	    =	substr($field_value, 0, strlen($field_value)-4);
 						}
 
-echo "      Id: ".strpos($value,'Page',0)."      Value: ".$value;
+//echo "      Id: ".strpos($value,'Page',0)."      Value: ".$value;
 					if(!strpos($value,'Page')){
                         echo $value;
 							if(strpos($field_value,"content here...")>=0){
@@ -89,7 +89,7 @@ echo "      Id: ".strpos($value,'Page',0)."      Value: ".$value;
 						}
 					}
 
-            var_dump($json_object);
+//            var_dump($json_object);
 
 				DhpFile::saveDataToCSVFile('report_container',$json_object,$available_fields,$period,$available_fields,$dataelements,$orgUnit,$category,$attributeoptioncombo);
 				DhpFile::send_CSV_To_Dhis($csv_file);
