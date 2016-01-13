@@ -99,7 +99,7 @@ class DhpFile {
 
 
     public static function contains($substring, $string) {
-                    $pos = strpos($string, $substring);
+                    $pos = stripos($string, $substring);
 
                     if($pos === false) {
                         // string needle NOT found in haystack
