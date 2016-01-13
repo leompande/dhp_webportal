@@ -300,6 +300,7 @@
                         //admin.showList();
                         admin.message = "uploaded successful";
                         admin.message_class = "success";
+                        utilityService.completeDataset(form.org_unit_selected,form.form_period);
                     }
 
                     if(data=="FILE_EXIST_ERROR"){
@@ -312,9 +313,6 @@
                         admin.message_class = "failed";
                     }
 
-                    console.log(admin.current_year);
-                    console.log(admin.selectedOrgUnitToDisplay);
-                    utilityService.completeDataset(admin.selectedOrgUnitToDisplay,admin.current_year);
 
                 },function(response){});
         }

@@ -56,7 +56,7 @@ if(isset($_GET["csv_input"])){
 
     if (file_exists($target_file)) {
         if(unlink($target_file)){
-            if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
+            if(!$dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
 
 
                 $output = $dhp::processUploadsForDHIS($target_file,$_GET['period'],$_GET['orgUnitId'],$categoryOptionCombo,$attributeOptionCombo,$namesArray,$uidsArray);
