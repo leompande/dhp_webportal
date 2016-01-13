@@ -65,7 +65,7 @@ class DhpFile {
                         $available_fields[$index] = $news_data_array[sizeof($news_data_array)-1];
                     }
                 }
-print_r($available_fields);die();
+print_r($names);die();
 				$file_extension = "";
 				$file_name = "";
 				$count = 0;
