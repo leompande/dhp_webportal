@@ -77,7 +77,7 @@ class DhpFile {
 						$file_name	    =	substr($field_value, 0, strlen($field_value)-4);
 						}
 
-//echo "      Id: ".strpos($value,'Page',0)."      Value: ".$value;
+echo strpos($value,'Page');
 					if(!strpos($value,'Page')){
 
 							if(strpos($field_value,"content here...")>=0){
@@ -87,7 +87,7 @@ class DhpFile {
 								}
 
 						}else{
-                        echo $value;
+//                        echo $value;
                     }
 					}
 
