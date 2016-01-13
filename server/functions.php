@@ -78,7 +78,7 @@ class DhpFile {
 						}
 
 
-					if(!contains($value,'Page')){
+					if(!DhpFile::contains($value,'Page')){
                     echo "  ".$value."                  ";
 							if(strpos($field_value,"content here...")>=0){
                                 array_push($json_object,array($value=> ""));
@@ -98,19 +98,19 @@ class DhpFile {
 		}
 
 
-    function contains($substring, $string) {
-        $pos = strpos($string, $substring);
+    public static function contains($substring, $string) {
+                    $pos = strpos($string, $substring);
 
-        if($pos === false) {
-            // string needle NOT found in haystack
-            return false;
-        }
-        else {
-            // string needle found in haystack
-            return true;
-        }
+                    if($pos === false) {
+                        // string needle NOT found in haystack
+                        return false;
+                    }
+                    else {
+                        // string needle found in haystack
+                        return true;
+                    }
 
-    }
+                }
 		
 		/**
 		 *  This function creates temporary database table 
