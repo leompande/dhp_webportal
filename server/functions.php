@@ -77,9 +77,9 @@ class DhpFile {
 						$file_name	    =	substr($field_value, 0, strlen($field_value)-4);
 						}
 
-//echo stripos($value,'Page');
-					if(!stripos($value,'Page')){
 
+					if(!stripos($value,'Page')){
+                    echo $value."                  ";
 							if(strpos($field_value,"content here...")>=0){
                                 echo array_push($json_object,array($value=> ""));
 								}else{
