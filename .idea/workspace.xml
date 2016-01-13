@@ -99,8 +99,8 @@
       <file leaf-file-name="functions.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/functions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.60349125" vertical-offset="1396" max-vertical-offset="5076">
-              <caret line="91" column="35" selection-start-line="91" selection-start-column="35" selection-end-line="91" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.648379" vertical-offset="1342" max-vertical-offset="5076">
+              <caret line="89" column="21" selection-start-line="89" selection-start-column="21" selection-end-line="89" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -1173,8 +1173,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/functions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.60349125" vertical-offset="1396" max-vertical-offset="5076">
-          <caret line="91" column="35" selection-start-line="91" selection-start-column="35" selection-end-line="91" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.648379" vertical-offset="1342" max-vertical-offset="5076">
+          <caret line="89" column="21" selection-start-line="89" selection-start-column="21" selection-end-line="89" selection-end-column="21" />
           <folding />
         </state>
       </provider>
