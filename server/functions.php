@@ -66,6 +66,7 @@ class DhpFile {
                     }
                 }
 
+            var_dump($news_data_array);die();
 				$file_extension = "";
 				$file_name = "";
 				$count = 0;
