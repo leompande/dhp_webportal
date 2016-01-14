@@ -79,12 +79,19 @@ class DhpFile {
 
 
 //					if(!DhpFile::contains($value,'Page')){
-                            echo $field_value."   ";
-							if(strpos($field_value,"content here...")>=0){
-                                array_push($json_object,array($value=> ""));
-								}else{
+
+
+                            if(strpos($field_value, "content here...") === false){
                                 array_push($json_object,array($value=> $field_value));
-								}
+                                echo $field_value."   ->";
+                            }else{
+
+                            }
+//							if(strpos($field_value,"content here...")>=0){
+//                                array_push($json_object,array($value=> ""));
+//								}else{
+//                                array_push($json_object,array($value=> $field_value));
+//								}
 
 //						}else{
 //                    }
