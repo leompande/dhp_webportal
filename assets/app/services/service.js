@@ -142,7 +142,8 @@
 
 
 profile.completeDataset = function(orgunit,period){
-    var completenessUrl = profile.baseDHIS+"api/completeDataSetRegistrations?ds=&pe="+orgunit+"&ou="+period;
+    var completenessUrl = profile.baseDHIS+"api/completeDataSetRegistrations?ds=Pc2t6Tq5era&pe="+orgunit+"&ou="+period;
+    console.log(completenessUrl);
             $http({
                 method: 'POST',
                 url: completenessUrl,
