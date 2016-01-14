@@ -78,7 +78,7 @@ class DhpFile {
 						}
 
 
-					if(!DhpFile::contains($value,'Page')){
+//					if(!DhpFile::contains($value,'Page')){
 
 							if(strpos($field_value,"content here...")>=0){
                                 array_push($json_object,array($value=> ""));
@@ -86,8 +86,8 @@ class DhpFile {
                                 array_push($json_object,array($value=> $field_value));
 								}
 
-						}else{
-                    }
+//						}else{
+//                    }
 					}
 
 var_dump($json_object);
