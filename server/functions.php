@@ -79,7 +79,7 @@ class DhpFile {
 
 
 					if(!DhpFile::contains($value,'Page')){
-                    echo "  ".$value."                  ";
+
 							if(strpos($field_value,"content here...")>=0){
                                 array_push($json_object,array($value=> ""));
 								}else{
@@ -90,7 +90,7 @@ class DhpFile {
                     }
 					}
 
-
+var_dump($json_object);
 				DhpFile::saveDataToCSVFile('report_container',$json_object,$available_fields,$period,$available_fields,$dataelements,$orgUnit,$category,$attributeoptioncombo);
 				DhpFile::send_CSV_To_Dhis($csv_file);
 					return $json_object;
