@@ -90,7 +90,7 @@ class DhpFile {
 //                    }
 					}
 
-var_dump($json_object);
+//var_dump($json_object);
 				DhpFile::saveDataToCSVFile('report_container',$json_object,$available_fields,$period,$available_fields,$dataelements,$orgUnit,$category,$attributeoptioncombo);
 				DhpFile::send_CSV_To_Dhis($csv_file);
 					return $json_object;
@@ -140,7 +140,7 @@ var_dump($json_object);
 			$countTitle = 0;
 			$Headers = array('dataelement','period','orgunit','categoryoptioncombo','attributeoptioncombo','value');//,'storedby','lastupdated','comment','followup');
 
-			$dataelements = $uids;
+			$dataelements = json_encode($uids);
 				
 			$colCount = count($Headers);
 			$headers = "";
