@@ -90,8 +90,8 @@ class DhpFile {
 					}
 
 				DhpFile::saveDataToCSVFile('report_container',$json_object,$available_fields,$period,$available_fields,$dataelements,$orgUnit,$category,$attributeoptioncombo);
-				DhpFile::send_CSV_To_Dhis($csv_file);
-					return $json_object;
+				return DhpFile::send_CSV_To_Dhis($csv_file);
+//					return $json_object;
 					
 		}
 
@@ -269,6 +269,7 @@ class DhpFile {
 						$output = shell_exec('./pushdatavalue.sh');
 						$output = shell_exec('./completedataset.sh');
 						chdir($old_path);
+            return "UPLOAD_SUCCESS";
 
 
 			}
