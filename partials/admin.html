@@ -13,10 +13,10 @@
     <div class="col s12 m3">
         <ul class="collapsible" data-collapsible="accordion">
             <li>
-                <div class="collapsible-header active"><i class="material-icons">perm_media</i>Health Profile Uploads</div>
+                <div class="collapsible-header active"><i class="material-icons">perm_media</i>Health Profile Read Only PDF</div>
                 <div class="collapsible-body">
                     <ul class="section table-of-contents">
-                        <li><a style="cursor: pointer;" ng-click="admin.showList()">List Profiles</a></li>
+                        <li><a style="cursor: pointer;" ng-click="admin.showList()">Profile Preview</a></li>
                         <li><a style="cursor: pointer;" ng-click="admin.newProfile()">New Profile</a></li>
                     </ul>
 
@@ -24,11 +24,11 @@
                 </div>
             </li>
             <li>
-                <div class="collapsible-header"><i class="material-icons">library_add</i>Health Profile Data Entry</div>
+                <div class="collapsible-header"><i class="material-icons">library_add</i>Health Profile CSV (from DHIS)</div>
                 <div class="collapsible-body">
                     <ul class="section table-of-contents">
-                        <li><a style="cursor: pointer;" ng-click="admin.readOnlyDataPreview()">DHIS2 DHP Preview</a></li>
-                        <li><a style="cursor: pointer;" ng-click="admin.uploadCSV()">DHIS2 CSV Data Entry</a></li>
+                        <li><a style="cursor: pointer;" ng-click="admin.readOnlyDataPreview()">Profile Preview</a></li>
+                        <li><a style="cursor: pointer;" ng-click="admin.uploadCSV()">Upload CSV</a></li>
                     </ul>
 
 

@@ -155,16 +155,16 @@
                         <div class="row">PROFILE LIST</div>
                     </div>
                     <div  class="col s12 " ng-if="main.chartConfig">
-                        <table  class="row" style="margin-top: 10px;"  >
+                        <table datatable="ng"  class="row" style="margin-top: 10px;"  >
                         <thead>
                         <tr><th>#</th><th>Available Health Profiles</th></tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="row in main.orgUnitTable" style="cursor: pointer;"  ng-click="main.getHealthProfileFromTable(row)" title="click to preview profile">
+                        <tr ng-repeat="row in main.orgUnitTable"  style="cursor: pointer;"  ng-click="main.getHealthProfileFromTable(row)" title="click to preview profile">
                         <td>{{$index+1}}</td>
                             <td class="waves-effect waves-block" style="text-align: left;">{{row.name}}</td>
                         </tr>
-                        <tr ng-if="main.orgUnitTable.length==0"><td >No health profile available</td></tr>
+                        <tr ng-if="main.orgUnitTable.length==0" ng-repeat="row in main.orgUnitTable"><td >No health profile available</td></tr>
                         </tbody>
                         </table>
                     </div>
