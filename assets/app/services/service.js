@@ -35,13 +35,10 @@
         profile.profileStatistics = function(orgUnit,completedObject){
             var facility_name = orgUnit.properties.name;
             var returnvalue  = {orgUnit:facility_name,id:orgUnit.id,count:0,total:166};
-            angular.forEach(completedObject,function(valueObj,indexOb){
-               if(valueObj == orgUnit.id){
-                   returnvalue.count = 1;
-               }else{
-                   returnvalue.count = 0;
-               }
-            });
+
+            if(completedObject.indexOf(orgUnit.id)>=0){
+                returnvalue.count = 1;
+            }
             return returnvalue;
         }
 

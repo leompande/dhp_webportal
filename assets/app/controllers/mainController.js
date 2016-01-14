@@ -114,7 +114,7 @@
         main.getChildren = function(children){
             var childrens = [];
             angular.forEach(children,function(value,index){
-                childrens.push(value.name);
+                childrens.push({name:value.name,id:value.id});
             });
 
             return childrens;
@@ -136,7 +136,15 @@
         main.getHealthProfileFromTable = function(row){
             main.openPdfFile(row);
         }
+
+        main.getHealthProfileFromView = function(row){
+            var file = {name:row.facility+" Health Profile",id:row.id};
+            //Object {name: "Manyoni District Council  Health Profile", id: "uHp3aLKA6Tn", $$hashKey: "object:1447"}
+            main.openPdfFile(file);
+        }
+
         main.processView = function(orgUnit,name,id){
+            var orgUnitWithFiles = JSON.parse(localStorage.getItem('widataset'));
             if(orgUnit.children!=null){
                 var children = main.getChildren(orgUnit.children);
 
@@ -149,49 +157,90 @@
                 if(name.indexOf("Region")>=0){
                     var proposed_files= [];
                     angular.forEach(children,function(value,index){
-                        proposed_files.push({facility:value,file:name+"_"+value+"_"+main.selectedYear+".pdf"});
+                        if(orgUnitWithFiles.indexOf(value.id)>=0){
+                            proposed_files.push({id:value.id,facility:value.name,file:value.name+"_"+value+"_"+main.selectedYear+".pdf"});
+                        }
                     });
                     var correct_names=[];
-                    $http.get("server/process.php?by_year="+main.selectedYear+"&only=1").success(function(data){
-                        var files =[];
-                        angular.forEach(proposed_files,function(value,index){
-                            files.push(value.file);
-                        });
-                        angular.forEach(files,function(value,index) {
-                            if(data.indexOf(value)>=0){
-                                correct_names.push(proposed_files[index]);
-                            }
-                        });
-                        main.Documents = correct_names;
-                    });
-
-
+                        main.Documents = proposed_files;
                 }
 
                 if(name.indexOf("Council")>=0){
-                    var correct_names=[];
-                    $http.get("server/process.php?by_year="+main.selectedYear+"&only=1").success(function(data){
+                    var proposed_files= [];
+                    if(orgUnitWithFiles.indexOf(orgUnit.id)>=0){
+                        proposed_files.push({id:orgUnit.id,facility:orgUnit.name,file:orgUnit.name+"_"+main.selectedYear+".pdf"});
+                    }
+                        main.Documents = proposed_files;
 
-                        var file_template = {facility:name,file:name+"_"+main.selectedYear+".pdf"};
-                        angular.forEach(data,function(value,index) {
-                            if(value.indexOf(file_template.file)>=0){
-                                correct_names.push({facility:name,file:value});
-                            }
-                        });
-                        main.Documents = correct_names;
-                    });
 
-                    console.log(children);
                 }
 
             }else{
                 alert("select Region or council");
             }
         }
+
+
+
+        //main.processView = function(orgUnit,name,id){
+        //    if(orgUnit.children!=null){
+        //        var children = main.getChildren(orgUnit.children);
+        //
+        //    }else{
+        //        var children = [];
+        //    }
+        //
+        //    if(name.indexOf("Region")>=0||name.indexOf("Council")>=0){
+        //
+        //        if(name.indexOf("Region")>=0){
+        //            var proposed_files= [];
+        //            angular.forEach(children,function(value,index){
+        //                proposed_files.push({facility:value,file:name+"_"+value+"_"+main.selectedYear+".pdf"});
+        //            });
+        //            var correct_names=[];
+        //            $http.get("server/process.php?by_year="+main.selectedYear+"&only=1").success(function(data){
+        //                var files =[];
+        //                angular.forEach(proposed_files,function(value,index){
+        //                    files.push(value.file);
+        //                });
+        //                angular.forEach(files,function(value,index) {
+        //                    if(data.indexOf(value)>=0){
+        //                        correct_names.push(proposed_files[index]);
+        //                    }
+        //                });
+        //                main.Documents = correct_names;
+        //            });
+        //
+        //
+        //        }
+        //
+        //        if(name.indexOf("Council")>=0){
+        //            var correct_names=[];
+        //            $http.get("server/process.php?by_year="+main.selectedYear+"&only=1").success(function(data){
+        //
+        //                var file_template = {facility:name,file:name+"_"+main.selectedYear+".pdf"};
+        //                angular.forEach(data,function(value,index) {
+        //                    if(value.indexOf(file_template.file)>=0){
+        //                        correct_names.push({facility:name,file:value});
+        //                    }
+        //                });
+        //                main.Documents = correct_names;
+        //            });
+        //
+        //            console.log(children);
+        //        }
+        //
+        //    }else{
+        //        alert("select Region or council");
+        //    }
+        //}
+        //
+        //
         main.backToGrid = function(){
             $scope.viewOpen = false;
         }
         main.openPdfFile = function(row){
+            console.log(row);
             var form = {org_unit_selected:row.id,form_period:main.selectedYear};
             main.profileTitle = row.name.split(" ")[0]+" DISTRICT HEALTH PROFILE";
 

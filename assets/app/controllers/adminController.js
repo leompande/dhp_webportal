@@ -301,7 +301,7 @@
                         admin.message = "uploaded successful";
                         admin.message_class = "success";
                         utilityService.completeDataset(form.org_unit_selected,form.form_period,function(dataComplete){
-                            console.log(dataComplete);
+
                         });
                     }
 

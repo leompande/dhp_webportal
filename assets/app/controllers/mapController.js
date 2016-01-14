@@ -73,13 +73,24 @@
                             var withDataSet = [];
                             if(datas.completeDataSetRegistrations!=="undefined"){
                                 angular.forEach(datas.completeDataSetRegistrations,function(dataSetOrg,itsIndex){
+
                                     withDataSet.push(dataSetOrg.organisationUnit.id);
                                 });
+                            }
+
+                            if(!localStorage.getItem('widataset')){
+                                localStorage.setItem('widataset',JSON.stringify(withDataSet));
+                            }else{
+                                localStorage.removeItem('widataset');
+                                localStorage.setItem('widataset',JSON.stringify(withDataSet));
                             }
 
                             var objectSeries = [];
                             angular.forEach(data.features, function (value, index) {
                                 var number_of_files_available = profileService.profileStatistics(value,withDataSet);
+                                if(number_of_files_available.count>0){
+                                    console.log(number_of_files_available);
+                                }
                                 objectSeries.push(number_of_files_available);
 
                                 var percent = 0;
