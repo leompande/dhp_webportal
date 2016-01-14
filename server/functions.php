@@ -78,23 +78,15 @@ class DhpFile {
 						}
 
 
-//					if(!DhpFile::contains($value,'Page')){
-
+					if(strpos($value,'Page') === false){
 
                             if(strpos($field_value, "content here...") === false){
                                 array_push($json_object,array($value=> $field_value));
-                                echo $field_value."   ->";
                             }else{
 
                             }
-//							if(strpos($field_value,"content here...")>=0){
-//                                array_push($json_object,array($value=> ""));
-//								}else{
-//                                array_push($json_object,array($value=> $field_value));
-//								}
 
-//						}else{
-//                    }
+                    }
 					}
 
 				DhpFile::saveDataToCSVFile('report_container',$json_object,$available_fields,$period,$available_fields,$dataelements,$orgUnit,$category,$attributeoptioncombo);
