@@ -141,19 +141,15 @@
         }
 
 
-profile.completeDataset = function(orgunit,period){
+profile.completeDataset = function(orgunit,period,successCallback){
     var completenessUrl = profile.baseDHIS+"api/completeDataSetRegistrations?ds=Pc2t6Tq5era&pe="+period+"&ou="+orgunit;
-    console.log(completenessUrl);
             $http({
                 method: 'POST',
                 url: completenessUrl,
                 dataType: "json",
                 cache: true,
                 ifModified: true
-            }).success(
-                function(data) {
-                    console.log("DATASET COMPLETED"+data)
-            });
+            }).success(successCallback);
 }
 
         profile.modifyOrgUnits = function(rawOrgUnits){
