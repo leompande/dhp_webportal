@@ -37,7 +37,7 @@
         main.regions = [];
         $scope.form={form_period:main.current_year,org_unit_selected:""};
         $scope.showProgress = false;
-        main.logedIn = true;
+        main.logedIn = false;
         $scope.progressLogin = false;
         main.logedOut = true;
         main.shownHtml = true;
