@@ -139,11 +139,17 @@
 
         main.getHealthProfileFromView = function(row){
             var file = {name:row.facility+" Health Profile",id:row.id};
-            //Object {name: "Manyoni District Council  Health Profile", id: "uHp3aLKA6Tn", $$hashKey: "object:1447"}
             main.openPdfFile(file);
+        }
+        main.getHealthProfileFromMap = function(row){
+            console.log(row);
+            //var file = {name:row.facility+" Health Profile",id:row.id};
+            //main.openPdfFile(file);
         }
 
         main.processView = function(orgUnit,name,id){
+            console.log(name);
+            console.log(id);
             var orgUnitWithFiles = JSON.parse(localStorage.getItem('widataset'));
             if(orgUnit.children!=null){
                 var children = main.getChildren(orgUnit.children);
@@ -167,8 +173,13 @@
 
                 if(name.indexOf("Council")>=0){
                     var proposed_files= [];
-                    if(orgUnitWithFiles.indexOf(orgUnit.id)>=0){
-                        proposed_files.push({id:orgUnit.id,facility:orgUnit.name,file:orgUnit.name+"_"+main.selectedYear+".pdf"});
+                    if(orgUnitWithFiles.indexOf(orgUnit.id)>=0||orgUnitWithFiles.indexOf(id)>=0){
+                        if(orgUnit==null){
+                            proposed_files.push({id:orgUnit.id,facility:orgUnit.name,file:orgUnit.name+"_"+main.selectedYear+".pdf"});
+
+                        }else{
+                            proposed_files.push({id:id,facility:name,file:name+"_"+main.selectedYear+".pdf"});
+                        }
                     }
                         main.Documents = proposed_files;
 
