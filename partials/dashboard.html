@@ -272,6 +272,8 @@
                         <br/>
                         <br/>
                         <h4>I. FOREWORD</h4>
+                        <br/>
+                        <br/>
                         <p class="paragraph-style" ng-bind-html="main.profile.DHP_Foreword_Foreword_Field | renderItLikeHTML "></p>
 
                     </div>
@@ -281,6 +283,8 @@
                         <br/>
                         <br/>
                         <h4>II. ACKNOWLEDGEMENTS</h4>
+                        <br/>
+                        <br/>
                         <p class="paragraph-style" ng-bind-html="main.profile.DHP_Acknowledgements_Acknowledgements_Field | renderItLikeHTML "></p>
 
                     </div>
@@ -290,8 +294,11 @@
                         <br/>
                         <br/>
                         <h4>III. EXECUTIVE SUMMARY</h4>
+                        <br/>
+                        <br/>
                         <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>
-
+                        <br/>
+                        <br/>
                     </div>
                     <div class="row profile-pages" style="color:#000000;">
                         <p style="font-weight: bolder;text-align: center;color: #000000;">{{main.profileTitle | uppercase}}</p>
@@ -368,12 +375,16 @@
                         <br/>
                         <p >1.1 MISSION AND VISION</p>
                         <br/>
+                        <br/>
                         <p class="paragraph-style" ng-bind-html=" main.profile.DHP_MissionAndVision_MissionAndVision | renderItLikeHTML "></p>
+                        <br/>
                         <br/>
                         <p >1.2 STRUCTURE OF DISTRICT</p>
                         <br/>
+                        <br/>
                         <p class="paragraph-style" ng-bind-html=" main.profile.DHP_StructureOfDistrict_StructureOfDistrict | renderItLikeHTML "></p>
 
+                        <br/>
                         <br/>
 
                         <p>Table 1-1. Wards And Villages</p>
@@ -429,8 +440,10 @@
 
                         <h4>1.3 FACILITY DISTRIBUTION</h4>
                         <br/>
+                        <br/>
                         <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>
-
+                        <br/>
+                        <br/>
                         <p>Table 1-2. Facility Distribution</p>
                         <table class="profile_table">
                             <tr class="header_one">
@@ -439,8 +452,8 @@
                                 </td>
                                 <td>Number</td>
                                 <td>Ownershership</td>
-                                <td rowspan="10">
-                                    <img style='display:block; width:100px;height:100px;' id='base64image'
+                                <td rowspan="10" style="background-color: #ffffff!important;">
+                                    <img style='display:block; width:300px;height:250px;' id='base64image'
                                          src='{{main.profile.DHP_Demographics_FacilityDistributionImage}}' />
                                 </td>
                             </tr>
@@ -496,8 +509,10 @@
 
                         <h4>1.4 POPULATION</h4>
                         <br/>
+                        <br/>
                         <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Population_Population | renderItLikeHTML "></p>
-
+                        <br/>
+                        <br/>
                         <p>Table 1-3. Gender And Age Based Statistics</p>
                         <table class="profile_table">
                             <tr class="header_one">
@@ -550,18 +565,23 @@
                         <p style="font-weight: bolder;text-align: center;color: #000000;">{{main.profileTitle | uppercase}}</p>
                         <br/>
                         <h4>1.5 GEOGRAPHY</h4>
+                        <br/>
+                        <br/>
+                        <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Geography_Geography | renderItLikeHTML "></p>
+
                         <!-- Population image here -->
-                        <img src="/">
+                        <!--<img src="/">-->
                     </div>
 
                     <!--Transport and communication-->
                     <div class="row profile-pages" style="color:#000000;">
                         <p style="font-weight: bolder;text-align: center;color: #000000;">{{main.profileTitle | uppercase}}</p>
-
                         <br/>
                         <br/>
                         <h4>1.6 TRANSPORTATION AND COMMUNICATION</h4>
-                        <!--<p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>-->
+                        <br/>
+                        <br/>
+                        <p class="paragraph-style" ng-bind-html=" main.profile.DHP_TransportationAndCommunication_TransportationAndCommunication | renderItLikeHTML "></p>
 
                     </div>
 
@@ -569,22 +589,24 @@
                     <!--Transport and communication-->
                     <div class="row profile-pages" style="color:#000000;">
                         <p style="font-weight: bolder;text-align: center;color: #000000;">{{main.profileTitle | uppercase}}</p>
-
                         <br/>
                         <br/>
                         <h4>1.7 EDUCATION</h4>
-                        <!--<p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>-->
+                        <br/>
+                        <br/>
+                        <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>
 
                     </div>
 
                     <!--Transport and communication-->
                     <div class="row profile-pages" style="color:#000000;">
                         <p style="font-weight: bolder;text-align: center;color: #000000;">{{main.profileTitle | uppercase}}</p>
-
                         <br/>
                         <br/>
                         <h4>1.8 WATER SUPPLY</h4>
-                        <!--<p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>-->
+                        <br/>
+                        <br/>
+                        <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>
 
                     </div>
 
@@ -597,7 +619,8 @@
                         <h4>2 A COLLECTION METHODS AND SOURCES OF DATA</h4>
                         <p>2.1  DATA SOURCES AND THEIR DATA COLLECTION AND ANALYSIS  METHODS</p>
                         <br/>
-                        <!--<p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>-->
+                        <br/>
+                        <p class="paragraph-style" ng-bind-html=" DHP_DataCollection_DataSourcesCollecctionAnalysisMethods | renderItLikeHTML "></p>
 
                     </div>
 
