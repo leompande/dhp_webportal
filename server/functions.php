@@ -140,7 +140,7 @@ class DhpFile {
 			$countTitle = 0;
 			$Headers = array('dataelement','period','orgunit','categoryoptioncombo','attributeoptioncombo','value');//,'storedby','lastupdated','comment','followup');
 
-			$dataelements = json_encode($uids);
+			$dataelements = json_decode($uids);
 				
 			$colCount = count($Headers);
 			$headers = "";
