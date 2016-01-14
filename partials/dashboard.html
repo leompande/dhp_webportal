@@ -91,7 +91,6 @@
     </div>
 
     <div class="card white lighten-1 darken-3" >
-    <!--<div style="text-align:center;min-height:500px;"><i style="margin-top:200px;" class="fa fa-spin fa-spinner fa-3x"></i>&nbsp;&nbsp;please wait ...</div>-->
 
     <div class="card-content grey-text {{custome_height}}" ng-if="!viewOpen" >
             <div class="col s12 m12" ng-if="!main.chart_shown">
@@ -118,7 +117,6 @@
                     </div>
                 </div>
                 <div ng-if="main.Documents">
-                    <!--{{main.Documents}}-->
                 </div>
             </div>
             <div class="row" ng-if="main.chart_shown">
@@ -443,7 +441,7 @@
                                 <td>Ownershership</td>
                                 <td rowspan="10">
                                     <img style='display:block; width:100px;height:100px;' id='base64image'
-                                         src='data:image/jpeg;base64,{{main.profile.DHP_Demographics_FacilityDistributionImage}}' />
+                                         src='{{main.profile.DHP_Demographics_FacilityDistributionImage}}' />
                                 </td>
                             </tr>
                             <tr>
@@ -832,11 +830,7 @@
         </div>
         <div class="card-action" ng-if="viewOpen">
             <a href="{{main.current_pdf_link}}" target="_blank">Download</a>
-            <!--<a href="#"><i class="fa fa-facebook"></i></a>-->
-            <!--<a href="https://twitter.com/intent/tweet?text={{main.current_pdf_link}}"-->
-               <!--data-size="large"><i class="fa fa-twitter"></i></a>-->
-            <!--<a href="http://www.linkedin.com/shareArticle?mini=true&url={{main.current_pdf_link}}"><i class="fa fa-linkedin"></i></a>-->
-        </div>
+           </div>
     </div>
 </div>
 </div>
