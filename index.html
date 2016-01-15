@@ -166,7 +166,8 @@
       <div id="modal1" class="modal modal-fixed-footer">
           <div class="modal-content" style="text-align: center;">
               <p style="font-weight: bolder;font-size: 14px;">DHP Login (DHIS2 users only)</p>
-                <p style="color:red;font-weight: bolder;">{{main.logedSuccessMessage}}</p>
+                <p style="color:red;font-weight: bolder;" ng-if="main.logedFailureMessage">{{main.logedFailureMessage}}</p>
+                <p style="color:green;font-weight: bolder;" ng-if="main.logedSuccessMessage">{{main.logedSuccessMessage}}</p>
               <div class="row">
                   <div class="preloader-wrapper small active" ng-if="progressLogin">
                       <div class="spinner-layer spinner-green-only">
@@ -214,7 +215,7 @@
 
                       <ul class="left">
                         <li>&nbsp;<img style="width:60px;height:50px;" src="assets/images/tanzania1.gif"></img></li>
-                        <li><a href="#" style="color:#ffffff;" ><h4>DHP Webportal</h4></a></li>
+                        <li><a href="#/" style="color:#ffffff;" ><h4>DHP Webportal</h4></a></li>
                       </ul>
 
                       <ul class="right hide-on-med-and-down">
@@ -252,7 +253,7 @@
                       <table>
                           <tr>
                               <td><a class="grey-text text-lighten-3" target="_blank" href="https://dhis.moh.go.tz/">DHIS/HMIS</a></td>
-                              <td><a class="grey-text text-lighten-3" target="_blank" href="http://139.162.204.124/hmis/portal/">HMIS Web portal</a></td>
+                              <td><a class="grey-text text-lighten-3" target="_blank" href="http://hmisportal.moh.go.tz/hmis/portal/">HMIS Web portal</a></td>
                               <td><a class="grey-text text-lighten-3" target="_blank" href="http://www.moh.go.tz/">MOH</a></td>
                           </tr>
                       </table>

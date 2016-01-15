@@ -48,9 +48,11 @@
         $scope.progressPercent = '0%';
         main.orgUnitTable = [];
         main.organisationUnitTree = []
-        main.logedSuccessMessage = "";
+        main.logedSuccessMessage = null;
+        main.logedFailureMessage = null;
         main.profile = {};
         main.chartConfig = false;
+        main.netfailure = null;
         if(localStorage.getItem("seriesObject")||localStorage.getItem("seriesObject")!=null){
             localStorage.removeItem("seriesObject");
         }
@@ -94,7 +96,7 @@
         //broadcast event that year has changed
         $scope.$watch("main.selectedYear",function(oldOne,newOne){
             main.chart_shown = true;
-
+            main.netfailure = null;
             $scope.$watch("main.available_files_this_year",function(oldOneI,newOneI){
                 $scope.$broadcast ('yearChangedEvent');
             });
@@ -110,7 +112,9 @@
             });
         }
 
-
+            $scope.$on('netfailure',function(){
+                main.netfailure = true;
+            });
         main.getChildren = function(children){
             var childrens = [];
             angular.forEach(children,function(value,index){
@@ -407,7 +411,8 @@
             main.logedIn = false;
             main.logedOut = true;
             main.csv_menu = false;
-            main.logedSuccessMessage = "";
+            main.logedSuccessMessage = null;
+            main.logedFailureMessage = null;
             $location.path("/");
         }
         main.login = function(login){
@@ -425,8 +430,8 @@
                                 $scope.progressLogin = false;
                                 main.logedIn = true;
                                 main.logedOut = false;
-                                main.logedSuccessMessage = "LoggedIn as "+userdata.displayName+" Successfully.";
-                                $timeout(main.closeLoginForm,3000);
+                                main.logedSuccessMessage = "LoggedIn as "+userdata.displayName+": Connected to DHIS2.";
+                                $timeout(main.closeLoginForm,2000);
                             utilityService.getDataElements().then(function(data){
                                 utilityService.prepareDataElementUid(data);
                                 utilityService.prepareDataElementNames(data);
@@ -436,7 +441,7 @@
                                 $cookies.remove('current_user');
                                 main.logedIn = false;
                                 main.logedOut = true;
-                                main.logedSuccessMessage = "Login Failed : No Connection to DHIS2";
+                                main.logedFailureMessage = "Login Failed : invalid user name or password";
                                 $scope.progressLogin = false;
                             }
 
@@ -446,23 +451,25 @@
                                 $cookies.remove('current_user');
                                 main.logedIn = false;
                                 main.logedOut = true;
-                                main.logedSuccessMessage = "Login Failed";
+                                main.logedFailureMessage = "Login Failed: check network connection";
                                 $scope.progressLogin = false;
                         });
                 },function(response){
-                    console.log(response);
                                 $cookies.remove('dhis_enabled');
                                 $cookies.remove('current_user');
                                 main.logedIn = false;
                                 main.logedOut = true;
-                                main.logedSuccessMessage = "Login Failed";
+                                main.logedFailureMessage = "Login Failed: check network connection";
                                 $scope.progressLogin = false;
                 });
 
 
         }
 
+
         main.getLoginForm = function(){
+            main.logedSuccessMessage = null;
+            main.logedFailureMessage = null;
             $('#modal1').openModal();
 
         }
@@ -485,7 +492,6 @@
 
         // upload on file select or drop
         $scope.upload = function (file,new_file_name) {
-            console.log(file);
             Upload.upload({
                 url: 'server/process.php?file=1&new_file_name='+new_file_name,
                 data: {file: file}

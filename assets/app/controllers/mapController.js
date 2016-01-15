@@ -38,7 +38,7 @@
                     ifModified: true
                 }).success(
                     function(data) {
-
+                        $scope.netfailure = null;
                         var tempo = data.features;
                         angular.forEach(tempo,function(value,index){
                             tempo[index].expanded = false;
@@ -331,6 +331,9 @@
                         });
 
 
+                    }).error(function(status){
+                        $scope.netfailure = true;
+                        $scope.$emit ('netfailure');
                     });
 
 

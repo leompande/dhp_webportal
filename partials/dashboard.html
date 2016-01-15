@@ -45,7 +45,7 @@
                     <br/>
                     <br/>
                     <br/>
-                    <div class="col m12">
+                    <div class="col m12" ng-if="!netfailure">
                     <div class="col m6 offset-m3">
                         <div class="preloader-wrapper small active">
                             <div class="spinner-layer spinner-blue-only">
@@ -60,6 +60,11 @@
                         </div>
                         &nbsp;&nbsp;loading ...
                     </div>
+                    </div>
+                    <div class="col m12" ng-if="netfailure">
+                        <div class="col m12  grey-text" >
+                            <span style="color:red;">map failed</span>:slow network
+                        </div>
                     </div>
                 </div>
                 <openlayers ol-center="Africa" ng-if="Africa" ol-defaults="defaults" custom-layers="true"  height="400px">
@@ -130,7 +135,7 @@
                                 <br/>
                                 <br/>
                                 <br/>
-                                <div class="col m12">
+                                <div class="col m12" ng-if="!main.netfailure">
                                     <div class="col m6 offset-m3">
                                         <div class="preloader-wrapper small active">
                                             <div class="spinner-layer spinner-blue-only">
@@ -144,6 +149,12 @@
                                             </div>
                                         </div>
                                         &nbsp;&nbsp;loading ...
+                                    </div>
+                                </div>
+
+                                <div class="col m12" ng-if="main.netfailure">
+                                    <div class="col m12  grey-text" >
+                                        <span style="color:red;">chart failed</span>:slow network
                                     </div>
                                 </div>
                             </div>
