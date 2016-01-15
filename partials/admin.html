@@ -4,31 +4,19 @@
             $('.collapsible').collapsible({
                 accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
             });
-//
-//            var date = new Date();
-//            var year = date.getFullYear();
+
 
         });
     </script>
     <div class="col s12 m3">
         <ul class="collapsible" data-collapsible="accordion">
+
             <li>
-                <div class="collapsible-header active"><i class="material-icons">perm_media</i>Health Profile Read Only PDF</div>
+                <div class="collapsible-header active"><i class="material-icons">library_add</i>Health Profile </div>
                 <div class="collapsible-body">
                     <ul class="section table-of-contents">
-                        <li><a style="cursor: pointer;" ng-click="admin.showList()">Profile Preview</a></li>
-                        <li><a style="cursor: pointer;" ng-click="admin.newProfile()">New Profile</a></li>
-                    </ul>
-
-
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header"><i class="material-icons">library_add</i>Health Profile CSV (from DHIS)</div>
-                <div class="collapsible-body">
-                    <ul class="section table-of-contents">
-                        <li><a style="cursor: pointer;" ng-click="admin.readOnlyDataPreview()">Profile Preview</a></li>
-                        <li><a style="cursor: pointer;" ng-click="admin.uploadCSV()">Upload CSV</a></li>
+                        <!--<li><a style="cursor: pointer;" ng-click="admin.readOnlyDataPreview()">Profile Preview</a></li>-->
+                        <li><a style="cursor: pointer;" ng-click="admin.uploadCSV()">Upload Profile</a></li>
                     </ul>
 
 
@@ -37,215 +25,14 @@
         </ul>
     </div>
     <div class="col s12 m9" style="min-height: 500px;">
-        <div class="row" id="file_list" ng-if="admin.list">
-            <div >
-                <div class="row">
-                    <div class="col s12 m12">
-                        <div class="card blue-white darken-1">
-                            <div class="card-content grey-text" style="padding:13px">
-                               <a ng-click="admin.openCriteria()" title="selection criteria" style="cursor: pointer;"><i class="material-icons" ng-if="admin.criteria">call_made</i><i class="material-icons" ng-if="!admin.criteria">call_received</i></a>&nbsp;&nbsp;DISTRICT HEALTH PROFILE  FOR <b>{{admin.selectedOrgUnitToDisplay}} - {{admin.selectedPeriod}}</b>
-                            </div>
-                        </div>
-                        <!--SELECTION CRITERIA-->
-                    </div>
-                    <div ng-if="admin.criteria" class="col s12 m12">
-                        <div class="card blue-white darken-1">
-                            <div class="card-content white-text">
-                                <form class="col s12 m12" name="upload_form"  style="color: #000000;">
-                                    <div class="row">
-                                        <label >Organisation Unit (Region)g</label>
-                                        <div class="input-field col  s12 m12">
-                                            <select  name="org_unit" ng-model="admin.selectedOrgUnitRegion"  class="browser-default" required="required">
-                                                <option ng-repeat="org in admin.regions" value="{{org}}" ng-if="org.value!='Dar es Salaam'">{{org.value}}</option>
-                                            </select>
 
-                                        </div>
-                                    </div>
-                                    <div class="row"><a class="btn waves-effect waves-light" ng-click="admin.districtSelection()"><i class="material-icons" ng-if="admin.districtSelector">call_made</i><i class="material-icons" ng-if="!admin.districtSelector">call_received</i> By Districts (Select Region First)</a></div>
-                                    <div class="row" ng-if="admin.districtSelector">
-                                        <label >Organisation Unit (District)</label>
-                                        <div class="input-field col  s12 m12">
-                                            <select  name="org_unit" ng-model="admin.selectedOrgUnitDistrict" class="browser-default" required="required">
-                                                <option ng-repeat="distr in admin.districts" value="{{distr.value}}">{{distr.name}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label>Period</label>
-                                        <div class="input-field col  s12 m12">
-                                            <select  name="period" ng-model="admin.periodCriteria" class="browser-default" required="required" >
-                                                <option selected="selected" value="{{admin.current_year}}">{{admin.current_year}}</option>
-                                                <option ng-repeat="period in main.periods" value="{{period.name}}">{{period.name}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            </div>
-                        </div>
-                    <div class="col m12 s12">
-                        <div class="card blue-white darken-1">
-                            <div class="card-content grey-text" style="padding:13px">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Profile</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="profile in admin.profiles">
-                                        <td>{{$index+1}}</td>
-                                        <td style="text-align: left;">{{profile}}</td>
-                                        <td>
-                                            <a class="waves-effect waves-light grey btn btn-small" href="{{admin.current_pdf_link}}{{profile}}" target="_blank">Preview</a>
-                                            <a class="waves-effect waves-light green btn btn-small"  ng-click="admin.editProfile(profile)">Edit</a>
-                                            <a class="waves-effect waves-light red btn btn-small" ng-click="admin.deleteProfile(profile)">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr ng-if="admin.profiles.length==0"><td colspan="3">No health profile available</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-        </div>
-
-
-        <div class="row" id="file_upload" ng-if="admin.addProfileForm" >
-            <div class="col s12 m12">
-
-                <div class="card blue-white darken-1">
-                    <div class="card-content grey-text" style="padding:13px">
-                        <form class="col s12 m12" name="upload_form" ng-submit="admin.saveProfile(form)" style="color: #000000;">
-                            <div >ADDING NEW HEALTH PROFILE</div></br>
-                            <div class="row">
-                                <label >* Organisation Unit (Region)</label>
-                                <div class="input-field col  s12 m12">
-                                    <select  name="org_unit" ng-model="admin.selectedEntryRegion" class="browser-default" required="required">
-                                        <option ng-repeat="org in admin.regions" value="{{org}}">{{org.value}}</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row" n>
-                                <label >* Organisation Unit (District)</label>
-                                <div class="input-field col  s12 m12">
-                                    <select  name="org_unit" ng-model="admin.selectedEntryDistrict" class="browser-default" required="required">
-                                        <option ng-repeat="distr in admin.districts" value="{{distr.value}}">{{distr.name}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label>* Period</label>
-                                <div class="input-field col  s12 m12">
-
-                                    <select  name="period" ng-model="form.form_period" class="browser-default" >
-                                        <option value="{{main.current_year}}"  selected="selected">{{main.current_year}}</option>
-                                        <option ng-repeat="period in main.periods" value="{{period.name}}">{{period.name}}</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="button" ngf-select ng-model="admin.file" name="file" ngf-pattern="'application/pdf'"
-                                     accept="application/pdf" ><a href="#"><i class="fa fa-file"></i> Select a File</a></div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s12 m12">
-                                    <button class="waves-effect waves-light btn col s12 m12" style="background-color:#82b1ff" type="submit" name="submit">Upload DHP</button>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="progress" ng-if="admin.showProgress">
-                                    <div class="determinate" style="width:{{admin.progressPercent}}"></div>
-                                </div>
-
-
-                                <div class="col m12 s12" ng-if="admin.message">
-                                    <div class="chip" class="{{admin.message_class}}">
-                                        {{admin.message}}
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row" id="file_edit" ng-if="admin.editProfileForm">
-            <div class="col s12 m12">
-
-                <div class="card blue-white darken-1">
-                    <div class="card-content grey-text" style="padding:13px">
-            <form class="col s12 m12" name="upload_form" ng-submit="admin.saveProfile(form)" style="color: #000000;">
-                <div >UPDATING HEALTH PROFILE FOR <b>{{admin.editedParrentOrgUnit}}</b> -> <b>{{admin.editedOrgUnit}}</b> <b>{{admin.editedYear}}</b></div></br>
-                <div class="row">
-                    <label >Organisation Unit (Region)</label>
-                    <div class="input-field col  s12 m12">
-                        <select  name="org_unit" ng-model="admin.selectedEntryRegion" class="browser-default" required="required">
-                            <option ng-repeat="org in admin.regions" value="{{org}}">{{org.value}}</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row" n>
-                    <label >Organisation Unit (District)</label>
-                    <div class="input-field col  s12 m12">
-                        <select  name="org_unit" ng-model="admin.selectedEntryDistrict" class="browser-default" required="required">
-                            <option ng-repeat="distr in admin.districts" value="{{distr.value}}">{{distr.name}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <label>* Period</label>
-                    <div class="input-field col  s12 m12">
-
-                        <select  name="period" ng-model="form.form_period" class="browser-default" >
-                            <option value="{{main.current_year}}"  selected="selected">{{main.current_year}}</option>
-                            <option ng-repeat="period in main.periods" value="{{period.name}}">{{period.name}}</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="button" ngf-select ng-model="admin.file" name="file" ngf-pattern="'application/pdf'"
-                         accept="application/pdf" ><a href="#"><i class="fa fa-file"></i> Select a File</a></div>
-                </div>
-
-                <div class="row">
-                    <div class="input-field col s12 m12">
-                        <button class="waves-effect waves-light btn col s12 m6" style="background-color:#82b1ff" type="submit" name="submit">Update DHP</button>
-                        <button class="waves-effect waves-light red btn col s12 m6" style="background-color:#82b1ff" type="button" name="cancel" ng-click="admin.cancelUpdate()">CANCEL</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="progress" ng-if="admin.showProgress">
-                        <div class="determinate" style="width:{{admin.progressPercent}}"></div>
-                    </div>
-
-
-                    <div class="col m12 s12" ng-if="admin.message">
-                        <div class="chip" class="{{admin.message_class}}">
-                            {{admin.message}}
-                        </div>
-                    </div>
-                </div>
-            </form>
-                    </div>
-               </div>
-            </div>
-        </div>
-        <div class="row" id="upload_csv" ng-if="admin.uploadcsv">
+        <div class="row" id="upload_csv" ><!--ng-if="admin.uploadcsv"-->
             <div class="col s12 m12">
                 <div class="card blue-white darken-1">
                     <div class="card-content grey-text" >
                         <form class="col s12 m12" name="upload_form" ng-submit="admin.uploadProfileToDHIS(form)" style="color: #000000;">
-                            <div >DHIS HEALTH PROFILE DATA ENTRY </div></br>
+                            <div >DHP HEALTH PROFILE DATA ENTRY  </div></br>
+                            <div style="font-weight:bolder;color:#CD781B;"><i>Please ....!</i>&nbsp;&nbsp;Upload Both "<i>Read Only PDF</i>"&nbsp;&nbsp;and&nbsp;&nbsp;"<i>CSV</i>"  </div></br>
                             <div class="row">
                                 <label >Organisation Unit (Region)</label>
                                 <div class="input-field col  s12 m12">
@@ -276,7 +63,14 @@
 
                             <div class="row">
                                 <div class="button" ngf-select ng-model="admin.csvfile" name="csvfile" ngf-pattern="'.csv'"
-                                     accept="application/csv" ><a href="#"><i class="fa fa-file"></i> Select a CSV File</a></div>
+                                     accept="application/csv" ><a href="#"><i class="fa fa-file-excel-o fa-2x"></i> Select a CSV File</a></div>
+                            </div>
+
+                            <br/>
+                            <br/>
+                            <div class="row">
+                                <div class="button" ngf-select ng-model="admin.pdffile" name="pdffile" ngf-pattern="'.pdf'"
+                                     accept="application/pdf" ><a href="#"><i class="fa fa-file-pdf-o fa-2x"></i> Select a readOnly PDF File</a></div>
                             </div>
 
                             <div class="row">
@@ -300,257 +94,9 @@
                     </div>
                 </div>
             </div>
-            <!--<div class="col s12 m12">-->
-                <!--<div class="card blue-white darken-1">-->
-                    <!--<div class="card-content grey-text" >-->
-                        <!--abcd-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
         </div>
 
-
-        <div class="row" id="preview_csv" ng-if="admin.previewcsv">
-
-            <div class="col s12 m12">
-                <div class="card blue-white darken-1">
-                    <div class="card-content grey-text" style="padding:13px">
-                        <a ng-click="admin.openCriteriaPreview()" title="selection criteria" style="cursor: pointer;"><i class="material-icons" ng-if="admin.criteriaPreview">call_made</i><i class="material-icons" ng-if="!admin.criteriaPreview">call_received</i></a>&nbsp;&nbsp;DHIS HEALTH PROFILE DATA PREVIEW
-                    </div>
-                </div>
-                <!--SELECTION CRITERIA-->
-            </div>
-
-            <div class="col s12 m12" ng-if="admin.criteriaPreview">
-                <div class="card blue-white darken-1">
-                    <div class="card-content grey-text" >
-                        <form class="col s12 m12" name="upload_form"  style="color: #000000;">
-                            <div class="row">
-                                <label >Organisation Unit (Region)</label>
-                                <div class="input-field col  s12 m12">
-                                    <select  name="org_unit" ng-model="admin.selectedEntryRegion" class="browser-default" required="required">
-                                        <option ng-repeat="org in admin.regions" value="{{org}}">{{org.value}}</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row" n>
-                                <label >Organisation Unit (District)</label>
-                                <div class="input-field col  s12 m12">
-                                    <select  name="org_unit" ng-model="form.org_unit_selected" class="browser-default" required="required">
-                                        <option ng-repeat="distr in admin.districts" value="{{distr.id}}">{{distr.name}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label>* Period</label>
-                                <div class="input-field col  s12 m12">
-
-                                    <select  name="period" ng-model="form.form_period" class="browser-default" >
-                                        <option value="{{main.current_year}}"  selected="selected">{{main.current_year}}</option>
-                                        <option ng-repeat="period in main.periods" value="{{period.name}}" ng-if="period.name!=main.current_year">{{period.name}}</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-
-                            <div class="row">
-                                <div class="input-field col s12 m12">
-                                    <button class="waves-effect waves-light btn col s12 m12" style="background-color:#82b1ff" type="button" ng-click="admin.previewData(form)" name="preview">Preview</button>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="progress" ng-if="admin.showProgress">
-                                    <div class="determinate" style="width:{{admin.progressPercent}}"></div>
-                                </div>
-
-
-                                <div class="col m12 s12" ng-if="admin.message">
-                                    <div class="chip" class="{{admin.message_class}}">
-                                        {{admin.message}}
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m12">
-            <div class="card blue-white darken-1">
-            <div class="card-content grey-text" >
-                <style>
-                    table.profile_table {
-                        border:1px solid #ccc;
-                        color:#000000!important;
-                        margin-bottom:20px;
-                    }
-                    table.profile_table tr{
-                        border:1px solid #ccc;
-                    }
-                    table.profile_table tr td{
-                        border:1px solid #ccc;
-                        padding:5px;
-                    }
-                    .align_left{
-                        text-align:left;
-                    }
-                    .header_one{
-                        background-color:#D2E1B5!important;
-                        font-weight:bold;
-                    }
-
-                    .header_two{
-                        background-color:#FCC48C!important;
-                        font-weight:bold;
-                    }
-                </style>
-                <div class="col s12 m12"></div>
-                <div class="col s12 m12">
-                    <table class="profile_table">
-                        <tr class="header_one">
-                            <td class="align_left ">
-                                HEALTH STATUS OF THE DISTRICT POPULATION
-                            </td>
-                            <td>TARGET</td>
-                            <td>2010</td>
-                            <td>2011</td>
-                            <td>2012</td>
-                            <td>OVERALL PROGRESS (+/-)</td>
-                        </tr>
-                        <tr class="header_two">
-                            <td colspan="6" class="align_left">Marternal,Newborn and Child Health</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Maternal mortality ratio</td>
-                            <td>{{admin.profile.maternal_mortality_target}}</td>
-                            <td>{{admin.profile.maternal_mortality.first_year}}</td>
-                            <td>{{admin.profile.maternal_mortality.second_year}}</td>
-                            <td>{{admin.profile.maternal_mortality.third_year}}</td>
-                            <td>{{admin.profile.maternal_mortality_progress}}</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Nutritional Status: Incidence of low birth weight among humans</td>
-                            <td>{{admin.profile.incidence_of_low_birth_weight_target}}</td>
-                            <td>{{admin.profile.incidence_of_low_birth_weight.first_year}}</td>
-                            <td>{{admin.profile.incidence_of_low_birth_weight.second_year}}</td>
-                            <td>{{admin.profile.incidence_of_low_birth_weight.third_year}}</td>
-                            <td>{{admin.profile.incidence_of_low_birth_weight_progress}}</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Neonatal mortality rates (per 1,000)</td>
-                            <td>{{admin.profile.neonatal_mortality_target}}</td>
-                            <td>{{admin.profile.neonatal_mortality.first_year}}</td>
-                            <td>{{admin.profile.neonatal_mortality.second_year}}</td>
-                            <td>{{admin.profile.neonatal_mortality.third_year}}</td>
-                            <td>{{admin.profile.neonatal_mortality_progress}}</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Infant mortality rates (per 1,000)</td>
-                            <td>{{admin.profile.infant_mortality_rate_target}}</td>
-                            <td>{{admin.profile.infant_mortality_rate.first_year}}</td>
-                            <td>{{admin.profile.infant_mortality_rate.second_year}}</td>
-                            <td>{{admin.profile.infant_mortality_rate.third_year}}</td>
-                            <td>{{admin.profile.infant_mortality_rate_progress}}</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Under 5 mortality rates (per 1,000)</td>
-                            <td>{{admin.under5_mortality_rate_target}}</td>
-                            <td>{{admin.under5_mortality_rate.first_year}}</td>
-                            <td>{{admin.under5_mortality_rate.second_year}}</td>
-                            <td>{{admin.under5_mortality_rate.third_year}}</td>
-                            <td>{{admin.under5_mortality_rate_progress}}</td>
-                        </tr>
-                        <tr class="header_two">
-                            <td colspan="6" class="align_left">Morbidity</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Incidence of malaria/laboratory confirmed cases</td>
-                            <td>{{admin.incidence_of_malaria_laboratory_confirmed_cases_target}}</td>
-                            <td>{{admin.incidence_of_malaria_laboratory_confirmed_cases.first_year}}</td>
-                            <td>{{admin.incidence_of_malaria_laboratory_confirmed_cases.second_year}}</td>
-                            <td>{{admin.incidence_of_malaria_laboratory_confirmed_cases.third_year}}</td>
-                            <td>{{admin.incidence_of_malaria_laboratory_confirmed_cases_progress}}</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">HIV prevalence in 15 to 24 years age group</td>
-                            <td>{{admin.HIV_prevalence_in_15_to_24_years_age_group_target}}</td>
-                            <td>{{admin.HIV_prevalence_in_15_to_24_years_age_group.first_year}}</td>
-                            <td>{{admin.HIV_prevalence_in_15_to_24_years_age_group.second_year}}</td>
-                            <td>{{admin.HIV_prevalence_in_15_to_24_years_age_group.third_year}}</td>
-                            <td>{{admin.HIV_prevalence_in_15_to_24_years_age_group_progress}}</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Top 10 cases of admission (List #1 cause)</td>
-                            <td>{{admin.Top_10_cases_of_admission_target}}</td>
-                            <td>{{admin.Top_10_cases_of_admission.first_year}}</td>
-                            <td>{{admin.Top_10_cases_of_admission.second_year}}</td>
-                            <td>{{admin.Top_10_cases_of_admission.third_year}}</td>
-                            <td>{{admin.Top_10_cases_of_admission_progress}}</td>
-                        </tr>
-                        <tr class="header_two">
-                            <td colspan="6" class="align_left">Mortality</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Top 10 causes of death (List # cause)</td>
-                            <td>{{admin.Top_10_causes_of_death_target}}</td>
-                            <td>{{admin.Top_10_causes_of_death.first_year}}</td>
-                            <td>{{admin.Top_10_causes_of_death.second_year}}</td>
-                            <td>{{admin.Top_10_causes_of_death.third_year}}</td>
-                            <td>{{admin.Top_10_causes_of_death_progress}}</td>
-                        </tr>
-                        <tr class="header_one">
-                            <td>DISTRICT HEALTH SERVICE DELIVERY</td>
-                            <td>TARGET</td>
-                            <td>2010</td>
-                            <td>2011</td>
-                            <td>2012</td>
-                            <td>OVERALL PROGRESS (+/-)</td>
-                        </tr>
-                        <tr class="header_two">
-                            <td colspan="6" class="align_left">General</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">OPD attention</td>
-                            <td>{{admin.OPD_attention_target}}</td>
-                            <td>{{admin.OPD_attention.first_year}}</td>
-                            <td>{{admin.OPD_attention.second_year}}</td>
-                            <td>{{admin.OPD_attention.third_year}}</td>
-                            <td>{{admin.OPD_attention_progress}}</td>
-                        </tr>
-                        <tr class="header_two">
-                            <td colspan="6" class="align_left">Vaccination</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Proportion of children under 1 year vaccinated against measles</td>
-                            <td>{{admin.Proportion_of_children_under_1_year_vaccinated_against_measles_target}}</td>
-                            <td>{{admin.Proportion_of_children_under_1_year_vaccinated_against_measles.first_year}}</td>
-                            <td>{{admin.Proportion_of_children_under_1_year_vaccinated_against_measles.second_year}}</td>
-                            <td>{{admin.Proportion_of_children_under_1_year_vaccinated_against_measles.third_year}}</td>
-                            <td>{{admin.Proportion_of_children_under_1_year_vaccinated_against_measles_progress}}</td>
-                        </tr>
-                        <tr>
-                            <td class="align_left">Proportion of under 1 year 3rd polio (OPV3)</td>
-                            <td>{{admin.Proportion_of_under_1_year_3rd_polio_target}}</td>
-                            <td>{{admin.Proportion_of_under_1_year_3rd_polio.first_year}}</td>
-                            <td>{{admin.Proportion_of_under_1_year_3rd_polio.second_year}}</td>
-                            <td>{{admin.Proportion_of_under_1_year_3rd_polio.third_year}}</td>
-                            <td>{{admin.Proportion_of_under_1_year_3rd_polio_progress}}</td>
-                        </tr>
-
-                    </table>
-                </div>
-
-            </div>
-            </div>
-            </div>
-        </div>
 
     </div>
 </div>
-<script>
-//$("select option[value='? undefined:2015 ?']").remove();
-//$(document).ready(function() {
-//});
-</script>
 

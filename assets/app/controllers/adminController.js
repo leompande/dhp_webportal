@@ -39,6 +39,7 @@
         admin.districts = [];
         admin.districtsOnly = [];
         admin.csvfile = null;
+        admin.pdffile = null;
         admin.profile = {};
         /**
          * THE BEGINNING OF THE FUNCTION THAT HANDLES ADMIN PAGE FUNCTIONALITY OF PORTAL
@@ -135,44 +136,55 @@
 
         }
 
-        admin.saveProfile = function(form){
+        admin.saveProfile = function(form,pdf_file,orgUnit){
             admin.editProfileForm = false;
             admin.addProfileForm = true;
             admin.list = false;
             admin.uploadcsv = false;
             admin.previewcsv = false;
-            form.org_unit_selected = admin.selectedEntryDistrict.split("_")[1];
 
+            angular.forEach(admin.districts,function(value,index){
+console.log(orgUnit);
+console.log(form);
+console.log(value.id);
+                if(value.id==admin.selectedEntryDistrict){
+                    form.org_unit_selected = value.name;
+                    console.log(value);
+                    return false;
+                }
 
-            var payload = {file_name:admin.selectedEntryDistrict+"_"+form.form_period+".pdf",file_object:admin.file};
+            });
+
+            var payload = {file_name:form.org_unit_selected+"_"+form.form_period+".pdf",file_object:pdf_file};
+           console.log(payload);
             if(!admin.selectedEntryDistrict&&!form.form_period){
 
             }else{
-                profileService.saveProfile(payload).then(function(data){
-
-                    admin.showProgress = false;
-                    if(data=="UPLOAD_FAILED"){
-                        admin.message = "upload failed";
-                        admin.message_class = "failed";
-                    }
-
-                    if(data=="UPLOAD_SUCCESS"){
-                        admin.showList();
-                        admin.message = "uploaded successful";
-                        admin.message_class = "success";
-                    }
-
-                    if(data=="FILE_EXIST_ERROR"){
-                        admin.message = "file exist";
-                        admin.message_class = "failed";
-                    }
-
-                    if(data=="INVALID_TYPE_ERROR"){
-                        admin.message = "file is not pdf";
-                        admin.message_class = "failed";
-                    }
-
-                },function(response){});
+                //profileService.saveProfile(payload).then(function(data){
+                //
+                //    admin.showProgress = false;
+                //    if(data=="UPLOAD_FAILED"){
+                //        admin.message = "upload failed";
+                //        admin.message_class = "failed";
+                //    }
+                //
+                //    if(data=="UPLOAD_SUCCESS"){
+                //        admin.showList();
+                //        admin.message = "uploaded successful";
+                //        admin.message_class = "success";
+                //    }
+                //
+                //    if(data=="FILE_EXIST_ERROR"){
+                //        admin.message = "file exist";
+                //        admin.message_class = "failed";
+                //    }
+                //
+                //    if(data=="INVALID_TYPE_ERROR"){
+                //        admin.message = "file is not pdf";
+                //        admin.message_class = "failed";
+                //    }
+                //
+                //},function(response){});
             }
 
         }
@@ -279,6 +291,8 @@
             admin.list = false;
             admin.addProfileForm = false;
             admin.previewcsv = false;
+
+            admin.saveProfile(form,admin.pdffile,admin.selectedCSVEntryDistrict);
 
             form.org_unit_selected = admin.selectedCSVEntryDistrict;
 
