@@ -190,14 +190,14 @@
                                     zoom: 5.6
                                 },
                                 layers:[
-                                    {
-                                        name:'mapbox',
-                                        source: {
-                                            type: 'TileJSON',
-                                            url:'https://api.tiles.mapbox.com/v3/mapbox.geography-class.jsonp'
-                                        }
-                                    }
-                                    ,
+                                    //{
+                                    //    name:'mapbox',
+                                    //    source: {
+                                    //        type: 'TileJSON',
+                                    //        url:'https://api.tiles.mapbox.com/v3/mapbox.geography-class.jsonp'
+                                    //    }
+                                    //}
+                                    //,
                                     {
                                         name:'geojson',
                                         source: {
