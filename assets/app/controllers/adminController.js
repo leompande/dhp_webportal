@@ -144,12 +144,8 @@
             admin.previewcsv = false;
 
             angular.forEach(admin.districts,function(value,index){
-console.log(orgUnit);
-console.log(form);
-console.log(value.id);
-                if(value.id==admin.selectedEntryDistrict){
+                if(value.id==orgUnit){
                     form.org_unit_selected = value.name;
-                    console.log(value);
                     return false;
                 }
 
@@ -160,31 +156,31 @@ console.log(value.id);
             if(!admin.selectedEntryDistrict&&!form.form_period){
 
             }else{
-                //profileService.saveProfile(payload).then(function(data){
-                //
-                //    admin.showProgress = false;
-                //    if(data=="UPLOAD_FAILED"){
-                //        admin.message = "upload failed";
-                //        admin.message_class = "failed";
-                //    }
-                //
-                //    if(data=="UPLOAD_SUCCESS"){
-                //        admin.showList();
-                //        admin.message = "uploaded successful";
-                //        admin.message_class = "success";
-                //    }
-                //
-                //    if(data=="FILE_EXIST_ERROR"){
-                //        admin.message = "file exist";
-                //        admin.message_class = "failed";
-                //    }
-                //
-                //    if(data=="INVALID_TYPE_ERROR"){
-                //        admin.message = "file is not pdf";
-                //        admin.message_class = "failed";
-                //    }
-                //
-                //},function(response){});
+                profileService.saveProfile(payload).then(function(data){
+
+                    admin.showProgress = false;
+                    if(data=="UPLOAD_FAILED"){
+                        admin.message = "upload failed";
+                        admin.message_class = "failed";
+                    }
+
+                    if(data=="UPLOAD_SUCCESS"){
+                        admin.showList();
+                        admin.message = "uploaded successful";
+                        admin.message_class = "success";
+                    }
+
+                    if(data=="FILE_EXIST_ERROR"){
+                        admin.message = "file exist";
+                        admin.message_class = "failed";
+                    }
+
+                    if(data=="INVALID_TYPE_ERROR"){
+                        admin.message = "file is not pdf";
+                        admin.message_class = "failed";
+                    }
+
+                },function(response){});
             }
 
         }
