@@ -88,7 +88,10 @@
             main.shownPdf = false;
         }
 
-        main.showPdf = function(){
+        main.showPdf = function(filename,year){
+            console.log(filename);
+            console.log(year);
+
             main.shownHtml = false;
             main.shownPdf = true;
         }
