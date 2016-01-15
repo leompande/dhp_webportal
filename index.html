@@ -20,11 +20,11 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
         <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
-      <script type="text/javascript" src="assets/js/angular-1.4.7/angular.js"></script>
-      <script type="text/javascript" src="assets/js/angular-1.4.7/angular-route.js"></script> 
-      <script type="text/javascript" src="assets/js/angular-1.4.7/angular-cookies.js"></script>
+      <script type="text/javascript" src="assets/js/angular-1.4.7/angular.min.js"></script>
+      <script type="text/javascript" src="assets/js/angular-1.4.7/angular-route.min.js"></script>
+      <script type="text/javascript" src="assets/js/angular-1.4.7/angular-cookies.min.js"></script>
 
-        <script type="text/javascript" src="assets/js/angular-1.4.7/angular-sanitize.js"></script>
+        <script type="text/javascript" src="assets/js/angular-1.4.7/angular-sanitize.min.js"></script>
         <script src="assets/js/openlayers3/build/ol.js"></script>
         <script src="assets/js/angular-openlayers-directive/dist/angular-openlayers-directive.js"></script>
 
@@ -219,18 +219,31 @@
                       </ul>
 
                       <ul class="right hide-on-med-and-down">
-                        <li ng-if="main.logedIn"><a style="color:#ffffff;" >Logged in as :{{currentLogedUser}}</a></li>
+                        <!--<li ng-if="main.logedIn"><a style="color:#ffffff;" >Logged in as :{{currentLogedUser}}</a></li>-->
                         <li><a class="active" href="#/" style="color:#ffffff;" >Dashboard</a></li>
                         <li><a href="#/admin" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Settings</a></li>
                         <li><a  style="color:#ffffff;cursor: pointer;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>
-                        <li><a  style="color:#ffffff;cursor: pointer;" ng-click="main.Logout()" ng-if="main.logedIn">Logout</a></li>
+                        <li>
+                            <a  style="color:#ffffff;cursor: pointer;" class="dropdown-button"  ng-if="main.logedIn"  data-activates='dropdown1'><i class="material-icons">perm_contact_calendar</i></a>
+                            <!-- Dropdown Structure -->
+                            <ul id='dropdown1' class='dropdown-content'>
+                                <li><a href="#!">{{currentLogedUser}}</a></li>
+                                <li><a href="#!" ng-click="main.Logout()">Logout</a></li>
+                            </ul>
+                        </li>
                       </ul>
 
                       <ul id="nav-mobile" class="side-nav">
                           <li><a href="#/" style="color:#ffffff;" ng-click="main.getDashboard()">Dashboard</a></li>
                           <li><a href="#/admin" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Settings</a></li>
                           <li><a style="color:#ffffff;cursor: pointer;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>
-                          <li><a style="color:#ffffff;cursor: pointer;" ng-click="main.Logout()" ng-if="main.logedIn">Logout</a></li>
+                          <li><a style="color:#ffffff;cursor: pointer;"  ng-if="main.logedIn" class="dropdown-button"  data-activates='dropdown2'><i class="material-icons">perm_contact_calendar</i></a>
+                              <!-- Dropdown Structure -->
+                              <ul id='dropdown2' class='dropdown-content'>
+                                  <li><a href="#!">{{currentLogedUser}}</a></li>
+                                  <li><a href="#!" ng-click="main.Logout()">Logout</a></li>
+                              </ul>
+                          </li>
                       </ul>
                       <a href="#" data-activates="nav-mobile" class="right button-collapse"><i class="material-icons">menu</i></a>
                     <!--</div>-->
@@ -265,6 +278,7 @@
                   </div>
               </div>
           </div>
+
           <div class="footer-copyright">
               <div class="container">
                  &copy; 2015 Copyright <a target="_blank" href="http://www.moh.go.tz/"><b style="color:#ffffff;">Ministry Of Health and Social Welfare</b></a>

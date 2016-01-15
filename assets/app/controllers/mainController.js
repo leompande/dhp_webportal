@@ -397,7 +397,7 @@
 
         }
         main.getDashboard = function(){
-            main.csv_menu = false;
+            //main.csv_menu = false;
 
 
         }
@@ -537,6 +537,8 @@
 
             });
         };
+
+
 
     }
 
