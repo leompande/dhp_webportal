@@ -268,183 +268,188 @@
 
 
             /** hard coded profiles */
-            main.profile.DHP_Foreword_Foreword_Field = "";
-            main.profile.DHP_Acknowledgements_Acknowledgements_Field = "";
-            main.profile.DHP_Executive_Executive_Field = "";
-            main.profile.DHP_MissionAndVision_MissionAndVision = "";
+            //main.profile.DHP_Foreword_Foreword_Field = "";
+            //main.profile.DHP_Acknowledgements_Acknowledgements_Field = "";
+            //main.profile.DHP_Executive_Executive_Field = "";
+            //main.profile.DHP_MissionAndVision_MissionAndVision = "";
+            //
+            //main.profile.DHP_Year_Year1 = "";
+            //main.profile.DHP_Year_Year2 = "";
+            //main.profile.DHP_Year_Year3 = "";
+            //
+            //main.profile.DHP_StructureOfDistrict_StructureOfDistrict = "";
+            //main.profile.DHP_FacilityDistribution_FacilityDistribution = "";
+            //main.profile.DHP_Population_Population = "";
+            //main.profile.DHP_Geography_Geography = "";
+            //main.profile.DHP_TransportationAndCommunication_TransportationAndCommunication = "";
+            //main.profile.DHP_Education_Education = "";
+            //main.profile.DHP_DataSourcesCollecctionAnalysisMethods_DataSourcesCollecctionAnalysisMethods = "";
+            //
+            //
+            //main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear1 = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear2 = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear3 = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityTarget = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityProgress = "";
+            //
+            //main.profile.DHP_Maternal_MaternalNCHealthLowBWYear1 = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthLowBWYear2 = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthLowBWYear3 = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthLowBWTarget = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthLowBWProgress = "";
+            //
+            //main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear1 = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear2 = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear3 = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityTarget = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityProgress = "";
+            //
+            //main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear1 = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear2 = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear3 = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityTarget = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityProgress = "";
+            //
+            //main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear1 = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear2 = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear3 = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityTarget = "";
+            //main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityProgress = "";
+            //
+            //main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear1="";
+            //main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear2="";
+            //main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear3="";
+            //main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaTarget="";
+            //main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaProgress="";
+            //
+            //main.profile.DHP_Morbidity_MorbidityHIVAIDSYear1="";
+            //main.profile.DHP_Morbidity_MorbidityHIVAIDSYear2="";
+            //main.profile.DHP_Morbidity_MorbidityHIVAIDSYear3="";
+            //main.profile.DHP_Morbidity_MorbidityHIVAIDSTarget="";
+            //main.profile.DHP_Morbidity_MorbidityHIVAIDSProgress="";
+            //
+            //
+            //main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear1 = "";
+            //main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear2 = "";
+            //main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear3 = "";
+            //
+            //main.profile.DHP_Mortality_MortalityTopTenDeathYear1 = "";
+            //main.profile.DHP_Mortality_MortalityTopTenDeathYear2 = "";
+            //main.profile.DHP_Mortality_MortalityTopTenDeathYear3 = "";
+            //
+            //
+            //
+            //main.profile.DHP_AreasOfProgress_BestPracticesCaseStudiesCheckbox = "";
+            //main.profile.DHP_AreasOfProgress_BestPracticesCaseStudiesImage = "";
+            //main.profile.DHP_AreasOfProgress_BestPracticesCaseStudiesText = "";
+            //main.profile.DHP_AreasOfProgress_DecreasesInLowBirthWeightCheckbox = "";
+            //main.profile.DHP_AreasOfProgress_DecreasesInLowBirthWeightImage = "";
+            //main.profile.DHP_AreasOfProgress_DecreasesInLowBirthWeightText = "";
+            //main.profile.DHP_AreasOfProgress_ExpansionsInCriticalHealthServicesCheckbox = "";
+            //main.profile.DHP_AreasOfProgress_ExpansionsInCriticalHealthServicesImage = "";
+            //main.profile.DHP_AreasOfProgress_ExpansionsInCriticalHealthServicesText = "";
+            //main.profile.DHP_AreasOfProgress_ExpansionsInFacilityCoverageCheckbox = "";
+            //main.profile.DHP_AreasOfProgress_ExpansionsInFacilityCoverageImage = "";
+            //main.profile.DHP_AreasOfProgress_ExpansionsInHealthSpendingCheckbox = "";
+            //main.profile.DHP_AreasOfProgress_ExpansionsInHealthSpendingImage = "";
+            //main.profile.DHP_AreasOfProgress_ExpansionsInHealthSpendingText = "";
+            //main.profile.DHP_AreasOfProgress_ImprovementsInReferralHospitalPerformanceCheckbox = "";
+            //main.profile.DHP_AreasOfProgress_ImprovementsInReferralHospitalPerformanceText = "";
+            //main.profile.DHP_AreasOfProgress_ImprovementsInVaccinationCoverageCheckbox = "";
+            //main.profile.DHP_AreasOfProgress_ImprovementsInVaccinationCoverageImage = "";
+            //main.profile.DHP_AreasOfProgress_IncreasesInSkilledHealthWorkersCheckbox = "";
+            //main.profile.DHP_AreasOfProgress_IncreasesInSkilledHealthWorkersImage = "";
+            //main.profile.DHP_AreasOfProgress_IncreasesInSkilledHealthWorkersText = "";
+            //main.profile.DHP_AreasOfProgress_OverallHealthFinancingCheckbox = "";
+            //main.profile.DHP_AreasOfProgress_OverallHealthFinancingImage = "";
+            //main.profile.DHP_AreasOfProgress_OverallHealthFinancingText = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInANCAttendanceCheckbox = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInANCAttendanceImage = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInANCAttendanceText = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInHealthFacilityReportingRatesCheckbox = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInHealthFacilityReportingRatesImage = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInHealthFacilityReportingRatesText = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInHealthFacilityTimelinessOfReportingCheckbox = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInHealthFacilityTimelinessOfReportingImage = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInHealthFacilityTimelinessOfReportingText = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInHRAvailabilitybyCadreImage = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInHRAvailabilitybyCadreText = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInProportionInNeedOfWelfareAndProtectionCheckbox = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInProportionInNeedOfWelfareAndProtectionImage = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInProportionInNeedOfWelfareAndProtectionText = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInProportionLGAsImprovedCapacityProvideWelfareCheckbox = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInProportionLGAsImprovedCapacityProvideWelfareImage = "";
+            //main.profile.DHP_AreasOfProgress_ProgressInProportionLGAsImprovedCapacityProvideWelfareText = "";
+            //main.profile.DHP_AreasOfProgress_ProgressMilestonesSetByTechReviewAnnualHealthSectorCheckbox = "";
+            //main.profile.DHP_AreasOfProgress_ProgressMilestonesSetByTechReviewAnnualHealthSectorImage = "";
+            //main.profile.DHP_AreasOfProgress_ProgressMilestonesSetByTechReviewAnnualHealthSectorText = "";
+            //main.profile.DHP_CausesOfDeath_CODName1 = "";
+            //main.profile.DHP_CausesOfDeath_CODName10 = "";
+            //main.profile.DHP_CausesOfDeath_CODName2 = "";
+            //main.profile.DHP_CausesOfDeath_CODName3 = "";
+            //main.profile.DHP_CausesOfDeath_CODName4 = "";
+            //main.profile.DHP_CausesOfDeath_CODName5 = "";
+            //main.profile.DHP_CausesOfDeath_CODName6 = "";
+            //main.profile.DHP_CausesOfDeath_CODName8 = "";
+            //main.profile.DHP_CausesOfDeath_CODName9 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale1 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale2 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale3 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale10 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale4 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale5 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale6 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale7 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale8 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale9 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale1 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale10 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale2 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale3 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale4 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale5 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale6 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale7 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale8 = "";
+            //main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale9 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale1 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale10 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale2 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale3 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale4 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale5 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale6 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale7 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale8 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale9 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale1 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale10 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale2 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale3 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale4 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale5 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale6 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale7 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale8 = "";
+            //main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale9 = "";
+            //main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsFemale1 = "";
+            //main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsFemale3 = "";
+            //main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsFemale4 = "";
+            //main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsFemale6 = "";
+            //main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsFemale7 = "";
+            //main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsFemale9 = "";
+            //main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsMale1 = "";
+            //main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsMale2 = "";
+            //main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsFemale8 = "";
+            //main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsFemale8 = "";
 
-            main.profile.DHP_Year_Year1 = "";
-            main.profile.DHP_Year_Year2 = "";
-            main.profile.DHP_Year_Year3 = "";
+            var dataElement  = localStorage.getItem('dataElementNames');
+            dataElement = JSON.parse(dataElement);
+            angular.forEach(dataElement,function(valueOfDataEl,indexOfDataEl){
+                main.profile[valueOfDataEl] = "";
+            });
 
-            main.profile.DHP_StructureOfDistrict_StructureOfDistrict = "";
-            main.profile.DHP_FacilityDistribution_FacilityDistribution = "";
-            main.profile.DHP_Population_Population = "";
-            main.profile.DHP_Geography_Geography = "";
-            main.profile.DHP_TransportationAndCommunication_TransportationAndCommunication = "";
-            main.profile.DHP_Education_Education = "";
-            main.profile.DHP_DataSourcesCollecctionAnalysisMethods_DataSourcesCollecctionAnalysisMethods = "";
-
-
-            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear1 = "";
-            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear2 = "";
-            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear3 = "";
-            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityTarget = "";
-            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityProgress = "";
-
-            main.profile.DHP_Maternal_MaternalNCHealthLowBWYear1 = "";
-            main.profile.DHP_Maternal_MaternalNCHealthLowBWYear2 = "";
-            main.profile.DHP_Maternal_MaternalNCHealthLowBWYear3 = "";
-            main.profile.DHP_Maternal_MaternalNCHealthLowBWTarget = "";
-            main.profile.DHP_Maternal_MaternalNCHealthLowBWProgress = "";
-
-            main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear1 = "";
-            main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear2 = "";
-            main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear3 = "";
-            main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityTarget = "";
-            main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityProgress = "";
-
-            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear1 = "";
-            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear2 = "";
-            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear3 = "";
-            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityTarget = "";
-            main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityProgress = "";
-
-            main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear1 = "";
-            main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear2 = "";
-            main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear3 = "";
-            main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityTarget = "";
-            main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityProgress = "";
-
-            main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear1="";
-            main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear2="";
-            main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear3="";
-            main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaTarget="";
-            main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaProgress="";
-
-            main.profile.DHP_Morbidity_MorbidityHIVAIDSYear1="";
-            main.profile.DHP_Morbidity_MorbidityHIVAIDSYear2="";
-            main.profile.DHP_Morbidity_MorbidityHIVAIDSYear3="";
-            main.profile.DHP_Morbidity_MorbidityHIVAIDSTarget="";
-            main.profile.DHP_Morbidity_MorbidityHIVAIDSProgress="";
-
-
-            main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear1 = "";
-            main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear2 = "";
-            main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear3 = "";
-
-            main.profile.DHP_Mortality_MortalityTopTenDeathYear1 = "";
-            main.profile.DHP_Mortality_MortalityTopTenDeathYear2 = "";
-            main.profile.DHP_Mortality_MortalityTopTenDeathYear3 = "";
-
-
-
-            main.profile.DHP_AreasOfProgress_BestPracticesCaseStudiesCheckbox = "";
-            main.profile.DHP_AreasOfProgress_BestPracticesCaseStudiesImage = "";
-            main.profile.DHP_AreasOfProgress_BestPracticesCaseStudiesText = "";
-            main.profile.DHP_AreasOfProgress_DecreasesInLowBirthWeightCheckbox = "";
-            main.profile.DHP_AreasOfProgress_DecreasesInLowBirthWeightImage = "";
-            main.profile.DHP_AreasOfProgress_DecreasesInLowBirthWeightText = "";
-            main.profile.DHP_AreasOfProgress_ExpansionsInCriticalHealthServicesCheckbox = "";
-            main.profile.DHP_AreasOfProgress_ExpansionsInCriticalHealthServicesImage = "";
-            main.profile.DHP_AreasOfProgress_ExpansionsInCriticalHealthServicesText = "";
-            main.profile.DHP_AreasOfProgress_ExpansionsInFacilityCoverageCheckbox = "";
-            main.profile.DHP_AreasOfProgress_ExpansionsInFacilityCoverageImage = "";
-            main.profile.DHP_AreasOfProgress_ExpansionsInHealthSpendingCheckbox = "";
-            main.profile.DHP_AreasOfProgress_ExpansionsInHealthSpendingImage = "";
-            main.profile.DHP_AreasOfProgress_ExpansionsInHealthSpendingText = "";
-            main.profile.DHP_AreasOfProgress_ImprovementsInReferralHospitalPerformanceCheckbox = "";
-            main.profile.DHP_AreasOfProgress_ImprovementsInReferralHospitalPerformanceText = "";
-            main.profile.DHP_AreasOfProgress_ImprovementsInVaccinationCoverageCheckbox = "";
-            main.profile.DHP_AreasOfProgress_ImprovementsInVaccinationCoverageImage = "";
-            main.profile.DHP_AreasOfProgress_IncreasesInSkilledHealthWorkersCheckbox = "";
-            main.profile.DHP_AreasOfProgress_IncreasesInSkilledHealthWorkersImage = "";
-            main.profile.DHP_AreasOfProgress_IncreasesInSkilledHealthWorkersText = "";
-            main.profile.DHP_AreasOfProgress_OverallHealthFinancingCheckbox = "";
-            main.profile.DHP_AreasOfProgress_OverallHealthFinancingImage = "";
-            main.profile.DHP_AreasOfProgress_OverallHealthFinancingText = "";
-            main.profile.DHP_AreasOfProgress_ProgressInANCAttendanceCheckbox = "";
-            main.profile.DHP_AreasOfProgress_ProgressInANCAttendanceImage = "";
-            main.profile.DHP_AreasOfProgress_ProgressInANCAttendanceText = "";
-            main.profile.DHP_AreasOfProgress_ProgressInHealthFacilityReportingRatesCheckbox = "";
-            main.profile.DHP_AreasOfProgress_ProgressInHealthFacilityReportingRatesImage = "";
-            main.profile.DHP_AreasOfProgress_ProgressInHealthFacilityReportingRatesText = "";
-            main.profile.DHP_AreasOfProgress_ProgressInHealthFacilityTimelinessOfReportingCheckbox = "";
-            main.profile.DHP_AreasOfProgress_ProgressInHealthFacilityTimelinessOfReportingImage = "";
-            main.profile.DHP_AreasOfProgress_ProgressInHealthFacilityTimelinessOfReportingText = "";
-            main.profile.DHP_AreasOfProgress_ProgressInHRAvailabilitybyCadreImage = "";
-            main.profile.DHP_AreasOfProgress_ProgressInHRAvailabilitybyCadreText = "";
-            main.profile.DHP_AreasOfProgress_ProgressInProportionInNeedOfWelfareAndProtectionCheckbox = "";
-            main.profile.DHP_AreasOfProgress_ProgressInProportionInNeedOfWelfareAndProtectionImage = "";
-            main.profile.DHP_AreasOfProgress_ProgressInProportionInNeedOfWelfareAndProtectionText = "";
-            main.profile.DHP_AreasOfProgress_ProgressInProportionLGAsImprovedCapacityProvideWelfareCheckbox = "";
-            main.profile.DHP_AreasOfProgress_ProgressInProportionLGAsImprovedCapacityProvideWelfareImage = "";
-            main.profile.DHP_AreasOfProgress_ProgressInProportionLGAsImprovedCapacityProvideWelfareText = "";
-            main.profile.DHP_AreasOfProgress_ProgressMilestonesSetByTechReviewAnnualHealthSectorCheckbox = "";
-            main.profile.DHP_AreasOfProgress_ProgressMilestonesSetByTechReviewAnnualHealthSectorImage = "";
-            main.profile.DHP_AreasOfProgress_ProgressMilestonesSetByTechReviewAnnualHealthSectorText = "";
-            main.profile.DHP_CausesOfDeath_CODName1 = "";
-            main.profile.DHP_CausesOfDeath_CODName10 = "";
-            main.profile.DHP_CausesOfDeath_CODName2 = "";
-            main.profile.DHP_CausesOfDeath_CODName3 = "";
-            main.profile.DHP_CausesOfDeath_CODName4 = "";
-            main.profile.DHP_CausesOfDeath_CODName5 = "";
-            main.profile.DHP_CausesOfDeath_CODName6 = "";
-            main.profile.DHP_CausesOfDeath_CODName8 = "";
-            main.profile.DHP_CausesOfDeath_CODName9 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale1 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale2 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale3 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale10 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale4 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale5 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale6 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale7 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale8 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearFemale9 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale1 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale10 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale2 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale3 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale4 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale5 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale6 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale7 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale8 = "";
-            main.profile.DHP_COD1MonthToLessThan1Year_COD1MonthToLessThan1YearMale9 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale1 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale10 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale2 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale3 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale4 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale5 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale6 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale7 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale8 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsFemale9 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale1 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale10 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale2 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale3 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale4 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale5 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale6 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale7 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale8 = "";
-            main.profile.DHP_COD1YearToLessThan5Years_COD1YearToLessThan5YearsMale9 = "";
-            main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsFemale1 = "";
-            main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsFemale3 = "";
-            main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsFemale4 = "";
-            main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsFemale6 = "";
-            main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsFemale7 = "";
-            main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsFemale9 = "";
-            main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsMale1 = "";
-            main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsMale2 = "";
-            main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsFemale8 = "";
-            main.profile.DHP_COD5YearsToMoreThan5Years_COD5YearsToMoreThan5YearsFemale8 = "";
-
-
-
+            console.log(main.profile);
         }
 
         main.previewData = function(form){
@@ -452,6 +457,7 @@
 
             utilityService.getDataPreview(form).then(function(data){
                 main.filterProfiles(data);
+
                 utilityService.prepareTabledata(data).then(function(){
                     profiledata = utilityService.tableDatas;
                     angular.forEach(profiledata,function(profileValue,profileIndex){
