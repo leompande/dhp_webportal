@@ -221,10 +221,10 @@
                       <ul class="right hide-on-med-and-down">
                         <!--<li ng-if="main.logedIn"><a style="color:#ffffff;" >Logged in as :{{currentLogedUser}}</a></li>-->
                         <li><a class="active" href="#/" style="color:#ffffff;" >Dashboard</a></li>
-                        <li><a href="#/admin" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="!main.logedIn">Settings</a></li>
+                        <li><a href="#/admin" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Settings</a></li>
                         <li><a  style="color:#ffffff;cursor: pointer;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>
                         <li>
-                            <a  style="color:#ffffff;cursor: pointer;" class="dropdown-button"  ng-show="!main.logedIn"  data-activates='dropdown1'><i class="material-icons">perm_contact_calendar</i></a>
+                            <a  style="color:#ffffff;cursor: pointer;" class="dropdown-button"  ng-show="main.logedIn"  data-activates='dropdown1'><i class="material-icons">perm_contact_calendar</i></a>
                             <!-- Dropdown Structure -->
                             <ul id='dropdown1' class='dropdown-content'>
                                 <li class="divider"></li>

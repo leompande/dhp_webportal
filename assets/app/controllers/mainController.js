@@ -142,7 +142,7 @@
         }
 
         main.getHealthProfileFromView = function(row){
-            var file = {name:row.facility+" Health Profile",id:row.id};
+            var file = {name:row.facility,id:row.id};
             main.openPdfFile(file);
         }
         main.getHealthProfileFromMap = function(row){
@@ -324,7 +324,7 @@
                 main.orgUnitTable = [];
                 angular.forEach(objectSeries,function(valueObject,indexObject){
                         if(valueObject.count>0){
-                            main.orgUnitTable.push({name:valueObject.orgUnit+"  Health Profile",id:valueObject.id});
+                            main.orgUnitTable.push({name:valueObject.orgUnit,id:valueObject.id});
                         }
                 });
             });
