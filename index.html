@@ -227,7 +227,7 @@
                             <a  style="color:#ffffff;cursor: pointer;" class="dropdown-button"  ng-if="main.logedIn"  data-activates='dropdown1'><i class="material-icons">perm_contact_calendar</i></a>
                             <!-- Dropdown Structure -->
                             <ul id='dropdown1' class='dropdown-content'>
-                                <li><a href="#!">{{currentLogedUser}}</a></li>
+                                <li><a href="#!">Name: {{currentLogedUser}}</a></li>
                                 <li><a href="#!" ng-click="main.Logout()">Logout</a></li>
                             </ul>
                         </li>
@@ -240,7 +240,7 @@
                           <li><a style="color:#ffffff;cursor: pointer;"  ng-if="main.logedIn" class="dropdown-button"  data-activates='dropdown2'><i class="material-icons">perm_contact_calendar</i></a>
                               <!-- Dropdown Structure -->
                               <ul id='dropdown2' class='dropdown-content'>
-                                  <li><a href="#!">{{currentLogedUser}}</a></li>
+                                  <li><a href="#!">Name: {{currentLogedUser}}</a></li>
                                   <li><a href="#!" ng-click="main.Logout()">Logout</a></li>
                               </ul>
                           </li>
