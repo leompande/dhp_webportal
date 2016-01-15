@@ -431,7 +431,7 @@
                                 main.logedIn = true;
                                 main.logedOut = false;
                                 main.logedSuccessMessage = "LoggedIn as "+userdata.displayName+": Connected to DHIS2.";
-                                $timeout(main.closeLoginForm,2000);
+                                main.closeLoginForm();
                             utilityService.getDataElements().then(function(data){
                                 utilityService.prepareDataElementUid(data);
                                 utilityService.prepareDataElementNames(data);
