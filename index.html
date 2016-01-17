@@ -210,46 +210,49 @@
 
 		<div class="row">
                     <div class="row">
-               <nav class=" row " role="navigation" style="background-color: #82b1ff!important;">
-                   <div class="nav-wrapper">
-                       <a style="cursor:pointer;" class="brand-logo">
-                           <img style="width:60px;height:50px;" src="assets/images/tanzania1.gif"></img>
-                           DHP Webportal
-                       </a>
-                       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                 <div class="navbar-fixed z-depth-1">
+                     <nav class=" row " role="navigation" style="background-color: #82b1ff!important;">
+                         <div class="nav-wrapper">
+                             <a style="cursor:pointer;" class="brand-logo">
+                                 <img style="width:60px;height:50px;" src="assets/images/tanzania1.gif"></img>
+                                 DHP Webportal
+                             </a>
+                             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
-                       <ul class="right hide-on-med-and-down">
-                        <li><a class="active" href="#/" style="color:#ffffff;" >Dashboard</a></li>
-                        <li><a href="#/admin" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Settings</a></li>
-                        <li><a  style="color:#ffffff;cursor: pointer;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>
-                        <li>
-                            <a  style="color:#ffffff;cursor: pointer;" class="dropdown-button"  ng-show="main.logedIn"  data-activates='dropdown1'><i class="material-icons">perm_contact_calendar</i>&nbsp;{{currentLogedUser}}</a>
-                            <!-- Dropdown Structure -->
-                            <ul id='dropdown1' class='dropdown-content'>
-                                <li class="divider"></li>
-                                <li><a  style="cursor:pointer;font-size:12px;"><i class="material-icons">perm_contact_calendar</i>&nbsp;{{currentLogedUser}}</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#!" ng-click="main.Logout()" style="font-size:12px!important;">Logout</a></li>
-                            </ul>
-                        </li>
-                      </ul>
+                             <ul class="right hide-on-med-and-down">
+                                 <li><a class="active" href="#/" style="color:#ffffff;" >Dashboard</a></li>
+                                 <li><a href="#/admin" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Settings</a></li>
+                                 <li><a  style="color:#ffffff;cursor: pointer;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>
+                                 <li>
+                                     <a  style="color:#ffffff;cursor: pointer;" class="dropdown-button"  ng-show="main.logedIn"  data-activates='dropdown1'><i class="material-icons">perm_contact_calendar</i>&nbsp;{{currentLogedUser}}</a>
+                                     <!-- Dropdown Structure -->
+                                     <ul id='dropdown1' class='dropdown-content'>
+                                         <li class="divider"></li>
+                                         <li><a  style="cursor:pointer;font-size:12px;"><i class="material-icons">perm_contact_calendar</i>&nbsp;{{currentLogedUser}}</a></li>
+                                         <li class="divider"></li>
+                                         <li><a href="#!" ng-click="main.Logout()" style="font-size:12px!important;">Logout</a></li>
+                                     </ul>
+                                 </li>
+                             </ul>
 
-                       <ul class="side-nav" id="mobile-demo">
-                          <li><a href="#/" style="color:#ffffff;" ng-click="main.getDashboard()">Dashboard</a></li>
-                          <li><a href="#/admin" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Settings</a></li>
-                          <li><a style="color:#ffffff;cursor: pointer;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>
-                          <li><a style="color:#ffffff;cursor: pointer;"  ng-show="main.logedIn" class="dropdown-button"  data-activates='dropdown2'><i class="material-icons">perm_contact_calendar</i>&nbsp;{{currentLogedUser}}</a>
-                              <!-- Dropdown Structure -->
-                              <ul id='dropdown2' class='dropdown-content'>
-                                  <li class="divider"></li>
-                                  <li><a style="cursor:pointer;font-size:12px;"><i class="material-icons">perm_contact_calendar</i>&nbsp;{{currentLogedUser}}</a></li>
-                                  <li class="divider"></li>
-                                  <li><a href="#!" ng-click="main.Logout()" style="font-size:12px!important;">Logout</a></li>
-                              </ul>
-                          </li>
-                      </ul>
-                    </div>
-			   </nav>
+                             <ul class="side-nav" id="mobile-demo">
+                                 <li><a href="#/" style="color:#ffffff;" ng-click="main.getDashboard()">Dashboard</a></li>
+                                 <li><a href="#/admin" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Settings</a></li>
+                                 <li><a style="color:#ffffff;cursor: pointer;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>
+                                 <li><a style="color:#ffffff;cursor: pointer;"  ng-show="main.logedIn" class="dropdown-button"  data-activates='dropdown2'><i class="material-icons">perm_contact_calendar</i>&nbsp;{{currentLogedUser}}</a>
+                                     <!-- Dropdown Structure -->
+                                     <ul id='dropdown2' class='dropdown-content'>
+                                         <li class="divider"></li>
+                                         <li><a style="cursor:pointer;font-size:12px;"><i class="material-icons">perm_contact_calendar</i>&nbsp;{{currentLogedUser}}</a></li>
+                                         <li class="divider"></li>
+                                         <li><a href="#!" ng-click="main.Logout()" style="font-size:12px!important;">Logout</a></li>
+                                     </ul>
+                                 </li>
+                             </ul>
+                         </div>
+                     </nav>
+                 </div>
+                <br/>
                 <div ng-view></div>
 
 		  </div>

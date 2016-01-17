@@ -89,9 +89,7 @@
         }
 
         main.showPdf = function(filename,year){
-            console.log(filename);
-            console.log(year);
-
+            main.prepareDocumentFile();
             main.shownHtml = false;
             main.shownPdf = true;
         }
@@ -137,7 +135,8 @@
             var name = orgUnit.name;
             $scope.selectedDistrictName = name;
             var id = orgUnit.id;
-            main.processView(orgUnit,name,id);
+            //main.processView(orgUnit,name,id);
+            main.processViewPdf(orgUnit,name,id);
             main.current_id = id;
         }
         main.getHealthProfileFromTable = function(row){
@@ -155,8 +154,6 @@
         }
 
         main.processView = function(orgUnit,name,id){
-            console.log(name);
-            console.log(id);
             var orgUnitWithFiles = JSON.parse(localStorage.getItem('widataset'));
             if(orgUnit.children!=null){
                 var children = main.getChildren(orgUnit.children);
@@ -194,75 +191,58 @@
                 }
 
             }else{
-                alert("select Region or council");
+                //alert("select Region or council");
             }
         }
 
 
 
-        //main.processView = function(orgUnit,name,id){
-        //    if(orgUnit.children!=null){
-        //        var children = main.getChildren(orgUnit.children);
-        //
-        //    }else{
-        //        var children = [];
-        //    }
-        //
-        //    if(name.indexOf("Region")>=0||name.indexOf("Council")>=0){
-        //
-        //        if(name.indexOf("Region")>=0){
-        //            var proposed_files= [];
-        //            angular.forEach(children,function(value,index){
-        //                proposed_files.push({facility:value,file:name+"_"+value+"_"+main.selectedYear+".pdf"});
-        //            });
-        //            var correct_names=[];
-        //            $http.get("server/process.php?by_year="+main.selectedYear+"&only=1").success(function(data){
-        //                var files =[];
-        //                angular.forEach(proposed_files,function(value,index){
-        //                    files.push(value.file);
-        //                });
-        //                angular.forEach(files,function(value,index) {
-        //                    if(data.indexOf(value)>=0){
-        //                        correct_names.push(proposed_files[index]);
-        //                    }
-        //                });
-        //                main.Documents = correct_names;
-        //            });
-        //
-        //
-        //        }
-        //
-        //        if(name.indexOf("Council")>=0){
-        //            var correct_names=[];
-        //            $http.get("server/process.php?by_year="+main.selectedYear+"&only=1").success(function(data){
-        //
-        //                var file_template = {facility:name,file:name+"_"+main.selectedYear+".pdf"};
-        //                angular.forEach(data,function(value,index) {
-        //                    if(value.indexOf(file_template.file)>=0){
-        //                        correct_names.push({facility:name,file:value});
-        //                    }
-        //                });
-        //                main.Documents = correct_names;
-        //            });
-        //
-        //            console.log(children);
-        //        }
-        //
-        //    }else{
-        //        alert("select Region or council");
-        //    }
-        //}
-        //
-        //
+        main.processViewPdf = function(orgUnit,name,id){
+            var proposed_files = [];
+            var orgUnitWithFiles = JSON.parse(localStorage.getItem('widataset'));
+            if(orgUnit.children!=null){
+                if(orgUnit.name.indexOf('Tanzania')>=0){
+                    angular.forEach(orgUnit.children,function(chValue,chIndex){
+                        var grandChildren = main.getChildren(chValue.children);
+                        proposed_files    = main.getOrgunitProposesdFiles(grandChildren,main.selectedYear,orgUnitWithFiles,proposed_files);
+
+                    });
+                }else{
+                        var Children      = main.getChildren(orgUnit.children);
+                        proposed_files    = main.getOrgunitProposesdFiles(Children,main.selectedYear,orgUnitWithFiles,proposed_files);
+                }
+
+            }else{
+                var children = [];
+                if(orgUnitWithFiles.indexOf(orgUnit.id)){
+                proposed_files.push({id:id,facility:name,file:name+"_"+main.selectedYear+".pdf"});
+                }
+            }
+
+            main.Documents = proposed_files;
+        }
+
+        main.getOrgunitProposesdFiles = function(children,selectedYear,orgUnitWithFiles,proposed_files){
+            angular.forEach(children,function(value,index){
+                if(orgUnitWithFiles.indexOf(value.id)>=0){
+                    proposed_files.push({id:value.id,facility:value.name,file:value.name+"_"+main.selectedYear+".pdf"});
+                }
+            });
+            return proposed_files;
+        }
+        main.prepareDocumentFile = function(){
+
+
+        }
+
         main.backToGrid = function(){
             $scope.viewOpen = false;
         }
         main.openPdfFile = function(row){
-            console.log(row);
             var form = {org_unit_selected:row.id,form_period:main.selectedYear};
             main.profileTitle = row.name;
 
-            main.current_pdf_link = "uploads/";
+            main.current_pdf_link = "uploads/"+row.name+"_"+main.selectedYear+".pdf";
             main.clickedDistrict = row.name+" "+main.selectedYear;
             $scope.viewOpen = true;
             $scope.custome_height ="not_found";

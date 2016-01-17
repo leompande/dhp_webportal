@@ -490,8 +490,10 @@
                                 <td>Number</td>
                                 <td>Ownershership</td>
                                 <td rowspan="10" style="background-color: #ffffff!important;">
-                                    <img style='display:block; width:300px;height:250px;' id='base64image'
-                                         src='{{main.profile.DHP_Demographics_FacilityDistributionImage}}' />
+                                    <img style='display:block; width:300px;height:250px;'
+                                         id='base64image'
+                                         src='{{main.profile.DHP_Demographics_FacilityDistributionImage}}'
+                                            ng-if="main.profile.DHP_Demographics_FacilityDistributionImage"/>
                                 </td>
                             </tr>
                             <tr>
@@ -1194,8 +1196,8 @@
 
                 </div>
                 <div class="col s12 m12 " ng-if="main.shownPdf">
-                    <object data="uploads/{{main.profileTitle}}_{{main.selectedYear}}.pdf"  type="application/pdf" width="100%" height="1000px">
-                    <p>Document preview is not available go <a href="uploads/{{main.profileTitle}}_{{main.selectedYear}}.pdf">to the PDF!</a> manually.</p>
+                    <object data="{{main.current_pdf_link}}"  type="application/pdf" width="100%" height="1000px">
+                    <p>Document preview is not available go <a href="{{main.current_pdf_link}}">to the PDF!</a> manually.</p>
                     </object>
                 </div>
 
@@ -1203,7 +1205,7 @@
 
         </div>
         <div class="card-action" ng-if="viewOpen">
-            <a href="uploads/{{main.profileTitle}}_{{main.selectedYear}}.pdf" target="_blank">Download</a>
+            <a href="{{main.current_pdf_link}}" target="_blank">Download</a>
            </div>
     </div>
 </div>
