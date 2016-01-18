@@ -324,6 +324,11 @@
                     if(data=="UPLOAD_FAILED"){
                         admin.message = "upload failed";
                         admin.message_class = "failed";
+                        admin.selectedEntryRegion=null;
+                        admin.selectedCSVEntryDistrict=null;
+                        admin.csvfile = null;
+                        admin.pdffile = null;
+
                     }
 
                     if(data=="UPLOAD_SUCCESS"){
