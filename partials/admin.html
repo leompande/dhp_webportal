@@ -34,7 +34,7 @@
                             <div >DHP HEALTH PROFILE DATA ENTRY  </div></br>
                             <div style="font-weight:bolder;color:#CD781B;"><i>Please ....!</i>&nbsp;&nbsp;Upload Both "<i>Read Only PDF</i>"&nbsp;&nbsp;and&nbsp;&nbsp;"<i>CSV</i>"  </div></br>
                             <div class="row">
-                                <label >Organisation Unit (Region)</label>
+                                <label >* Organisation Unit (Region)</label>
                                 <div class="input-field col  s12 m12">
                                     <select  name="org_unit" ng-model="admin.selectedEntryRegion" class="browser-default" required="required">
                                         <option ng-repeat="org in admin.regions" value="{{org}}">{{org.value}}</option>
@@ -42,8 +42,8 @@
                                 </div>
                             </div>
 
-                            <div class="row" n>
-                                <label >Organisation Unit (District)</label>
+                            <div class="row">
+                                <label >* Organisation Unit (District)</label>
                                 <div class="input-field col  s12 m12">
                                     <select  name="org_unit" ng-model="admin.selectedCSVEntryDistrict" class="browser-default" required="required">
                                         <option ng-repeat="distr in admin.districts" value="{{distr.id}}">{{distr.name}}</option>
