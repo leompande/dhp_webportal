@@ -363,7 +363,9 @@
             if($scope.Africa){
                 $scope.Africa = null;
             }
-            $scope.drawMap();
+            map.authenticateDHIS().then(function(){
+                $scope.drawMap();
+            });
         });
 
         /**
