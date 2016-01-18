@@ -220,7 +220,7 @@
                              <a href="#!" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
                              <ul class="right hide-on-med-and-down">
-                                 <li><a class="active" href="#/" style="color:#ffffff;" >Dashboard</a></li>
+                                 <li><a class="active" href="#/" style="color:#ffffff;" ng-show="main.logedIn">Dashboard</a></li>
                                  <li><a href="#/admin" style="color:#ffffff;" ng-click="main.getLeftNav()" ng-if="main.logedIn">Settings</a></li>
                                  <li><a  style="color:#ffffff;cursor: pointer;" ng-click="main.getLoginForm()" ng-if="main.logedOut">Login</a></li>
                                  <li>
