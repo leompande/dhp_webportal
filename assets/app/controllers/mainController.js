@@ -23,7 +23,7 @@
         main.current_id          = "m0frOspS7JY";
         $scope.data              = {};
         main.Documents = null;
-        main.current_pdf_link = "";
+        main.current_pdf_link = null;
         main.clickedDistrict = "";
         $scope.viewOpen = false;
         main.chart_shown = true;
