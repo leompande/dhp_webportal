@@ -1,5 +1,5 @@
 /bootstrap/compiled.php
-/downloads/*
+/downloads/pushdatavalue.sh
 /dataset/*
 /server/dataset/*
 composer.phar
