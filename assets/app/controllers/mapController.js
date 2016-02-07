@@ -29,7 +29,8 @@
             $scope.shared = shared;
             shared.facility =3029;
 
-            var url = map.baseUrl+'api/organisationUnits.geojson?parent=m0frOspS7JY&level=3';
+//            var url = map.baseUrl+'api/organisationUnits.geojson?parent=m0frOspS7JY&level=3';
+            var url = 'server/organisationUnits.geojson';
                 $http({
                     method: 'GET',
                     url: url,
@@ -91,7 +92,6 @@
                                 if(number_of_files_available.count>0){
                                     console.log(number_of_files_available);
                                 }
-                                objectSeries.push(number_of_files_available);
 
                                 var percent = 0;
                                 if(number_of_files_available.total==0){
@@ -363,9 +363,9 @@
             if($scope.Africa){
                 $scope.Africa = null;
             }
-            map.authenticateDHIS().then(function(){
+//            map.authenticateDHIS().then(function(){
                 $scope.drawMap();
-            });
+//            });
         });
 
         /**
@@ -374,7 +374,7 @@
 
         map.authenticateDHIS = function () {
             var promise = $.post( map.baseUrl + "dhis-web-commons-security/login.action?authOnly=true", {
-                j_username: "Demo", j_password: "HMISDEMO2015"
+                j_username: "Demo", j_password: "HMISDEMO2016"
             },function(response){
                 utilityService.getDataElements().then(function(data){
                     utilityService.prepareDataElementUid(data);
@@ -386,9 +386,9 @@
             return promise;
         }
 
-        map.authenticateDHIS().then(function(){
+//        map.authenticateDHIS().then(function(){
             $scope.drawMap();
-        });
+//        });
 
 
      }

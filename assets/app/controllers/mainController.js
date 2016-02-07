@@ -17,7 +17,7 @@
         $scope.viewOpen          = false;
         main.csv_menu            = false;
         main.facilityUid         = null;
-        main.current_year = date.getFullYear();
+        main.current_year = date.getFullYear()-1;
         main.selectedYear = main.current_year;
 
         main.current_id          = "m0frOspS7JY";
@@ -37,7 +37,7 @@
         main.regions = [];
         $scope.form={form_period:main.current_year,org_unit_selected:""};
         $scope.showProgress = false;
-        main.logedIn = true;
+        main.logedIn = false;
         $scope.progressLogin = false;
         main.logedOut = true;
         main.shownHtml = true;
@@ -361,7 +361,7 @@
         main.getPeriod = function(start_period){
             var date = new Date();
             var periods = [];
-            var thisyear = date.getFullYear();
+            var thisyear = date.getFullYear()-1;
             for(var i=Number(thisyear);i>=Number(start_period);i--){
                 periods.push({name:i,value:i})
             }
