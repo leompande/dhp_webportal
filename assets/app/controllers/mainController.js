@@ -17,7 +17,7 @@
         $scope.viewOpen          = false;
         main.csv_menu            = false;
         main.facilityUid         = null;
-        main.current_year = date.getFullYear()-1;
+        main.current_year = date.getFullYear();
         main.selectedYear = main.current_year;
 
         main.current_id          = "m0frOspS7JY";
