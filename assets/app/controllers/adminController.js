@@ -158,20 +158,23 @@
 
             }else{
                 profileService.saveProfile(payload).then(function(data){
-
+                    console.log("NETWORK ERROR");
                     admin.showProgress = false;
                     if(data=="UPLOAD_FAILED"){
+                        admin.loadingUpload = false;
                         admin.message = "upload failed";
                         admin.message_class = "failed";
                     }
 
                     if(data=="UPLOAD_SUCCESS"){
+                        admin.loadingUpload = false;
                         admin.showList();
                         admin.message = "uploaded successful";
                         admin.message_class = "success";
                     }
 
                     if(data=="FILE_EXIST_ERROR"){
+                        admin.loadingUpload = false;
                         admin.message = "file exist";
                         admin.message_class = "failed";
                     }
@@ -181,7 +184,12 @@
                         admin.message_class = "failed";
                     }
 
-                },function(response){});
+                },function(response){
+                    console.log("NETWORK ERROR");
+                    admin.loadingUpload = false;
+                    admin.message = "Upload failed: internal server error";
+                    admin.message_class = "failed";
+                });
             }
 
         }
@@ -325,7 +333,7 @@
                 profileService.uploadCSVProfile(payload).then(function(data){
                     admin.showProgress = false;
                     if(data=="UPLOAD_FAILED"){
-                        admin.loadingUpload = true;
+                        admin.loadingUpload = false;
                         admin.message = "upload failed";
                         admin.message_class = "failed";
                         admin.selectedEntryRegion=null;
@@ -336,7 +344,7 @@
                     }
 
                     if(data=="UPLOAD_SUCCESS"){
-                        admin.loadingUpload = true;
+                        admin.loadingUpload = false;
                         //admin.showList();
                         admin.message = "uploaded successful";
                         admin.message_class = "success";
@@ -346,13 +354,13 @@
                     }
 
                     if(data=="FILE_EXIST_ERROR"){
-                        admin.loadingUpload = true;
+                        admin.loadingUpload = false;
                         admin.message = "file exist";
                         admin.message_class = "failed";
                     }
 
                     if(data=="INVALID_TYPE_ERROR"){
-                        admin.loadingUpload = true;
+                        admin.loadingUpload = false;
                         admin.message = "file is not csv";
                         admin.message_class = "failed";
                     }
