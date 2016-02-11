@@ -361,7 +361,7 @@
         main.getPeriod = function(start_period){
             var date = new Date();
             var periods = [];
-            var thisyear = date.getFullYear()-1;
+            var thisyear = date.getFullYear();
             for(var i=Number(thisyear);i>=Number(start_period);i--){
                 periods.push({name:i,value:i})
             }
