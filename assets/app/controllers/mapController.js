@@ -90,8 +90,9 @@
                             angular.forEach(data.features, function (value, index) {
                                 var number_of_files_available = profileService.profileStatistics(value,withDataSet);
                                 if(number_of_files_available.count>0){
-                                    console.log(number_of_files_available);
+                                    objectSeries.push(number_of_files_available);
                                 }
+
 
                                 var percent = 0;
                                 if(number_of_files_available.total==0){
