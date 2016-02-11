@@ -19,7 +19,7 @@ if(isset($_GET["file"])) { $test_variable = "for upload";
 		echo "INVALID_TYPE_ERROR";
 		$uploadOk = 0;
 		}else{
-echo $_FILES["file"]["tmp_name"];
+echo $_FILES["file"]["tmp_name"];die();
 //		if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
 //            echo "UPLOAD_SUCCESS";
 //		   }else{
