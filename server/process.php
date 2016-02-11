@@ -19,13 +19,10 @@ if(isset($_GET["file"])) { $test_variable = "for upload";
 		echo "INVALID_TYPE_ERROR";
 		$uploadOk = 0;
 		}else{
-echo $target_file;
-//echo $_FILES["file"]["tmp_name"];die();
 		if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
             echo "UPLOAD_SUCCESS";
 		   }else{
-//           echo "UPLOAD_FAILED";
-           echo $dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file);
+           echo "UPLOAD_FAILED";
         }
 
 		}
@@ -46,8 +43,6 @@ if(isset($_GET["csv_input"])){
     $period = $_POST['period'];
     $orgUnitId = $_POST['orgUnitId'];
 
-    echo $names;
-    echo $uids;die();
     // changing
     $decodedNames            = html_entity_decode($names);
     $decodedUids             = html_entity_decode($uids);

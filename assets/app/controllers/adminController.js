@@ -157,7 +157,6 @@
 
             }else{
                 profileService.saveProfile(payload).then(function(data){
-                    console.log(data);
                     admin.showProgress = false;
                     if(data=="UPLOAD_FAILED"){
                         admin.loadingUpload = false;
@@ -330,6 +329,7 @@
 
             }else{
                 profileService.uploadCSVProfile(payload).then(function(data){
+                    console.log(data);
                     admin.showProgress = false;
                     if(data=="UPLOAD_FAILED"){
                         admin.loadingUpload = false;
