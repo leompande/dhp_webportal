@@ -4,7 +4,7 @@ include_once('functions.php');
 if(isset($_GET["file"])) { $test_variable = "for upload";
 	$target_file = $_GET['new_file_name'];
 
-	$target_dir = "../uploads/";
+	$target_dir = "/usr/share/nginx/html/dhpportal/uploads/";
 	$target_file = $target_dir . basename($target_file);
 	$uploadOk = 1;
 	$fileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -19,14 +19,14 @@ if(isset($_GET["file"])) { $test_variable = "for upload";
 		echo "INVALID_TYPE_ERROR";
 		$uploadOk = 0;
 		}else{
-echo $target_file;
-echo $_FILES["file"]["tmp_name"];die();
-//		if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
-//            echo "UPLOAD_SUCCESS";
-//		   }else{
-////           echo "UPLOAD_FAILED";
-//           echo $dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file);
-//        }
+//echo $target_file;
+//echo $_FILES["file"]["tmp_name"];die();
+		if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
+            echo "UPLOAD_SUCCESS";
+		   }else{
+//           echo "UPLOAD_FAILED";
+           echo $dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file);
+        }
 
 		}
 			
