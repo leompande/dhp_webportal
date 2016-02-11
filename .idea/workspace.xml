@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="365bce8f-a288-4b4f-b50a-277b587a0143" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/angular-file-upload" afterPath="$PROJECT_DIR$/assets/angular-file-upload" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/app/controllers/adminController.js" afterPath="$PROJECT_DIR$/assets/app/controllers/adminController.js" />
     </list>
     <ignored path="dhp_portal.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -51,8 +51,8 @@
       <file leaf-file-name="admin.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/partials/admin.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.4074073" vertical-offset="1483" max-vertical-offset="2196">
-              <caret line="92" column="83" selection-start-line="92" selection-start-column="83" selection-end-line="92" selection-end-column="83" />
+            <state vertical-scroll-proportion="-2.4074075" vertical-offset="1483" max-vertical-offset="2196">
+              <caret line="86" column="64" selection-start-line="86" selection-start-column="64" selection-end-line="86" selection-end-column="77" />
               <folding />
             </state>
           </provider>
@@ -81,8 +81,8 @@
       <file leaf-file-name="adminController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/app/controllers/adminController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6845966" vertical-offset="1502" max-vertical-offset="4500">
-              <caret line="168" column="47" selection-start-line="168" selection-start-column="47" selection-end-line="168" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.13202934" vertical-offset="2592" max-vertical-offset="4482">
+              <caret line="292" column="33" selection-start-line="292" selection-start-column="33" selection-end-line="292" selection-end-column="33" />
               <folding>
                 <element signature="e#1746#1871#0" expanded="false" />
                 <element signature="e#1911#2204#0" expanded="false" />
@@ -95,12 +95,12 @@
                 <element signature="e#4025#4370#0" expanded="false" />
                 <element signature="e#4446#4594#0" expanded="false" />
                 <element signature="e#4636#4839#0" expanded="false" />
-                <element signature="e#7031#7469#0" expanded="false" />
-                <element signature="e#7509#7711#0" expanded="false" />
-                <element signature="e#7752#7907#0" expanded="false" />
-                <element signature="e#7956#8116#0" expanded="false" />
-                <element signature="e#8167#8264#0" expanded="false" />
-                <element signature="e#8315#11111#0" expanded="false" />
+                <element signature="e#6998#7436#0" expanded="false" />
+                <element signature="e#7476#7678#0" expanded="false" />
+                <element signature="e#7719#7874#0" expanded="false" />
+                <element signature="e#7923#8083#0" expanded="false" />
+                <element signature="e#8134#8231#0" expanded="false" />
+                <element signature="e#8282#11078#0" expanded="false" />
                 <element signature="e#18302#18480#0" expanded="false" />
                 <element signature="e#18527#18807#0" expanded="false" />
                 <element signature="e#18850#19135#0" expanded="false" />
@@ -375,7 +375,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="48" y="-4" width="1319" height="773" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21019608" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -385,7 +385,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2541857" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2541857" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -454,7 +454,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/app/controllers/adminController.js</url>
-          <line>223</line>
+          <line>222</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -464,17 +464,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/app/controllers/adminController.js</url>
-          <line>360</line>
+          <line>359</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/app/controllers/adminController.js</url>
-          <line>380</line>
+          <line>379</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/app/controllers/adminController.js</url>
-          <line>229</line>
+          <line>228</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -520,12 +520,12 @@
             <element signature="e#4025#4370#0" expanded="false" />
             <element signature="e#4446#4594#0" expanded="false" />
             <element signature="e#4636#4839#0" expanded="false" />
-            <element signature="e#7031#7469#0" expanded="false" />
-            <element signature="e#7509#7711#0" expanded="false" />
-            <element signature="e#7752#7907#0" expanded="false" />
-            <element signature="e#7956#8116#0" expanded="false" />
-            <element signature="e#8167#8264#0" expanded="false" />
-            <element signature="e#8315#11111#0" expanded="false" />
+            <element signature="e#6998#7436#0" expanded="false" />
+            <element signature="e#7476#7678#0" expanded="false" />
+            <element signature="e#7719#7874#0" expanded="false" />
+            <element signature="e#7923#8083#0" expanded="false" />
+            <element signature="e#8134#8231#0" expanded="false" />
+            <element signature="e#8282#11078#0" expanded="false" />
             <element signature="e#18302#18480#0" expanded="false" />
             <element signature="e#18527#18807#0" expanded="false" />
             <element signature="e#18850#19135#0" expanded="false" />
@@ -889,16 +889,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/partials/admin.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.4074073" vertical-offset="1483" max-vertical-offset="2196">
-          <caret line="92" column="83" selection-start-line="92" selection-start-column="83" selection-end-line="92" selection-end-column="83" />
+        <state vertical-scroll-proportion="-2.4074075" vertical-offset="1483" max-vertical-offset="2196">
+          <caret line="86" column="64" selection-start-line="86" selection-start-column="64" selection-end-line="86" selection-end-column="77" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/app/controllers/adminController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6845966" vertical-offset="1502" max-vertical-offset="4500">
-          <caret line="168" column="47" selection-start-line="168" selection-start-column="47" selection-end-line="168" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.13202934" vertical-offset="2592" max-vertical-offset="4482">
+          <caret line="292" column="33" selection-start-line="292" selection-start-column="33" selection-end-line="292" selection-end-column="33" />
           <folding>
             <element signature="e#1746#1871#0" expanded="false" />
             <element signature="e#1911#2204#0" expanded="false" />
@@ -911,12 +911,12 @@
             <element signature="e#4025#4370#0" expanded="false" />
             <element signature="e#4446#4594#0" expanded="false" />
             <element signature="e#4636#4839#0" expanded="false" />
-            <element signature="e#7031#7469#0" expanded="false" />
-            <element signature="e#7509#7711#0" expanded="false" />
-            <element signature="e#7752#7907#0" expanded="false" />
-            <element signature="e#7956#8116#0" expanded="false" />
-            <element signature="e#8167#8264#0" expanded="false" />
-            <element signature="e#8315#11111#0" expanded="false" />
+            <element signature="e#6998#7436#0" expanded="false" />
+            <element signature="e#7476#7678#0" expanded="false" />
+            <element signature="e#7719#7874#0" expanded="false" />
+            <element signature="e#7923#8083#0" expanded="false" />
+            <element signature="e#8134#8231#0" expanded="false" />
+            <element signature="e#8282#11078#0" expanded="false" />
             <element signature="e#18302#18480#0" expanded="false" />
             <element signature="e#18527#18807#0" expanded="false" />
             <element signature="e#18850#19135#0" expanded="false" />

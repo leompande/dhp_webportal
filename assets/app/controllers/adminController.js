@@ -153,7 +153,6 @@
             });
 
             var payload = {file_name:form.org_unit_selected+"_"+form.form_period+".pdf",file_object:pdf_file};
-           console.log(payload);
             if(!admin.selectedEntryDistrict&&!form.form_period){
 
             }else{
@@ -291,7 +290,7 @@
         }
 
         admin.uploadProfileToDHIS = function(form){
-
+            admin.message = null;
                 if(admin.selectedEntryRegion==null){
                     Materialize.toast('Form not Submitted!, Select Region', 2000, 'rounded')
                     return false;
