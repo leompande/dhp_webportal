@@ -52,8 +52,8 @@
 
         profile.uploadCSVProfile = function(data){
             return Upload.upload({
-                url: 'server/process.php?csv_input=1&new_file_name='+data.file_name+'&orgUnitId='+data.orgunit+'&period='+data.period+'&dataElementsUid='+data.uids+'&dataElementsNames='+data.names,
-                data: {file: data.file_object}
+                url: 'server/process.php?csv_input=1&new_file_name='+data.file_name,
+                data: {file: data.file_object,dataElementsNames:data.names,dataElementsUid:data.uids,orgUnitId:data.orgunit,period:data.period}
             }).then(handleSuccess, handleError('Error creating user'));
         }
 

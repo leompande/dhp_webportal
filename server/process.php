@@ -38,10 +38,14 @@ if(isset($_GET["csv_input"])){
     $categoryOptionCombo     = "uGIJ6IdkP7Q";
     $attributeOptionCombo    = "uGIJ6IdkP7Q";
     $test_variable           = "for upload";
-    $names                   = $_GET['dataElementsNames'];
-    $uids                    = $_GET['dataElementsUid'];
+    $names                   = $_POST['dataElementsNames'];
+    $uids                    = $_POST['dataElementsUid'];
     $target_file             = $_GET['new_file_name'];
+    $period = $_POST['period'];
+    $orgUnitId = $_POST['orgUnitId'];
 
+    echo $names;
+    echo $uids;die();
     // changing
     $decodedNames            = html_entity_decode($names);
     $decodedUids             = html_entity_decode($uids);
@@ -58,7 +62,7 @@ if(isset($_GET["csv_input"])){
         if(unlink($target_file)){
             if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
 
-                echo $output = $dhp::processUploadsForDHIS($target_file,$_GET['period'],$_GET['orgUnitId'],$categoryOptionCombo,$attributeOptionCombo,$namesArray,$uidsArray);
+                echo $output = $dhp::processUploadsForDHIS($target_file,$period,$orgUnitId,$categoryOptionCombo,$attributeOptionCombo,$namesArray,$uidsArray);
 
             }else{
                 echo "UPLOAD_FAILED IF FILE EXISTS";
@@ -76,7 +80,7 @@ if(isset($_GET["csv_input"])){
         }else{
 
             if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
-                $dhp::processUploadsForDHIS($target_file,$_GET['period'],$_GET['orgUnitId'],$categoryOptionCombo,$attributeOptionCombo,$namesArray,$uidsArray);
+                $dhp::processUploadsForDHIS($target_file,$period,$orgUnitId,$categoryOptionCombo,$attributeOptionCombo,$namesArray,$uidsArray);
             }else{
                 echo "UPLOAD_FAILED IF NO FILE EXISTS";
             }
