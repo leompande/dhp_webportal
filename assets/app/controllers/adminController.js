@@ -22,6 +22,7 @@
         admin.current_year = date.getFullYear();
         admin.list = true;
         admin.addProfileForm = false;
+        admin.loadingUpload = false;
         admin.editProfileForm = false;
         admin.criteria = false;
         admin.criteriaPreview = false;
@@ -282,6 +283,7 @@
         }
 
         admin.uploadProfileToDHIS = function(form){
+
                 if(admin.selectedEntryRegion==null){
                     Materialize.toast('Form not Submitted!, Select Region', 2000, 'rounded')
                     return false;
@@ -302,6 +304,7 @@
                     Materialize.toast('Form not Submitted!, Choose Pdf ReadOnly file', 2000, 'rounded')
                     return false;
                 }
+            admin.loadingUpload = true;
             admin.uploadcsv = true;
             admin.editProfileForm = false;
             admin.list = false;
@@ -322,6 +325,7 @@
                 profileService.uploadCSVProfile(payload).then(function(data){
                     admin.showProgress = false;
                     if(data=="UPLOAD_FAILED"){
+                        admin.loadingUpload = true;
                         admin.message = "upload failed";
                         admin.message_class = "failed";
                         admin.selectedEntryRegion=null;
@@ -332,6 +336,7 @@
                     }
 
                     if(data=="UPLOAD_SUCCESS"){
+                        admin.loadingUpload = true;
                         //admin.showList();
                         admin.message = "uploaded successful";
                         admin.message_class = "success";
@@ -341,11 +346,13 @@
                     }
 
                     if(data=="FILE_EXIST_ERROR"){
+                        admin.loadingUpload = true;
                         admin.message = "file exist";
                         admin.message_class = "failed";
                     }
 
                     if(data=="INVALID_TYPE_ERROR"){
+                        admin.loadingUpload = true;
                         admin.message = "file is not csv";
                         admin.message_class = "failed";
                     }

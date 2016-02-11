@@ -89,6 +89,20 @@
                                         {{admin.message}}
                                     </div>
                                 </div>
+
+                                <div class="col m12 s12" ng-if="admin.loadingUpload">
+                                    <div class="preloader-wrapper small active">
+                                        <div class="spinner-layer spinner-green-only">
+                                            <div class="circle-clipper left">
+                                                <div class="circle"></div>
+                                            </div><div class="gap-patch">
+                                            <div class="circle"></div>
+                                        </div><div class="circle-clipper right">
+                                            <div class="circle"></div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
