@@ -23,7 +23,7 @@ if(isset($_GET["file"])) { $test_variable = "for upload";
 		if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
             echo "UPLOAD_SUCCESS";
 		   }else{
-           echo "UPLOAD_FAILED";
+           echo "UPLOAD_FAILED PDF";
         }
 
 		}
@@ -65,7 +65,7 @@ if(isset($_GET["csv_input"])){
                 echo $output = $dhp::processUploadsForDHIS($target_file,$period,$orgUnitId,$categoryOptionCombo,$attributeOptionCombo,$namesArray,$uidsArray);
 
             }else{
-                echo "UPLOAD_FAILED IF FILE EXISTS";
+                echo "UPLOAD_FAILED CSV 1";
             }
         }
 
@@ -82,7 +82,7 @@ if(isset($_GET["csv_input"])){
             if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
                 $dhp::processUploadsForDHIS($target_file,$period,$orgUnitId,$categoryOptionCombo,$attributeOptionCombo,$namesArray,$uidsArray);
             }else{
-                echo "UPLOAD_FAILED IF NO FILE EXISTS";
+                echo "UPLOAD_FAILED CSV 2";
             }
 
         }
