@@ -157,7 +157,7 @@
 
             }else{
                 profileService.saveProfile(payload).then(function(data){
-                    console.log("NETWORK ERROR");
+                    console.log(data);
                     admin.showProgress = false;
                     if(data=="UPLOAD_FAILED"){
                         admin.loadingUpload = false;
