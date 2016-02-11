@@ -267,7 +267,7 @@ class DhpFile {
 		                $old_path = getcwd();
 						chdir('/usr/share/nginx/html/dhpportal/downloads/');
 						$output = shell_exec('./pushdatavalue.sh');
-						$output = shell_exec('./completedataset.sh');
+//						$output = shell_exec('./completedataset.sh');
 						chdir($old_path);
             return "UPLOAD_SUCCESS";
 
