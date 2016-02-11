@@ -61,7 +61,7 @@ if(isset($_GET["csv_input"])){
                 echo $output = $dhp::processUploadsForDHIS($target_file,$_GET['period'],$_GET['orgUnitId'],$categoryOptionCombo,$attributeOptionCombo,$namesArray,$uidsArray);
 
             }else{
-                echo "UPLOAD_FAILED";
+                echo "UPLOAD_FAILED IF FILE EXISTS";
             }
         }
 
@@ -78,7 +78,7 @@ if(isset($_GET["csv_input"])){
             if($dhp::uploadFile($_FILES["file"]["tmp_name"],$target_file)){
                 $dhp::processUploadsForDHIS($target_file,$_GET['period'],$_GET['orgUnitId'],$categoryOptionCombo,$attributeOptionCombo,$namesArray,$uidsArray);
             }else{
-                echo "UPLOAD_FAILED";
+                echo "UPLOAD_FAILED IF NO FILE EXISTS";
             }
 
         }
