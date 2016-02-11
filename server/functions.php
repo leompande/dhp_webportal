@@ -217,8 +217,8 @@ class DhpFile {
 						  
 			}
 			
-			fclose($file); 
-				
+			fclose($file);
+            chmod($csv_file, 0777);
 				return $csv_file;
 			
 			}
