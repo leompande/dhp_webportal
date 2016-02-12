@@ -532,14 +532,12 @@
             <td ng-if="!main.profile.DHP_Population_Female6">0</td>
             <td ng-if="main.profile.DHP_Population_Male6">{{main.profile.DHP_Population_Male6}}</td>
             <td ng-if="!main.profile.DHP_Population_Male6">0</td>
-            {{main.totalFemale(main.profile.DHP_Population_Female6)}}
-            {{main.totalMale(main.profile.DHP_Population_Male6)}}
 
         </tr>
         <tr>
             <th>TOTAL</th>
-            <td><b>{{main.totalFemales}}</b></td>
-            <td><b>{{main.totalMales}}</b></td>
+            <td><b>{{DHP_Population_Female_Total}}</b></td>
+            <td><b>{{DHP_Population_Male_Total}}</b></td>
 
         </tr>
     </table>
