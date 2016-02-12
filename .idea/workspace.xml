@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="365bce8f-a288-4b4f-b50a-277b587a0143" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/angular-file-upload" afterPath="$PROJECT_DIR$/assets/angular-file-upload" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/partials/dashboard.html" afterPath="$PROJECT_DIR$/partials/dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/app/controllers/mainController.js" afterPath="$PROJECT_DIR$/assets/app/controllers/mainController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dhp_portal.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,8 +30,8 @@
       <file leaf-file-name="dashboard.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/partials/dashboard.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5803109" vertical-offset="9424" max-vertical-offset="21222">
-              <caret line="536" column="12" selection-start-line="536" selection-start-column="12" selection-end-line="536" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.7668394" vertical-offset="9424" max-vertical-offset="21222">
+              <caret line="540" column="42" selection-start-line="540" selection-start-column="42" selection-end-line="540" selection-end-column="42" />
               <folding>
                 <element signature="tag#ul#0;tag#div#1;tag#div#0" expanded="false" />
                 <element signature="tag#div#0;tag#div#1;tag#div#0" expanded="false" />
@@ -854,8 +853,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/partials/dashboard.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5803109" vertical-offset="9424" max-vertical-offset="21222">
-          <caret line="536" column="12" selection-start-line="536" selection-start-column="12" selection-end-line="536" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.7668394" vertical-offset="9424" max-vertical-offset="21222">
+          <caret line="540" column="42" selection-start-line="540" selection-start-column="42" selection-end-line="540" selection-end-column="42" />
           <folding>
             <element signature="tag#ul#0;tag#div#1;tag#div#0" expanded="false" />
             <element signature="tag#div#0;tag#div#1;tag#div#0" expanded="false" />
