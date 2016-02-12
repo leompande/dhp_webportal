@@ -1,5 +1,1144 @@
 <div class="row" ng-controller="mapController">
 
+<div class="col s12 m8 ">
+<div class="card white lighten-1 darken-3" >
+    <div class="card-content grey-text" style="padding:13px">
+        DISTRICT HEALTH PROFILE : Visualization of yearly  uploaded health profiles by district.
+    </div>
+</div>
+
+<div class="card white lighten-1 darken-3" >
+
+<div class="card-content grey-text {{custome_height}}" ng-if="!viewOpen" >
+    <div class="col s12 m12" ng-if="!main.chart_shown">
+        <div class="col s11 m11">
+            <p style="font-weight: bolder">District Health Available Documents for {{selectedDistrictName}}  {{main.selectedYear}}</p>
+        </div>
+        <div class="col s1 m1"><a class="waves-effect waves-light btn" ng-click="main.backToChart()"><i class="fa fa-arrow-left"></i></a></div>
+    </div>
+    <div class="col s12 m12" style="background-color: #eeeeee;" ng-if="!main.chart_shown">
+        <div ng-if="main.Documents.length==0" style="min-height: 317.5px;text-align: center;margin-top: 5em;">
+            <p>No uploaded health profile for <b>{{selectedDistrictName}}</b> in {{main.selectedYear}}</p>
+            <br/>
+            <br/>
+            <br/>
+            <i class="large material-icons" style="color:#cccccc;">info</i>
+        </div>
+        <div class="col s4 m4" ng-repeat="document in main.Documents" title="click to preview document">
+            <!--<div class="col s3 m3" >-->
+            <div class="card white lighten-5 darken-1" >
+                <a style="cursor: pointer;" ng-click="main.getHealthProfileFromView(document)">
+                    <div> <img style="width:100%;" src="assets/images/dhp_portal.png"></div>
+                    <div class="grey-text" style="padding: 10px;font-size: 10px;font-weight: bold;">{{document.facility}} {{main.selectedYear}}</div>
+                </a>
+            </div>
+        </div>
+        <div ng-if="main.Documents">
+        </div>
+    </div>
+    <div class="row" ng-if="main.chart_shown">
+        <div class="col m12 s12" style="font-size: 20px;" >DHP District Submission Statistics:{{main.selectedYear}}</div>
+        <!--<div class="col s12">Chart:</div>-->
+        <div  class="col s12 " >
+            <div style="min-height:380px" ng-if="!main.chartConfig" >
+                <br>
+                <br>
+                <br>
+                <br/>
+                <br/>
+                <br/>
+                <div class="col m12" ng-if="!main.netfailure">
+                    <div class="col m6 offset-m3">
+                        <div class="preloader-wrapper small active">
+                            <div class="spinner-layer spinner-blue-only">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                            </div>
+                        </div>
+                        &nbsp;&nbsp;loading ...
+                    </div>
+                </div>
+
+                <div class="col m12" ng-if="main.netfailure">
+                    <div class="col m12  grey-text" >
+                        <span style="color:red;">chart failed</span>:slow network
+                    </div>
+                </div>
+            </div>
+            <highchart id="chart1" config="main.chartConfig" ng-if="main.chartConfig"></highchart>
+        </div>
+        <div  class="col s12 " ng-if="main.chartConfig">
+            <div class="row">PROFILE LIST</div>
+        </div>
+        <div  class="col s12 " ng-if="main.chartConfig">
+            <table datatable="ng"  class="row" style="margin-top: 10px;"  >
+                <thead>
+                <tr><th>#</th><th>Available Health Profiles</th></tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="row in main.orgUnitTable"  style="cursor: pointer;"  ng-click="main.getHealthProfileFromTable(row)" title="click to preview profile">
+                    <td>{{$index+1}}</td>
+                    <td class="waves-effect waves-block" style="text-align: left;">{{row.name}}</td>
+                </tr>
+                <tr ng-if="main.orgUnitTable.length==0" ng-repeat="row in main.orgUnitTable"><td >No health profile available</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <script>
+            $('ul.tabs').tabs();
+        </script>
+
+
+    </div>
+
+</div>
+<div class="card-content grey-text " ng-if="viewOpen">
+<div class="col s12 m12">
+    <div  class="col s11 m11">
+        <p style="font-weight: bolder">District Health Profile Preview  for: <i>{{main.clickedDistrict}}</i> </p>
+    </div>
+    <div class="col s1 m1"><a class="waves-effect waves-light btn" ng-click="main.backToGrid()"><i class="fa fa-arrow-left"></i></a></div>
+</div>
+
+<br/>
+<div class="col s12 m12 ">
+<style>
+    table.profile_table {
+        border:1px solid #ccc;
+        color:#000000!important;
+        margin-bottom:20px;
+    }
+    table.profile_table tr{
+        border:1px solid #ccc;
+    }
+    table.profile_table tr td{
+        border:1px solid #ccc;
+        padding:5px;
+    }
+
+    .primary_header{
+        font-weight:bolder;
+        color:#369B36!important;
+        font-size:25px;
+    }
+
+    .secondary_header{
+        font-weight:bolder;
+    }
+
+    .align_left{
+        text-align:left;
+    }
+    .header_one{
+        background-color:#D2E1B5!important;
+        font-weight:bold;
+    }
+
+    .header_two{
+        background-color:#FCC48C!important;
+        font-weight:bold;
+    }
+
+    .preview_profile{
+        overflow: -moz-scrollbars-vertical;
+        overflow-y: scroll;
+        max-height:1000px;
+    }
+    .paragraph-style{
+        /*padding-left:40px;*/
+        white-space: pre-wrap;
+
+    }
+
+    .subpage {
+        margin-left: 8cm;
+        margin-top: 10cm;
+    }
+
+    .profile-pages{
+        width: 21cm;
+        min-height: 29.7cm;
+        padding: 2cm;
+        margin: 1cm auto;
+        border: 1px #D3D3D3 solid;
+        border-radius: 5px;
+        background: white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .subheader{
+        background-color:#E1E1E1;
+        text-align:left!important;
+    }
+
+    span.top_green{
+        font-weight:bolder;
+        color:#339966!important;
+        /*font-size:23px;*/
+    }
+
+    span.top_grey{
+        font-weight:bolder;
+        color:#7F7F7F!important;
+        /*font-size:23px;*/
+    }
+</style>
+<br/>
+<div class="col s12 m12">
+    <a class="btn " ng-click="main.showHtml()">HTML</a>
+    <a class="btn " ng-click="main.showPdf(main.profileTitle,main.selectedYear)">PDF</a>
+</div>
+<div class="col s12 m12 preview_profile"  ng-if="main.shownHtml">
+<div class="row profile-pages">
+    <table class="table">
+        <tr>
+            <td colspan="3">
+                <img src="assets/images/dhp_portal.png" style="width:100%;">
+            </td>
+        </tr>
+        <tr>
+            <td style="width:50%;height:100%;background-color:#4E6C54;">
+                <div class="col s12 m12" style="font-weight:bolder;font-size:20px;color:#ffffff;">{{main.clickedDistrict | uppercase}}</div>
+                <div class="col s12 m12" style="font-weight:bolder;font-size:20px;color:#C9A36A;">District Health Profile</div>
+            </td>
+            <td style="width:25%">
+                <div class="col s12 m12" style="font-weight:bolder;font-size:20px;color:#ffffff;">
+                    <img src="assets/images/lowerdhp.png">
+                </div>
+            </td>
+            <td style="width:25%;background-color:#7F7F7F;">
+                <div class="col s12 m12" style="font-weight:bolder;font-size:20px;color:#ffffff;">&nbsp;</div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="row profile-pages" style="color:#000000;">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+
+    <br/>
+    <br/>
+    <p class="primary_header">I. FOREWORD</p>
+    <br/>
+    <br/>
+    <p class="paragraph-style" ng-bind-html="main.profile.DHP_Foreword_Foreword_Field | renderItLikeHTML "></p>
+
+</div>
+<div class="row profile-pages" style="color:#000000;">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+
+    <br/>
+    <br/>
+    <p class="primary_header">II. ACKNOWLEDGEMENTS</p>
+    <br/>
+    <br/>
+    <p class="paragraph-style" ng-bind-html="main.profile.DHP_Acknowledgements_Acknowledgements_Field | renderItLikeHTML "></p>
+
+</div>
+<div class="row profile-pages" style="color:#000000;">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+
+    <br/>
+    <br/>
+    <p class="primary_header">III. EXECUTIVE SUMMARY</p>
+    <br/>
+    <br/>
+    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>
+    <br/>
+    <br/>
+</div>
+<div class="row profile-pages" style="color:#000000;">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+
+    <br/>
+    <br/>
+    <p class="primary_header">IV. ACRONYMS AND KEY TERMS</p>
+    <br/>
+    <br/>
+    <p class="secondary_header">Table 0-1. Acronyms</p>
+    <table class="profile_table">
+        <tr class="header_one">
+            <td class="align_left ">
+                ACRONYM
+            </td>
+            <td>LONG NAME</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <br/>
+    <br/>
+
+    <p class="secondary_header">Table 0-2. Key Terms</p>
+    <table class="profile_table">
+        <tr class="header_one">
+            <td class="align_left ">
+                TERM
+            </td>
+            <td>DEFINITION</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+</div>
+
+
+
+<div class="row profile-pages" style="color:#000000;">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+
+    <p class="primary_header">1. INTRODUCTION</p>
+    <br/>
+    <p class="secondary_header">1.1 Mission and Vision</p>
+    <br/>
+    <br/>
+    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_MissionAndVision_MissionAndVision | renderItLikeHTML "></p>
+    <br/>
+    <br/>
+    <p class="secondary_header">1.2 Structure of District</p>
+    <br/>
+    <br/>
+    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_StructureOfDistrict_StructureOfDistrict | renderItLikeHTML "></p>
+
+    <br/>
+    <br/>
+
+    <p class="secondary_header">Table 1-1. Wards And Villages</p>
+    <table class="profile_table">
+        <tr class="header_one">
+            <td class="align_left ">
+                S/N
+            </td>
+            <td>WARD NAMES</td>
+            <td>NUMBER  OF    VILLAGES</td>
+            <td>S/N</td>
+            <td>WARD   NAMES</td>
+            <td>NUMBER  OF   VILLAGES</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+    </table>
+</div>
+
+<div class="row profile-pages" style="color:#000000;">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+
+    <p class="secondary_header">1.3 Facility Distribution</p>
+    <br/>
+    <br/>
+    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>
+    <br/>
+    <br/>
+    <p class="secondary_header">Table 1-2. Facility Distribution</p>
+    <table class="profile_table">
+        <tr class="header_one">
+            <td class="align_left ">
+                Type of facility
+            </td>
+            <td>Number</td>
+            <td>Ownershership</td>
+            <td rowspan="10" style="background-color: #ffffff!important;">
+                <img style='display:block; width:300px;height:250px;'
+                     id='base64image'
+                     src='{{main.profile.DHP_Demographics_FacilityDistributionImage}}'
+                     ng-if="main.profile.DHP_Demographics_FacilityDistributionImage"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="align_left ">Hospital</td>
+            <td></td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <td rowspan="2" class="align_left ">Health Center</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td rowspan="4" class="align_left ">Dispensary</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td rowspan="2" class="align_left ">Clinics</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+
+    </table>
+    <br/>
+    <br/>
+    <p class="secondary_header">Figure 1-1. {{main.profileTitle| uppercase}} District Map</p>
+    <br/>
+    <br/>
+    <table>
+        <tr class="header_one">
+            <td class="secondary_header">Map Generated in DHIS2</td>
+        </tr>
+        <tr>
+            <td>
+                <img src=""/>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+<div class="row profile-pages" style="color:#000000;">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+
+    <p class="secondary_header">1.4 Population</p>
+    <br/>
+    <br/>
+    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Population_Population | renderItLikeHTML "></p>
+    <br/>
+    <br/>
+    <p class="secondary_header">Table 1-3. Gender And Age Based Statistics</p>
+    <br/>
+    <table class="profile_table">
+        <tr class="header_one">
+            <td class="align_left ">
+                AGE RANGE
+            </td>
+            <td>FEMALE</td>
+            <td>MALE</td>
+        </tr>
+        <tr>
+            <th class="align_left "><1 YEAR</th>
+            <td>{{main.profile.DHP_Population_Female1}}</td>
+            <td>{{main.profile.DHP_Population_Male1}}</td>
+
+        </tr>
+        <tr>
+            <th  class="align_left ">1-4</th>
+            <td>{{main.profile.DHP_Population_Female2}}</td>
+            <td>{{main.profile.DHP_Population_Male2}}</td>
+        </tr>
+        <tr>
+            <th>5-14</th>
+            <td>{{main.profile.DHP_Population_Female3}}</td>
+            <td>{{main.profile.DHP_Population_Male3}}</td>
+        </tr>
+        <tr>
+            <th  class="align_left ">15-49</th>
+            <td>{{main.profile.DHP_Population_Female4}}</td>
+            <td>{{main.profile.DHP_Population_Male4}}</td>
+        </tr>
+        <tr>
+            <th>50-60</th>
+            <td>{{main.profile.DHP_Population_Female5}}</td>
+            <td>{{main.profile.DHP_Population_Male5}}</td>
+        </tr>
+        <tr>
+            <th>>60</th>
+            <td>{{main.profile.DHP_Population_Female6}}</td>
+            <td>{{main.profile.DHP_Population_Male6}}</td>
+        </tr>
+        <tr>
+            <th>TOTAL</th>
+            <td>{{main.profile.DHP_Population_Female_Total}}</td>
+            <td>{{main.profile.DHP_Population_Male_Total}}</td>
+
+        </tr>
+    </table>
+</div>
+
+<div class="row profile-pages" style="color:#000000;">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+    <br/>
+    <p  class="secondary_header">1.5 Geography</p>
+    <br/>
+    <br/>
+    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Geography_Geography | renderItLikeHTML "></p>
+
+    <!-- Population image here -->
+    <!--<img src="/">-->
+</div>
+
+<!--Transport and communication-->
+<div class="row profile-pages" style="color:#000000;">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+    <br/>
+    <br/>
+    <p class="secondary_header">1.6 Transport and Communication</p>
+    <br/>
+    <br/>
+    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_TransportationAndCommunication_TransportationAndCommunication | renderItLikeHTML "></p>
+
+</div>
+
+
+<!--Transport and communication-->
+<div class="row profile-pages" style="color:#000000;">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+    <br/>
+    <br/>
+    <p class="secondary_header">1.7 Education</p>
+    <br/>
+    <br/>
+    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>
+
+</div>
+
+<!--Transport and communication-->
+<!--<div class="row profile-pages" style="color:#000000;">-->
+<!--<p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>-->
+<!--<br/>-->
+<!--<br/>-->
+<!--<h4>1.8 WATER SUPPLY</h4>-->
+<!--<br/>-->
+<!--<br/>-->
+<!--<p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>-->
+
+<!--</div>-->
+
+<!--Transport and communication-->
+<div class="row profile-pages" style="color:#000000;">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+
+    <br/>
+    <br/>
+    <p class="primary_header">2. DATA COLLECTION METHODS AND SOURCES OF DATA</p>
+    <br/>
+    <br/>
+    <p class="secondary_header">2.1  Data Sources and Their Data Collection and Analysis Methods</p>
+    <br/>
+    <br/>
+    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_DataSourcesCollecctionAnalysisMethods_DataSourcesCollecctionAnalysisMethods | renderItLikeHTML "></p>
+
+</div>
+
+
+<!--Transport and communication-->
+<div class="row profile-pages" style="color:#000000;">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+
+    <br/>
+    <br/>
+    <p class="secondary_header">2.2 Mandatory Health Indicators</p>
+    <br/>
+    <br/>
+    <p class="secondary_header">Mandatory Health Indicators</p>
+    <br/>
+    <br/>
+    <!--<p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>-->
+    <div class="col-md-6">
+        <table>
+            <tr class="header_one">
+                <td class="align_left ">
+                    HEALTH STATUS OF THE DISTRICT  POPULATION
+                </td>
+            </tr>
+            <tr><td></td></tr>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table>
+            <tr class="header_one">
+                <td class="align_left ">
+                    DISTRICT HEALTH SERVICE DELIVERY
+                </td>
+            </tr>
+            <tr><td></td></tr>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table>
+            <tr class="header_one">
+                <td class="align_left ">
+                    DISTRICT HEALTH SYSTEMS
+                </td>
+            </tr>
+            <tr><td></td></tr>
+        </table>
+    </div>
+
+</div>
+
+
+<!--Transport and communication-->
+<div class="row profile-pages" style="color:#000000;">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+    <br/>
+    <p class="secondary_header">2.3 Health Indicaators Important to {{main.profileTitle}}</p>
+    <br/>
+    <!--<p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>-->
+    <br/>
+    <p>Table 2-2. Specific DHP Indicators for {{main.profileTitle}}</p>
+    <br/>
+    <table class="profile_table">
+        <tr class="header_one">
+            <td class="align_left ">
+                BAGAMOYO DISTRICT SPECIFIC INDICATORS
+            </td>
+        </tr>
+        <tr >
+            <td >
+
+            </td>
+        </tr>
+        <tr >
+            <td >
+
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+<div class="row profile-pages">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+    <br/>
+    <br/>
+    <p class="primary_header">3. HEALTH STATUS OF THE DISTRICT POPULATION</p>
+    <br/>
+    <br/>
+    <table class="profile_table">
+        <tr class="header_one">
+            <td class="align_left ">
+                HEALTH STATUS OF THE DISTRICT POPULATION
+            </td>
+            <td>TARGET</td>
+            <td>{{main.profile.DHP_Year_Year1}}</td>
+            <td>{{main.profile.DHP_Year_Year2}}</td>
+            <td>{{main.profile.DHP_Year_Year3}}</td>
+            <td>OVERALL PROGRESS (+/-)</td>
+        </tr>
+        <tr class="header_two">
+            <td colspan="6" class="align_left">Marternal,Newborn and Child Health</td>
+        </tr>
+        <tr>
+            <td class="align_left">Maternal mortality ratio</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityTarget}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear1}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear2}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear3}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityProgress}}</td>
+        </tr>
+        <tr>
+            <td class="align_left">Nutritional Status: Incidence of low birth weight among humans</td>
+            <td></td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthLowBWYear1}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthLowBWYear2}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthLowBWYear3}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="align_left">Neonatal mortality rates (per 1,000)</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityTarget}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear1}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear2}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear3}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityProgress}}</td>
+        </tr>
+        <tr>
+            <td class="align_left">Infant mortality rates (per 1,000)</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityTarget}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear1}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear2}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear3}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityProgress}}</td>
+        </tr>
+        <tr>
+            <td class="align_left">Under 5 mortality rates (per 1,000)</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityTarget}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear1}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear2}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear3}}</td>
+            <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityProgress}}</td>
+        </tr>
+        <tr class="header_two">
+            <td colspan="6" class="align_left">Morbidity</td>
+        </tr>
+        <tr>
+            <td class="align_left">Incidence of malaria/laboratory confirmed cases</td>
+            <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaTarget}}</td>
+            <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear1}}</td>
+            <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear2}}</td>
+            <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear3}}</td>
+            <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaProgress}}</td>
+        </tr>
+        <tr>
+            <td class="align_left">HIV prevalence in 15 to 24 years age group</td>
+            <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSTarget}}</td>
+            <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSYear1}}</td>
+            <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSYear2}}</td>
+            <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSYear3}}</td>
+            <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSProgress}}</td>
+        </tr>
+        <tr>
+            <td class="align_left">Top 10 cases of admission (List #1 cause)</td>
+            <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionTarget}}</td>
+            <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear1}}</td>
+            <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear2}}</td>
+            <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear3}}</td>
+            <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionProgress}}</td>
+        </tr>
+        <tr class="header_two">
+            <td colspan="6" class="align_left">Mortality</td>
+        </tr>
+        <tr>
+            <td class="align_left">Top 10 causes of death (List # cause)</td>
+            <td></td>
+            <td>{{main.profile.DHP_Mortality_MortalityTopTenDeathYear1}}</td>
+            <td>{{main.profile.DHP_Mortality_MortalityTopTenDeathYear2}}</td>
+            <td>{{main.profile.DHP_Mortality_MortalityTopTenDeathYear3}}</td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+<div class="row profile-pages">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+    <br/>
+    <br/>
+    <p class="primary_header">$. STATUS OF THE HEALTH SERVICE DELIVERY IN THE DISTRICT</p>
+    <br/>
+    <br/>
+    <table class="profile_table">
+        <tr class="header_one">
+            <td>DISTRICT HEALTH SERVICE DELIVERY</td>
+            <td>TARGET</td>
+            <td>{{main.profile.DHP_Year_Year1}}</td>
+            <td>{{main.profile.DHP_Year_Year2}}</td>
+            <td>{{main.profile.DHP_Year_Year3}}</td>
+            <td>OVERALL PROGRESS (+/-)</td>
+        </tr>
+        <tr class="header_two">
+            <td colspan="6" class="align_left">General</td>
+        </tr>
+        <tr>
+            <td class="align_left">OPD attention</td>
+            <td>{{main.profile.DHP_General_GeneralOPDAttendanceTarget}}</td>
+            <td>{{main.profile.DHP_General_GeneralOPDAttendanceYear1}}</td>
+            <td>{{main.profile.DHP_General_GeneralOPDAttendanceYear2}}</td>
+            <td>{{main.profile.DHP_General_GeneralOPDAttendanceYear3}}</td>
+            <td>{{main.profile.DHP_General_GeneralOPDAttendanceProgress}}</td>
+        </tr>
+        <tr class="header_two">
+            <td colspan="6" class="align_left">Vaccination</td>
+        </tr>
+        <tr>
+            <td class="align_left">Proportion of children under 1 year vaccinated against measles</td>
+            <td>{{main.profile.DHP_Vaccination_VaccinationProportionVaccinatedMeaslesTarget}}</td>
+            <td>{{main.profile.DHP_Vaccination_VaccinationProportionVaccinatedMeaslesYear1}}</td>
+            <td>{{main.profile.DHP_Vaccination_VaccinationProportionVaccinatedMeaslesYear2}}</td>
+            <td>{{main.profile.DHP_Vaccination_VaccinationProportionVaccinatedMeaslesYear3}}</td>
+            <td>{{main.profile.DHP_Vaccination_VaccinationProportionVaccinatedMeaslesProgress}}</td>
+        </tr>
+        <tr>
+            <td class="align_left">Proportion of under 1 year 3rd polio (OPV3)</td>
+            <td>{{main.profile.DHP_Vaccination_VaccinationProportionOPV3Target}}</td>
+            <td>{{main.profile.DHP_Vaccination_VaccinationProportionOPV3Year1}}</td>
+            <td>{{main.profile.DHP_Vaccination_VaccinationProportionOPV3Year2}}</td>
+            <td>{{main.profile.DHP_Vaccination_VaccinationProportionOPV3Year3}}</td>
+            <td>{{main.profile.DHP_Vaccination_VaccinationProportionOPV3Progress}}</td>
+        </tr>
+    </table>
+</div>
+<div class="row profile-pages">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+    <br/>
+    <br/>
+    <p class="primary_header">5. STATUS OF THE DISTRICT HEALTH SYSTEM</p>
+    <br/>
+    <br/>
+    <table class="profile_table">
+        <tr class="header_one">
+            <td>DISTRICT HEALTH SYSTEM</td>
+            <td>TARGET</td>
+            <td>{{main.profile.DHP_Year_Year1}}</td>
+            <td>{{main.profile.DHP_Year_Year2}}</td>
+            <td>{{main.profile.DHP_Year_Year3}}</td>
+            <td>OVERALL PROGRESS (+/-)</td>
+        </tr>
+        <tr class="header_two">
+            <td colspan="6" class="align_left">Health Financing</td>
+        </tr>
+        <tr>
+            <td class="align_left">
+                Total GOT and donor (budget and off-budget allocation to health per capita
+            </td>
+            <td>{{main.profile.DHP_HealthFinancing_HealthFinancingTotalGOTDonorAllocationTarget}}</td>
+            <td>{{main.profile.DHP_HealthFinancing_HealthFinancingTotalGOTDonorAllocationYear1}}</td>
+            <td>{{main.profile.DHP_HealthFinancing_HealthFinancingTotalGOTDonorAllocationYear1}}</td>
+            <td>{{main.profile.DHP_HealthFinancing_HealthFinancingTotalGOTDonorAllocationYear1}}</td>
+            <td>{{main.profile.DHP_HealthFinancing_HealthFinancingTotalGOTDonorAllocationProgress}}</td>
+        </tr>
+        <tr class="header_two">
+            <td colspan="6" class="align_left">Human Resouce for Health</td>
+        </tr>
+        <tr>
+            <td class="align_left">Number of training institutions with full NACTE accredition</td>
+            <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthTrainingInstitutionsFullNACTETarget}}</td>
+            <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthTrainingInstitutionsFullNACTEYear1}}</td>
+            <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthTrainingInstitutionsFullNACTEYear2}}</td>
+            <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthTrainingInstitutionsFullNACTEYear3}}</td>
+            <td>{{main.profile.DHP_Infectious_InfectiousNCDiseasesProportionLabConfirmedMalariaProgress}}</td>
+        </tr><tr>
+        <td class="align_left">Number of MO and AMO per 10,000 population</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthMOAMOPer10000Target}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthMOAMOPer10000Year1}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthMOAMOPer10000Year2}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthMOAMOPer10000Year3}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthNurseMidwivesPer10000Progress}}</td>
+    </tr><tr>
+        <td class="align_left">Number of clinicians per 10,000 population</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthCliniciansPer10000Target}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthCliniciansPer10000Year1}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthCliniciansPer10000Year2}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthCliniciansPer10000Year3}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthCliniciansPer10000Progress}}</td>
+    </tr><tr>
+        <td class="align_left">NUmber of nurse-miwives per 10,000 polpulation</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthNurseMidwivesPer10000Target}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthNurseMidwivesPer10000Year1}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthNurseMidwivesPer10000Year2}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthNurseMidwivesPer10000Year3}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthPharmacistsPharmTechPer10000Progress}}</td>
+    </tr><tr>
+        <td class="align_left">NUmber of Pharmacists and pharm tech per 10,000 population</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthPharmacistsPharmTechPer10000Target}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthPharmacistsPharmTechPer10000Year1}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthPharmacistsPharmTechPer10000Year2}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthPharmacistsPharmTechPer10000Year3}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthPharmacistsPharmTechPer10000Progress}}</td>
+    </tr><tr>
+        <td class="align_left">Number of HO,AHO and EHO per 10,0000 population</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthHOAHOEHOPer10000Target}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthHOAHOEHOPer10000Year1}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthHOAHOEHOPer10000Year2}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthHOAHOEHOPer10000Year3}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthHOAHOEHOPer10000Progress}}</td>
+    </tr><tr>
+        <td class="align_left">Number of laboratory staff per 10,000 population</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthLabStaffPer10000Target}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthLabStaffPer10000Year1}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthLabStaffPer10000Year2}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthLabStaffPer10000Year3}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthLabStaffPer10000Progress}}</td>
+    </tr><tr>
+        <td class="align_left">Density of skilled HRH in country</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthDensitySkilledHRHTarget}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthDensitySkilledHRHYear1}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthDensitySkilledHRHYear2}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthDensitySkilledHRHYear3}}</td>
+        <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthDensitySkilledHRHProgress}}</td>
+    </tr>
+        <tr class="header_two">
+            <td colspan="6" class="align_left">Medicines</td>
+        </tr>
+        <tr>
+            <td class="align_left">Continous availability of 10 tracers (medicines,vaccines and medical devices) for essential health intervention in facility for a reporting month</td>
+            <td>{{main.profile.DHP_Medicines_MedicinesContinuous10TracersEssentialInterventionTarget}}</td>
+            <td>{{main.profile.DHP_Medicines_MedicinesContinuous10TracersEssentialInterventionYear1}}</td>
+            <td>{{main.profile.DHP_Medicines_MedicinesContinuous10TracersEssentialInterventionYear2}}</td>
+            <td>{{main.profile.DHP_Medicines_MedicinesContinuous10TracersEssentialInterventionYear3}}</td>
+            <td>{{main.profile.DHP_Medicines_MedicinesContinuous10TracersEssentialInterventionProgress}}</td>
+        </tr>
+        <tr class="header_two">
+            <td colspan="6" class="align_left">Infrastructure</td>
+        </tr>
+        <tr>
+            <td class="align_left">Distribution of Health facilities</td>
+            <td>{{main.profile.DHP_Infrastructure_InfrastructureHealthIndicatorStillBeingDeterminedTarget}}</td>
+            <td>{{main.profile.DHP_Infrastructure_InfrastructureHealthIndicatorStillBeingDeterminedYear1}}</td>
+            <td>{{main.profile.DHP_Infrastructure_InfrastructureHealthIndicatorStillBeingDeterminedYear2}}</td>
+            <td>{{main.profile.DHP_Infrastructure_InfrastructureHealthIndicatorStillBeingDeterminedYear3}}</td>
+            <td>{{main.profile.DHP_Infrastructure_InfrastructureHealthIndicatorStillBeingDeterminedProgress}}</td>
+        </tr>
+    </table>
+</div>
+<div class="row profile-pages">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+    <br/>
+    <br/>
+    <p class="primary_header">6. AREAS OF PROGRESS IN THE HEALTH DISTRICT SECTOR</p>
+    <br/>
+    <br/>
+    <table class="profile_table">
+        <tr class="header_one">
+            <td colspan="6">PROGRESS IN THE HEALTH DISTRICT FACTOR</td>
+        </tr>
+        <tr class="header_two">
+            <td colspan="6" class="align_left">Progress in District Health Financing</td>
+        </tr>
+        <tr class="subheader ">
+            <td colspan="6" class="align_left">Overall health financing</td>
+        </tr>
+        <tr >
+            <td colspan="6">
+                <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_OverallHealthFinancingKeyFactors | renderItLikeHTML "></p>
+            </td>
+        </tr>
+        <tr class="subheader">
+            <td colspan="6" class="align_left">Expansion in health spending</td>
+        </tr>
+        <tr >
+            <td colspan="6">
+                <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ExpansionsInHealthSpendingKeyFactors | renderItLikeHTML "></p>
+            </td>
+        </tr>
+        <tr class="header_two">
+            <td colspan="6" class="align_left">Progress in District Human Resources</td>
+        </tr>
+        <tr class="subheader">
+            <td colspan="6" class="align_left">Increases in skilled health workers</td>
+        </tr>
+        <tr >
+            <td colspan="6">
+                <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_IncreasesSkilledHealthWorkersKeyFactors | renderItLikeHTML "></p>
+            </td>
+        </tr>
+        <tr class="subheader">
+            <td colspan="6" class="align_left">Improvement in martenal mortality ratio</td>
+        </tr>
+        <tr >
+            <td colspan="6">
+                <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ImprovementMaternalMortalityRatioKeyFactors | renderItLikeHTML "></p>
+            </td>
+        </tr>
+        <tr class="header_two">
+            <td colspan="6" class="align_left">Progress in District Maternal Child Health</td>
+        </tr>
+        <tr class="subheader">
+            <td colspan="6" class="align_left">Decreases in low birth weight</td>
+        </tr>
+        <tr >
+            <td colspan="6">
+                <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_DecreasesLowBirthWeightKeyFactors | renderItLikeHTML "></p>
+            </td>
+        </tr>
+        <tr class="subheader">
+            <td colspan="6" class="align_left">progress in human resources availability by cadre over a period of time</td>
+        </tr>
+        <tr >
+            <td colspan="6">
+                <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ProgressHumanResourcesByCadreKeyFactors | renderItLikeHTML "></p>
+            </td>
+        </tr>
+        <tr class="header_two">
+            <td colspan="6" class="align_left">Progress in District Health Facility Performance</td>
+        </tr>
+        <tr class="subheader">
+            <td colspan="6" class="align_left">Expansions in critical health services</td>
+        </tr>
+        <tr >
+            <td colspan="6">
+                <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ExpansionsCriticalHealthServicesKeyFactors | renderItLikeHTML "></p>
+            </td>
+        </tr>
+        <tr class="subheader">
+            <td colspan="6" class="align_left">Improvement in referral hospital performance</td>
+        </tr>
+        <tr >
+            <td colspan="6">
+                <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ImprovementsReferralHospitalPerformanceKeyFactors | renderItLikeHTML "></p>
+            </td>
+        </tr><tr class="subheader">
+        <td colspan="6" class="align_left">Progress in ANC attendance</td>
+    </tr>
+        <tr >
+            <td colspan="6">
+                <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ProgressANCAttendanceKeyFactors | renderItLikeHTML "></p>
+            </td>
+        </tr><tr class="subheader">
+        <td colspan="6" class="align_left">Progress in health facility reporting rates (completenes) </td>
+    </tr>
+        <tr >
+            <td colspan="6">
+                <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ProgressHealthFacilityCompletenessKeyFactors | renderItLikeHTML "></p>
+            </td>
+        </tr><tr class="subheader">
+        <td colspan="6" class="align_left">Progress in health facility timeliness of reporting</td>
+    </tr>
+        <tr >
+            <td colspan="6">
+                <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ProgressHealthFacilityTimelinessKeyFactors | renderItLikeHTML "></p>
+            </td>
+        </tr>
+        <tr class="header_two">
+            <td colspan="6" class="align_left">Progress in District Health Services</td>
+        </tr>
+        <tr class="subheader">
+            <td colspan="6" class="align_left">Progress in social welfare and protection for vulnerable populations</td>
+        </tr>
+        <tr >
+            <td colspan="6">
+                <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ProgressSocialWelfareAndProtectionKeyFactors | renderItLikeHTML "></p>
+            </td>
+        </tr>
+        <tr class="subheader">
+            <td colspan="6" class="align_left">Improvements in vaccination coverage</td>
+        </tr>
+        <tr >
+            <td colspan="6">
+                <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ImprovementsVaccinationCoverageKeyFactors | renderItLikeHTML "></p>
+            </td>
+        </tr>
+        <tr class="subheader">
+            <td colspan="6" class="align_left">Progress in environmental health service safe water initiatives</td>
+        </tr>
+        <tr >
+            <td colspan="6">
+                <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ProgressEnvironmentalHealthSafeWaterKeyFactors | renderItLikeHTML "></p>
+            </td>
+        </tr>
+        <tr class="header_two">
+            <td colspan="6" class="align_left">Progress Against Milestones</td>
+        </tr>
+        <tr class="subheader">
+            <td colspan="6" class="align_left">Progress against milestones set by the technical review of the joint annual health sector review from previous year</td>
+        </tr>
+        <tr >
+            <td colspan="6">
+                <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ProgressMilestonesTechReviewOfHSReviewKeyFactors | renderItLikeHTML "></p>
+            </td>
+        </tr>
+        <tr class="header_two">
+            <td colspan="6" class="align_left">Best Pactices/Case Studies</td>
+        </tr>
+        <tr class="subheader">
+            <td colspan="6" class="align_left">Best Pactices/Case Studies</td>
+        </tr>
+        <tr >
+            <td colspan="6">
+                <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_BestPracticesCaseStudiesKeyFactors | renderItLikeHTML "></p>
+            </td>
+        </tr>
+
+    </table>
+</div>
+<div class="row profile-pages">
+    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
+    <br/>
+    <br/>
+    <p class="primary_header">6. RECOMMENDATIONS</p>
+    <br/>
+    <br/>
+    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Recommendations_Recommendations | renderItLikeHTML "></p>
+</div>
+
+
+
+</div>
+
+<div class="col s12 m12 " ng-if="main.shownPdf">
+
+    <div class="col m6 offset-m3" ng-if="!main.current_pdf_link">
+        <div class="preloader-wrapper small active">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+        &nbsp;&nbsp;loading ...
+    </div>
+
+    <object data="{{main.current_pdf_link}}"  type="application/pdf" width="100%" height="1000px">
+        <p>Document preview is not available go <a href="{{main.current_pdf_link}}">to the PDF!</a> manually.</p>
+    </object>
+</div>
+
+</div>
+
+</div>
+<div class="card-action" ng-if="viewOpen">
+    <a href="{{main.current_pdf_link}}" target="_blank">Download</a>
+</div>
+</div>
+</div>
 <div class="col s12 m4">
 
     <ul class="collapsible" data-collapsible="accordion">
@@ -86,1145 +1225,6 @@
             </div><!-- /.map -->
 
         </div>
-    </div>
-</div>
-<div class="col s12 m8 ">
-    <div class="card white lighten-1 darken-3" >
-        <div class="card-content grey-text" style="padding:13px">
-            DISTRICT HEALTH PROFILE : Visualization of yearly  uploaded health profiles by district.
-        </div>
-    </div>
-
-    <div class="card white lighten-1 darken-3" >
-
-    <div class="card-content grey-text {{custome_height}}" ng-if="!viewOpen" >
-            <div class="col s12 m12" ng-if="!main.chart_shown">
-                <div class="col s11 m11">
-                    <p style="font-weight: bolder">District Health Available Documents for {{selectedDistrictName}}  {{main.selectedYear}}</p>
-                </div>
-                <div class="col s1 m1"><a class="waves-effect waves-light btn" ng-click="main.backToChart()"><i class="fa fa-arrow-left"></i></a></div>
-            </div>
-            <div class="col s12 m12" style="background-color: #eeeeee;" ng-if="!main.chart_shown">
-                <div ng-if="main.Documents.length==0" style="min-height: 317.5px;text-align: center;margin-top: 5em;">
-                    <p>No uploaded health profile for <b>{{selectedDistrictName}}</b> in {{main.selectedYear}}</p>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <i class="large material-icons" style="color:#cccccc;">info</i>
-                </div>
-                <div class="col s4 m4" ng-repeat="document in main.Documents" title="click to preview document">
-                    <!--<div class="col s3 m3" >-->
-                    <div class="card white lighten-5 darken-1" >
-                        <a style="cursor: pointer;" ng-click="main.getHealthProfileFromView(document)">
-                            <div> <img style="width:100%;" src="assets/images/dhp_portal.png"></div>
-                            <div class="grey-text" style="padding: 10px;font-size: 10px;font-weight: bold;">{{document.facility}} {{main.selectedYear}}</div>
-                        </a>
-                    </div>
-                </div>
-                <div ng-if="main.Documents">
-                </div>
-            </div>
-            <div class="row" ng-if="main.chart_shown">
-                <div class="col m12 s12" style="font-size: 20px;" >DHP District Submission Statistics:{{main.selectedYear}}</div>
-                    <!--<div class="col s12">Chart:</div>-->
-                    <div  class="col s12 " >
-                            <div style="min-height:380px" ng-if="!main.chartConfig" >
-                                <br>
-                                <br>
-                                <br>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <div class="col m12" ng-if="!main.netfailure">
-                                    <div class="col m6 offset-m3">
-                                        <div class="preloader-wrapper small active">
-                                            <div class="spinner-layer spinner-blue-only">
-                                                <div class="circle-clipper left">
-                                                    <div class="circle"></div>
-                                                </div><div class="gap-patch">
-                                                <div class="circle"></div>
-                                            </div><div class="circle-clipper right">
-                                                <div class="circle"></div>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        &nbsp;&nbsp;loading ...
-                                    </div>
-                                </div>
-
-                                <div class="col m12" ng-if="main.netfailure">
-                                    <div class="col m12  grey-text" >
-                                        <span style="color:red;">chart failed</span>:slow network
-                                    </div>
-                                </div>
-                            </div>
-                        <highchart id="chart1" config="main.chartConfig" ng-if="main.chartConfig"></highchart>
-                    </div>
-                    <div  class="col s12 " ng-if="main.chartConfig">
-                        <div class="row">PROFILE LIST</div>
-                    </div>
-                    <div  class="col s12 " ng-if="main.chartConfig">
-                        <table datatable="ng"  class="row" style="margin-top: 10px;"  >
-                        <thead>
-                        <tr><th>#</th><th>Available Health Profiles</th></tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="row in main.orgUnitTable"  style="cursor: pointer;"  ng-click="main.getHealthProfileFromTable(row)" title="click to preview profile">
-                        <td>{{$index+1}}</td>
-                            <td class="waves-effect waves-block" style="text-align: left;">{{row.name}}</td>
-                        </tr>
-                        <tr ng-if="main.orgUnitTable.length==0" ng-repeat="row in main.orgUnitTable"><td >No health profile available</td></tr>
-                        </tbody>
-                        </table>
-                    </div>
-                <script>
-                    $('ul.tabs').tabs();
-                </script>
-
-
-            </div>
-
-        </div>
-        <div class="card-content grey-text " ng-if="viewOpen">
-            <div class="col s12 m12">
-                <div  class="col s11 m11">
-                    <p style="font-weight: bolder">District Health Profile Preview  for: <i>{{main.clickedDistrict}}</i> </p>
-                </div>
-                <div class="col s1 m1"><a class="waves-effect waves-light btn" ng-click="main.backToGrid()"><i class="fa fa-arrow-left"></i></a></div>
-            </div>
-
-            <br/>
-            <div class="col s12 m12 ">
-                <style>
-                    table.profile_table {
-                        border:1px solid #ccc;
-                        color:#000000!important;
-                        margin-bottom:20px;
-                    }
-                    table.profile_table tr{
-                        border:1px solid #ccc;
-                    }
-                    table.profile_table tr td{
-                        border:1px solid #ccc;
-                        padding:5px;
-                    }
-
-                    .primary_header{
-                        font-weight:bolder;
-                        color:#369B36!important;
-                        font-size:25px;
-                    }
-
-                    .secondary_header{
-                        font-weight:bolder;
-                    }
-
-                    .align_left{
-                        text-align:left;
-                    }
-                    .header_one{
-                        background-color:#D2E1B5!important;
-                        font-weight:bold;
-                    }
-
-                    .header_two{
-                        background-color:#FCC48C!important;
-                        font-weight:bold;
-                    }
-
-                    .preview_profile{
-                        overflow: -moz-scrollbars-vertical;
-                        overflow-y: scroll;
-                        max-height:1000px;
-                    }
-                    .paragraph-style{
-                        /*padding-left:40px;*/
-                        white-space: pre-wrap;
-
-                    }
-
-                    .subpage {
-                        margin-left: 8cm;
-                        margin-top: 10cm;
-                    }
-
-                    .profile-pages{
-                        width: 21cm;
-                        min-height: 29.7cm;
-                        padding: 2cm;
-                        margin: 1cm auto;
-                        border: 1px #D3D3D3 solid;
-                        border-radius: 5px;
-                        background: white;
-                        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-                    }
-
-                    .subheader{
-                        background-color:#E1E1E1;
-                        text-align:left!important;
-                    }
-
-                    span.top_green{
-                        font-weight:bolder;
-                        color:#339966!important;
-                        /*font-size:23px;*/
-                    }
-
-                    span.top_grey{
-                        font-weight:bolder;
-                        color:#7F7F7F!important;
-                        /*font-size:23px;*/
-                    }
-                </style>
-                <br/>
-                <div class="col s12 m12">
-                    <a class="btn " ng-click="main.showHtml()">HTML</a>
-                    <a class="btn " ng-click="main.showPdf(main.profileTitle,main.selectedYear)">PDF</a>
-                </div>
-                <div class="col s12 m12 preview_profile"  ng-if="main.shownHtml">
-                    <div class="row profile-pages">
-                        <table class="table">
-                            <tr>
-                                <td colspan="3">
-                                    <img src="assets/images/dhp_portal.png" style="width:100%;">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width:50%;height:100%;background-color:#4E6C54;">
-                                    <div class="col s12 m12" style="font-weight:bolder;font-size:20px;color:#ffffff;">{{main.clickedDistrict | uppercase}}</div>
-                                    <div class="col s12 m12" style="font-weight:bolder;font-size:20px;color:#C9A36A;">District Health Profile</div>
-                                </td>
-                                <td style="width:25%">
-                                    <div class="col s12 m12" style="font-weight:bolder;font-size:20px;color:#ffffff;">
-                                        <img src="assets/images/lowerdhp.png">
-                                    </div>
-                                </td>
-                                <td style="width:25%;background-color:#7F7F7F;">
-                                    <div class="col s12 m12" style="font-weight:bolder;font-size:20px;color:#ffffff;">&nbsp;</div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="row profile-pages" style="color:#000000;">
-                        <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-
-                        <br/>
-                        <br/>
-                        <p class="primary_header">I. FOREWORD</p>
-                        <br/>
-                        <br/>
-                        <p class="paragraph-style" ng-bind-html="main.profile.DHP_Foreword_Foreword_Field | renderItLikeHTML "></p>
-
-                    </div>
-                    <div class="row profile-pages" style="color:#000000;">
-                        <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-
-                        <br/>
-                        <br/>
-                        <p class="primary_header">II. ACKNOWLEDGEMENTS</p>
-                        <br/>
-                        <br/>
-                        <p class="paragraph-style" ng-bind-html="main.profile.DHP_Acknowledgements_Acknowledgements_Field | renderItLikeHTML "></p>
-
-                    </div>
-                    <div class="row profile-pages" style="color:#000000;">
-                        <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-
-                        <br/>
-                        <br/>
-                        <p class="primary_header">III. EXECUTIVE SUMMARY</p>
-                        <br/>
-                        <br/>
-                        <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>
-                        <br/>
-                        <br/>
-                    </div>
-                    <div class="row profile-pages" style="color:#000000;">
-                        <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-
-                        <br/>
-                        <br/>
-                        <p class="primary_header">IV. ACRONYMS AND KEY TERMS</p>
-                        <br/>
-                        <br/>
-                        <p class="secondary_header">Table 0-1. Acronyms</p>
-                        <table class="profile_table">
-                            <tr class="header_one">
-                                <td class="align_left ">
-                                    ACRONYM
-                                </td>
-                                <td>LONG NAME</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </table>
-                        <br/>
-                        <br/>
-
-                        <p class="secondary_header">Table 0-2. Key Terms</p>
-                        <table class="profile_table">
-                            <tr class="header_one">
-                                <td class="align_left ">
-                                    TERM
-                                </td>
-                                <td>DEFINITION</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </table>
-
-                    </div>
-
-
-
-                    <div class="row profile-pages" style="color:#000000;">
-                        <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-
-                        <p class="primary_header">1. INTRODUCTION</p>
-                        <br/>
-                        <p class="secondary_header">1.1 Mission and Vision</p>
-                        <br/>
-                        <br/>
-                        <p class="paragraph-style" ng-bind-html=" main.profile.DHP_MissionAndVision_MissionAndVision | renderItLikeHTML "></p>
-                        <br/>
-                        <br/>
-                        <p class="secondary_header">1.2 Structure of District</p>
-                        <br/>
-                        <br/>
-                        <p class="paragraph-style" ng-bind-html=" main.profile.DHP_StructureOfDistrict_StructureOfDistrict | renderItLikeHTML "></p>
-
-                        <br/>
-                        <br/>
-
-                        <p class="secondary_header">Table 1-1. Wards And Villages</p>
-                        <table class="profile_table">
-                            <tr class="header_one">
-                                <td class="align_left ">
-                                    S/N
-                                </td>
-                                <td>WARD NAMES</td>
-                                <td>NUMBER  OF    VILLAGES</td>
-                                <td>S/N</td>
-                                <td>WARD   NAMES</td>
-                                <td>NUMBER  OF   VILLAGES</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-
-                        </table>
-                    </div>
-
-                    <div class="row profile-pages" style="color:#000000;">
-                        <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-
-                        <p class="secondary_header">1.3 Facility Distribution</p>
-                        <br/>
-                        <br/>
-                        <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>
-                        <br/>
-                        <br/>
-                        <p class="secondary_header">Table 1-2. Facility Distribution</p>
-                        <table class="profile_table">
-                            <tr class="header_one">
-                                <td class="align_left ">
-                                    Type of facility
-                                </td>
-                                <td>Number</td>
-                                <td>Ownershership</td>
-                                <td rowspan="10" style="background-color: #ffffff!important;">
-                                    <img style='display:block; width:300px;height:250px;'
-                                         id='base64image'
-                                         src='{{main.profile.DHP_Demographics_FacilityDistributionImage}}'
-                                            ng-if="main.profile.DHP_Demographics_FacilityDistributionImage"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align_left ">Hospital</td>
-                                <td></td>
-                                <td></td>
-
-                            </tr>
-                            <tr>
-                                <td rowspan="2" class="align_left ">Health Center</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td rowspan="4" class="align_left ">Dispensary</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2" class="align_left ">Clinics</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-
-                        </table>
-                        <br/>
-                        <br/>
-                        <p class="secondary_header">Figure 1-1. {{main.profileTitle| uppercase}} District Map</p>
-                         <br/>
-                         <br/>
-                        <table>
-                            <tr class="header_one">
-                                <td class="secondary_header">Map Generated in DHIS2</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src=""/>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-
-
-                    <div class="row profile-pages" style="color:#000000;">
-                        <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-
-                        <p class="secondary_header">1.4 Population</p>
-                        <br/>
-                        <br/>
-                        <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Population_Population | renderItLikeHTML "></p>
-                        <br/>
-                        <br/>
-                        <p class="secondary_header">Table 1-3. Gender And Age Based Statistics</p>
-                        <br/>
-                        <table class="profile_table">
-                            <tr class="header_one">
-                                <td class="align_left ">
-                                    AGE RANGE
-                                </td>
-                                <td>FEMALE</td>
-                                <td>MALE</td>
-                            </tr>
-                            <tr>
-                                <th class="align_left "><1 YEAR</th>
-                                <td>{{main.profile.DHP_Population_Female1}}</td>
-                                <td>{{main.profile.DHP_Population_Male1}}</td>
-
-                            </tr>
-                            <tr>
-                                <th  class="align_left ">1-4</th>
-                                <td>{{main.profile.DHP_Population_Female2}}</td>
-                                <td>{{main.profile.DHP_Population_Male2}}</td>
-                            </tr>
-                            <tr>
-                                <th>5-14</th>
-                                <td>{{main.profile.DHP_Population_Female3}}</td>
-                                <td>{{main.profile.DHP_Population_Male3}}</td>
-                            </tr>
-                            <tr>
-                                <th  class="align_left ">15-49</th>
-                                <td>{{main.profile.DHP_Population_Female4}}</td>
-                                <td>{{main.profile.DHP_Population_Male4}}</td>
-                            </tr>
-                            <tr>
-                                <th>50-60</th>
-                                <td>{{main.profile.DHP_Population_Female5}}</td>
-                                <td>{{main.profile.DHP_Population_Male5}}</td>
-                            </tr>
-                            <tr>
-                                <th>>60</th>
-                                <td>{{main.profile.DHP_Population_Female6}}</td>
-                                <td>{{main.profile.DHP_Population_Male6}}</td>
-                            </tr>
-                            <tr>
-                                <th>TOTAL</th>
-                                <td>{{main.profile.DHP_Population_Female_Total}}</td>
-                                <td>{{main.profile.DHP_Population_Male_Total}}</td>
-
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="row profile-pages" style="color:#000000;">
-                        <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-                        <br/>
-                        <p  class="secondary_header">1.5 Geography</p>
-                        <br/>
-                        <br/>
-                        <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Geography_Geography | renderItLikeHTML "></p>
-
-                        <!-- Population image here -->
-                        <!--<img src="/">-->
-                    </div>
-
-                    <!--Transport and communication-->
-                    <div class="row profile-pages" style="color:#000000;">
-                        <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-                        <br/>
-                        <br/>
-                        <p class="secondary_header">1.6 Transport and Communication</p>
-                        <br/>
-                        <br/>
-                        <p class="paragraph-style" ng-bind-html=" main.profile.DHP_TransportationAndCommunication_TransportationAndCommunication | renderItLikeHTML "></p>
-
-                    </div>
-
-
-                    <!--Transport and communication-->
-                    <div class="row profile-pages" style="color:#000000;">
-                        <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-                        <br/>
-                        <br/>
-                        <p class="secondary_header">1.7 Education</p>
-                        <br/>
-                        <br/>
-                        <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>
-
-                    </div>
-
-                    <!--Transport and communication-->
-                    <!--<div class="row profile-pages" style="color:#000000;">-->
-                        <!--<p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>-->
-                        <!--<br/>-->
-                        <!--<br/>-->
-                        <!--<h4>1.8 WATER SUPPLY</h4>-->
-                        <!--<br/>-->
-                        <!--<br/>-->
-                        <!--<p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>-->
-
-                    <!--</div>-->
-
-                    <!--Transport and communication-->
-                    <div class="row profile-pages" style="color:#000000;">
-                        <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-
-                        <br/>
-                        <br/>
-                        <p class="primary_header">2. DATA COLLECTION METHODS AND SOURCES OF DATA</p>
-                        <br/>
-                        <br/>
-                        <p class="secondary_header">2.1  Data Sources and Their Data Collection and Analysis Methods</p>
-                        <br/>
-                        <br/>
-                        <p class="paragraph-style" ng-bind-html=" main.profile.DHP_DataSourcesCollecctionAnalysisMethods_DataSourcesCollecctionAnalysisMethods | renderItLikeHTML "></p>
-
-                    </div>
-
-
-                    <!--Transport and communication-->
-                    <div class="row profile-pages" style="color:#000000;">
-                        <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-
-                        <br/>
-                        <br/>
-                        <p class="secondary_header">2.2 Mandatory Health Indicators</p>
-                        <br/>
-                        <br/>
-                        <p class="secondary_header">Mandatory Health Indicators</p>
-                        <br/>
-                        <br/>
-                        <!--<p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>-->
-                        <div class="col-md-6">
-                            <table>
-                                <tr class="header_one">
-                                    <td class="align_left ">
-                                        HEALTH STATUS OF THE DISTRICT  POPULATION
-                                    </td>
-                                </tr>
-                                <tr><td></td></tr>
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            <table>
-                                <tr class="header_one">
-                                    <td class="align_left ">
-                                        DISTRICT HEALTH SERVICE DELIVERY
-                                    </td>
-                                </tr>
-                                <tr><td></td></tr>
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            <table>
-                                <tr class="header_one">
-                                    <td class="align_left ">
-                                        DISTRICT HEALTH SYSTEMS
-                                    </td>
-                                </tr>
-                                <tr><td></td></tr>
-                            </table>
-                        </div>
-
-                    </div>
-
-
-                    <!--Transport and communication-->
-                    <div class="row profile-pages" style="color:#000000;">
-                        <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-                        <br/>
-                        <p class="secondary_header">2.3 Health Indicaators Important to {{main.profileTitle}}</p>
-                        <br/>
-                        <!--<p class="paragraph-style" ng-bind-html=" main.profile.DHP_Executive_Executive_Field | renderItLikeHTML "></p>-->
-                        <br/>
-                        <p>Table 2-2. Specific DHP Indicators for {{main.profileTitle}}</p>
-                        <br/>
-                        <table class="profile_table">
-                            <tr class="header_one">
-                                <td class="align_left ">
-                                    BAGAMOYO DISTRICT SPECIFIC INDICATORS
-                                </td>
-                            </tr>
-                            <tr >
-                                <td >
-
-                                </td>
-                            </tr>
-                            <tr >
-                                <td >
-
-                                </td>
-                            </tr>
-                        </table>
-
-                    </div>
-
-                    <div class="row profile-pages">
-                        <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-                        <br/>
-                        <br/>
-                        <p class="primary_header">3. HEALTH STATUS OF THE DISTRICT POPULATION</p>
-                        <br/>
-                        <br/>
-                        <table class="profile_table">
-                            <tr class="header_one">
-                                <td class="align_left ">
-                                    HEALTH STATUS OF THE DISTRICT POPULATION
-                                </td>
-                                <td>TARGET</td>
-                                <td>{{main.profile.DHP_Year_Year1}}</td>
-                                <td>{{main.profile.DHP_Year_Year2}}</td>
-                                <td>{{main.profile.DHP_Year_Year3}}</td>
-                                <td>OVERALL PROGRESS (+/-)</td>
-                            </tr>
-                            <tr class="header_two">
-                                <td colspan="6" class="align_left">Marternal,Newborn and Child Health</td>
-                            </tr>
-                            <tr>
-                                <td class="align_left">Maternal mortality ratio</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityTarget}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear1}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear2}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear3}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityProgress}}</td>
-                            </tr>
-                            <tr>
-                                <td class="align_left">Nutritional Status: Incidence of low birth weight among humans</td>
-                                <td></td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthLowBWYear1}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthLowBWYear2}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthLowBWYear3}}</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td class="align_left">Neonatal mortality rates (per 1,000)</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityTarget}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear1}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear2}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityYear3}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthNeonatalMortalityProgress}}</td>
-                            </tr>
-                            <tr>
-                                <td class="align_left">Infant mortality rates (per 1,000)</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityTarget}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear1}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear2}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityYear3}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthInfantMortalityProgress}}</td>
-                            </tr>
-                            <tr>
-                                <td class="align_left">Under 5 mortality rates (per 1,000)</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityTarget}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear1}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear2}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityYear3}}</td>
-                                <td>{{main.profile.DHP_Maternal_MaternalNCHealthUnder5MortalityProgress}}</td>
-                            </tr>
-                            <tr class="header_two">
-                                <td colspan="6" class="align_left">Morbidity</td>
-                            </tr>
-                            <tr>
-                                <td class="align_left">Incidence of malaria/laboratory confirmed cases</td>
-                                <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaTarget}}</td>
-                                <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear1}}</td>
-                                <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear2}}</td>
-                                <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaYear3}}</td>
-                                <td>{{main.profile.DHP_Morbidity_MorbidityIncidenceOfMalariaProgress}}</td>
-                            </tr>
-                            <tr>
-                                <td class="align_left">HIV prevalence in 15 to 24 years age group</td>
-                                <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSTarget}}</td>
-                                <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSYear1}}</td>
-                                <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSYear2}}</td>
-                                <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSYear3}}</td>
-                                <td>{{main.profile.DHP_Morbidity_MorbidityHIVAIDSProgress}}</td>
-                            </tr>
-                            <tr>
-                                <td class="align_left">Top 10 cases of admission (List #1 cause)</td>
-                                <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionTarget}}</td>
-                                <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear1}}</td>
-                                <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear2}}</td>
-                                <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionYear3}}</td>
-                                <td>{{main.profile.DHP_Morbidity_MorbidityTopTenAdmissionProgress}}</td>
-                            </tr>
-                            <tr class="header_two">
-                                <td colspan="6" class="align_left">Mortality</td>
-                            </tr>
-                            <tr>
-                                <td class="align_left">Top 10 causes of death (List # cause)</td>
-                                <td></td>
-                                <td>{{main.profile.DHP_Mortality_MortalityTopTenDeathYear1}}</td>
-                                <td>{{main.profile.DHP_Mortality_MortalityTopTenDeathYear2}}</td>
-                                <td>{{main.profile.DHP_Mortality_MortalityTopTenDeathYear3}}</td>
-                                <td></td>
-                            </tr>
-                            </table>
-                        </div>
-                    <div class="row profile-pages">
-                    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-                    <br/>
-                    <br/>
-                    <p class="primary_header">$. STATUS OF THE HEALTH SERVICE DELIVERY IN THE DISTRICT</p>
-                    <br/>
-                    <br/>
-                    <table class="profile_table">
-                            <tr class="header_one">
-                                <td>DISTRICT HEALTH SERVICE DELIVERY</td>
-                                <td>TARGET</td>
-                                <td>{{main.profile.DHP_Year_Year1}}</td>
-                                <td>{{main.profile.DHP_Year_Year2}}</td>
-                                <td>{{main.profile.DHP_Year_Year3}}</td>
-                                <td>OVERALL PROGRESS (+/-)</td>
-                            </tr>
-                            <tr class="header_two">
-                                <td colspan="6" class="align_left">General</td>
-                            </tr>
-                            <tr>
-                                <td class="align_left">OPD attention</td>
-                                <td>{{main.profile.DHP_General_GeneralOPDAttendanceTarget}}</td>
-                                <td>{{main.profile.DHP_General_GeneralOPDAttendanceYear1}}</td>
-                                <td>{{main.profile.DHP_General_GeneralOPDAttendanceYear2}}</td>
-                                <td>{{main.profile.DHP_General_GeneralOPDAttendanceYear3}}</td>
-                                <td>{{main.profile.DHP_General_GeneralOPDAttendanceProgress}}</td>
-                            </tr>
-                            <tr class="header_two">
-                                <td colspan="6" class="align_left">Vaccination</td>
-                            </tr>
-                            <tr>
-                                <td class="align_left">Proportion of children under 1 year vaccinated against measles</td>
-                                <td>{{main.profile.DHP_Vaccination_VaccinationProportionVaccinatedMeaslesTarget}}</td>
-                                <td>{{main.profile.DHP_Vaccination_VaccinationProportionVaccinatedMeaslesYear1}}</td>
-                                <td>{{main.profile.DHP_Vaccination_VaccinationProportionVaccinatedMeaslesYear2}}</td>
-                                <td>{{main.profile.DHP_Vaccination_VaccinationProportionVaccinatedMeaslesYear3}}</td>
-                                <td>{{main.profile.DHP_Vaccination_VaccinationProportionVaccinatedMeaslesProgress}}</td>
-                            </tr>
-                            <tr>
-                                <td class="align_left">Proportion of under 1 year 3rd polio (OPV3)</td>
-                                <td>{{main.profile.DHP_Vaccination_VaccinationProportionOPV3Target}}</td>
-                                <td>{{main.profile.DHP_Vaccination_VaccinationProportionOPV3Year1}}</td>
-                                <td>{{main.profile.DHP_Vaccination_VaccinationProportionOPV3Year2}}</td>
-                                <td>{{main.profile.DHP_Vaccination_VaccinationProportionOPV3Year3}}</td>
-                                <td>{{main.profile.DHP_Vaccination_VaccinationProportionOPV3Progress}}</td>
-                            </tr>
-                            </table>
-                    </div>
-                    <div class="row profile-pages">
-                    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-                    <br/>
-                    <br/>
-                    <p class="primary_header">5. STATUS OF THE DISTRICT HEALTH SYSTEM</p>
-                    <br/>
-                    <br/>
-                    <table class="profile_table">
-                    <tr class="header_one">
-                                <td>DISTRICT HEALTH SYSTEM</td>
-                                <td>TARGET</td>
-                                <td>{{main.profile.DHP_Year_Year1}}</td>
-                                <td>{{main.profile.DHP_Year_Year2}}</td>
-                                <td>{{main.profile.DHP_Year_Year3}}</td>
-                                <td>OVERALL PROGRESS (+/-)</td>
-                            </tr>
-                            <tr class="header_two">
-                                <td colspan="6" class="align_left">Health Financing</td>
-                            </tr>
-                            <tr>
-                                <td class="align_left">
-                                    Total GOT and donor (budget and off-budget allocation to health per capita
-                                </td>
-                                <td>{{main.profile.DHP_HealthFinancing_HealthFinancingTotalGOTDonorAllocationTarget}}</td>
-                                <td>{{main.profile.DHP_HealthFinancing_HealthFinancingTotalGOTDonorAllocationYear1}}</td>
-                                <td>{{main.profile.DHP_HealthFinancing_HealthFinancingTotalGOTDonorAllocationYear1}}</td>
-                                <td>{{main.profile.DHP_HealthFinancing_HealthFinancingTotalGOTDonorAllocationYear1}}</td>
-                                <td>{{main.profile.DHP_HealthFinancing_HealthFinancingTotalGOTDonorAllocationProgress}}</td>
-                            </tr>
-                            <tr class="header_two">
-                                <td colspan="6" class="align_left">Human Resouce for Health</td>
-                            </tr>
-                            <tr>
-                                <td class="align_left">Number of training institutions with full NACTE accredition</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthTrainingInstitutionsFullNACTETarget}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthTrainingInstitutionsFullNACTEYear1}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthTrainingInstitutionsFullNACTEYear2}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthTrainingInstitutionsFullNACTEYear3}}</td>
-                                <td>{{main.profile.DHP_Infectious_InfectiousNCDiseasesProportionLabConfirmedMalariaProgress}}</td>
-                            </tr><tr>
-                                <td class="align_left">Number of MO and AMO per 10,000 population</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthMOAMOPer10000Target}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthMOAMOPer10000Year1}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthMOAMOPer10000Year2}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthMOAMOPer10000Year3}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthNurseMidwivesPer10000Progress}}</td>
-                            </tr><tr>
-                                <td class="align_left">Number of clinicians per 10,000 population</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthCliniciansPer10000Target}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthCliniciansPer10000Year1}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthCliniciansPer10000Year2}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthCliniciansPer10000Year3}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthCliniciansPer10000Progress}}</td>
-                            </tr><tr>
-                                <td class="align_left">NUmber of nurse-miwives per 10,000 polpulation</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthNurseMidwivesPer10000Target}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthNurseMidwivesPer10000Year1}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthNurseMidwivesPer10000Year2}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthNurseMidwivesPer10000Year3}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthPharmacistsPharmTechPer10000Progress}}</td>
-                            </tr><tr>
-                                <td class="align_left">NUmber of Pharmacists and pharm tech per 10,000 population</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthPharmacistsPharmTechPer10000Target}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthPharmacistsPharmTechPer10000Year1}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthPharmacistsPharmTechPer10000Year2}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthPharmacistsPharmTechPer10000Year3}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthPharmacistsPharmTechPer10000Progress}}</td>
-                            </tr><tr>
-                                <td class="align_left">Number of HO,AHO and EHO per 10,0000 population</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthHOAHOEHOPer10000Target}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthHOAHOEHOPer10000Year1}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthHOAHOEHOPer10000Year2}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthHOAHOEHOPer10000Year3}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthHOAHOEHOPer10000Progress}}</td>
-                            </tr><tr>
-                                <td class="align_left">Number of laboratory staff per 10,000 population</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthLabStaffPer10000Target}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthLabStaffPer10000Year1}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthLabStaffPer10000Year2}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthLabStaffPer10000Year3}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthLabStaffPer10000Progress}}</td>
-                            </tr><tr>
-                                <td class="align_left">Density of skilled HRH in country</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthDensitySkilledHRHTarget}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthDensitySkilledHRHYear1}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthDensitySkilledHRHYear2}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthDensitySkilledHRHYear3}}</td>
-                                <td>{{main.profile.DHP_HumanResource_HumanResourcesHealthDensitySkilledHRHProgress}}</td>
-                            </tr>
-                            <tr class="header_two">
-                                <td colspan="6" class="align_left">Medicines</td>
-                            </tr>
-                            <tr>
-                                <td class="align_left">Continous availability of 10 tracers (medicines,vaccines and medical devices) for essential health intervention in facility for a reporting month</td>
-                                <td>{{main.profile.DHP_Medicines_MedicinesContinuous10TracersEssentialInterventionTarget}}</td>
-                                <td>{{main.profile.DHP_Medicines_MedicinesContinuous10TracersEssentialInterventionYear1}}</td>
-                                <td>{{main.profile.DHP_Medicines_MedicinesContinuous10TracersEssentialInterventionYear2}}</td>
-                                <td>{{main.profile.DHP_Medicines_MedicinesContinuous10TracersEssentialInterventionYear3}}</td>
-                                <td>{{main.profile.DHP_Medicines_MedicinesContinuous10TracersEssentialInterventionProgress}}</td>
-                            </tr>
-                            <tr class="header_two">
-                                <td colspan="6" class="align_left">Infrastructure</td>
-                            </tr>
-                            <tr>
-                                <td class="align_left">Distribution of Health facilities</td>
-                                <td>{{main.profile.DHP_Infrastructure_InfrastructureHealthIndicatorStillBeingDeterminedTarget}}</td>
-                                <td>{{main.profile.DHP_Infrastructure_InfrastructureHealthIndicatorStillBeingDeterminedYear1}}</td>
-                                <td>{{main.profile.DHP_Infrastructure_InfrastructureHealthIndicatorStillBeingDeterminedYear2}}</td>
-                                <td>{{main.profile.DHP_Infrastructure_InfrastructureHealthIndicatorStillBeingDeterminedYear3}}</td>
-                                <td>{{main.profile.DHP_Infrastructure_InfrastructureHealthIndicatorStillBeingDeterminedProgress}}</td>
-                            </tr>
-                    </table>
-                    </div>
-                    <div class="row profile-pages">
-                        <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-                        <br/>
-                        <br/>
-                        <p class="primary_header">6. AREAS OF PROGRESS IN THE HEALTH DISTRICT SECTOR</p>
-                        <br/>
-                        <br/>
-                        <table class="profile_table">
-                            <tr class="header_one">
-                                <td colspan="6">PROGRESS IN THE HEALTH DISTRICT FACTOR</td>
-                            </tr>
-                            <tr class="header_two">
-                                <td colspan="6" class="align_left">Progress in District Health Financing</td>
-                            </tr>
-                            <tr class="subheader ">
-                                <td colspan="6" class="align_left">Overall health financing</td>
-                            </tr>
-                            <tr >
-                                <td colspan="6">
-                                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_OverallHealthFinancingKeyFactors | renderItLikeHTML "></p>
-                                </td>
-                            </tr>
-                            <tr class="subheader">
-                                <td colspan="6" class="align_left">Expansion in health spending</td>
-                            </tr>
-                            <tr >
-                                <td colspan="6">
-                                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ExpansionsInHealthSpendingKeyFactors | renderItLikeHTML "></p>
-                                </td>
-                            </tr>
-                            <tr class="header_two">
-                                <td colspan="6" class="align_left">Progress in District Human Resources</td>
-                            </tr>
-                            <tr class="subheader">
-                                <td colspan="6" class="align_left">Increases in skilled health workers</td>
-                            </tr>
-                            <tr >
-                                <td colspan="6">
-                                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_IncreasesSkilledHealthWorkersKeyFactors | renderItLikeHTML "></p>
-                                </td>
-                            </tr>
-                            <tr class="subheader">
-                                <td colspan="6" class="align_left">Improvement in martenal mortality ratio</td>
-                            </tr>
-                            <tr >
-                                <td colspan="6">
-                                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ImprovementMaternalMortalityRatioKeyFactors | renderItLikeHTML "></p>
-                                </td>
-                            </tr>
-                            <tr class="header_two">
-                                <td colspan="6" class="align_left">Progress in District Maternal Child Health</td>
-                            </tr>
-                            <tr class="subheader">
-                                <td colspan="6" class="align_left">Decreases in low birth weight</td>
-                            </tr>
-                            <tr >
-                                <td colspan="6">
-                                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_DecreasesLowBirthWeightKeyFactors | renderItLikeHTML "></p>
-                                </td>
-                            </tr>
-                            <tr class="subheader">
-                                <td colspan="6" class="align_left">progress in human resources availability by cadre over a period of time</td>
-                            </tr>
-                            <tr >
-                                <td colspan="6">
-                                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ProgressHumanResourcesByCadreKeyFactors | renderItLikeHTML "></p>
-                                </td>
-                            </tr>
-                            <tr class="header_two">
-                                <td colspan="6" class="align_left">Progress in District Health Facility Performance</td>
-                            </tr>
-                            <tr class="subheader">
-                                <td colspan="6" class="align_left">Expansions in critical health services</td>
-                            </tr>
-                            <tr >
-                                <td colspan="6">
-                                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ExpansionsCriticalHealthServicesKeyFactors | renderItLikeHTML "></p>
-                                </td>
-                            </tr>
-                            <tr class="subheader">
-                                <td colspan="6" class="align_left">Improvement in referral hospital performance</td>
-                            </tr>
-                            <tr >
-                                <td colspan="6">
-                                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ImprovementsReferralHospitalPerformanceKeyFactors | renderItLikeHTML "></p>
-                                </td>
-                            </tr><tr class="subheader">
-                                <td colspan="6" class="align_left">Progress in ANC attendance</td>
-                            </tr>
-                            <tr >
-                                <td colspan="6">
-                                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ProgressANCAttendanceKeyFactors | renderItLikeHTML "></p>
-                                </td>
-                            </tr><tr class="subheader">
-                                <td colspan="6" class="align_left">Progress in health facility reporting rates (completenes) </td>
-                            </tr>
-                            <tr >
-                                <td colspan="6">
-                                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ProgressHealthFacilityCompletenessKeyFactors | renderItLikeHTML "></p>
-                                </td>
-                            </tr><tr class="subheader">
-                                <td colspan="6" class="align_left">Progress in health facility timeliness of reporting</td>
-                            </tr>
-                            <tr >
-                                <td colspan="6">
-                                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ProgressHealthFacilityTimelinessKeyFactors | renderItLikeHTML "></p>
-                                </td>
-                            </tr>
-                            <tr class="header_two">
-                                <td colspan="6" class="align_left">Progress in District Health Services</td>
-                            </tr>
-                            <tr class="subheader">
-                                <td colspan="6" class="align_left">Progress in social welfare and protection for vulnerable populations</td>
-                            </tr>
-                            <tr >
-                                <td colspan="6">
-                                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ProgressSocialWelfareAndProtectionKeyFactors | renderItLikeHTML "></p>
-                                </td>
-                            </tr>
-                            <tr class="subheader">
-                                <td colspan="6" class="align_left">Improvements in vaccination coverage</td>
-                            </tr>
-                            <tr >
-                                <td colspan="6">
-                                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ImprovementsVaccinationCoverageKeyFactors | renderItLikeHTML "></p>
-                                </td>
-                            </tr>
-                            <tr class="subheader">
-                                <td colspan="6" class="align_left">Progress in environmental health service safe water initiatives</td>
-                            </tr>
-                            <tr >
-                                <td colspan="6">
-                                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ProgressEnvironmentalHealthSafeWaterKeyFactors | renderItLikeHTML "></p>
-                                </td>
-                            </tr>
-                            <tr class="header_two">
-                                <td colspan="6" class="align_left">Progress Against Milestones</td>
-                            </tr>
-                            <tr class="subheader">
-                                <td colspan="6" class="align_left">Progress against milestones set by the technical review of the joint annual health sector review from previous year</td>
-                            </tr>
-                            <tr >
-                                <td colspan="6">
-                                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_ProgressMilestonesTechReviewOfHSReviewKeyFactors | renderItLikeHTML "></p>
-                                </td>
-                            </tr>
-                            <tr class="header_two">
-                                <td colspan="6" class="align_left">Best Pactices/Case Studies</td>
-                            </tr>
-                            <tr class="subheader">
-                                <td colspan="6" class="align_left">Best Pactices/Case Studies</td>
-                            </tr>
-                            <tr >
-                                <td colspan="6">
-                                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Progress_BestPracticesCaseStudiesKeyFactors | renderItLikeHTML "></p>
-                                </td>
-                            </tr>
-
-                        </table>
-                    </div>
-                <div class="row profile-pages">
-                    <p style="font-weight: bolder;text-align: left;color: #000000;"><span class="top_green">{{main.profileTitle | uppercase}}</span><span class="top_grey"> |  DISTRICT HEALTH PROFILE  | </span><span class="top_green">{{main.selectedYear}}</span></p>
-                    <br/>
-                    <br/>
-                    <p class="primary_header">6. RECOMMENDATIONS</p>
-                    <br/>
-                    <br/>
-                    <p class="paragraph-style" ng-bind-html=" main.profile.DHP_Recommendations_Recommendations | renderItLikeHTML "></p>
-                </div>
-
-
-
-                </div>
-
-                <div class="col s12 m12 " ng-if="main.shownPdf">
-
-                        <div class="col m6 offset-m3" ng-if="!main.current_pdf_link">
-                            <div class="preloader-wrapper small active">
-                                <div class="spinner-layer spinner-blue-only">
-                                    <div class="circle-clipper left">
-                                        <div class="circle"></div>
-                                    </div><div class="gap-patch">
-                                    <div class="circle"></div>
-                                </div>
-                                    <div class="circle-clipper right">
-                                    <div class="circle"></div>
-                                </div>
-                                </div>
-                            </div>
-                            &nbsp;&nbsp;loading ...
-                        </div>
-
-                    <object data="{{main.current_pdf_link}}"  type="application/pdf" width="100%" height="1000px">
-                    <p>Document preview is not available go <a href="{{main.current_pdf_link}}">to the PDF!</a> manually.</p>
-                    </object>
-                </div>
-
-            </div>
-
-        </div>
-        <div class="card-action" ng-if="viewOpen">
-            <a href="{{main.current_pdf_link}}" target="_blank">Download</a>
-           </div>
     </div>
 </div>
 </div>
