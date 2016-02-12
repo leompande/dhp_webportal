@@ -53,6 +53,8 @@
         main.profile = {};
         main.chartConfig = false;
         main.netfailure = null;
+        main.totalMales = 0;
+        main.totalFemales = 0;
         if(localStorage.getItem("seriesObject")||localStorage.getItem("seriesObject")!=null){
             localStorage.removeItem("seriesObject");
         }
@@ -281,6 +283,18 @@
             },function(response){
                 console.log(data);
             });
+        }
+
+        main.totalMale = function(amount){
+            if(amount!==null){
+                main.totalMales =  main.totalMales + parseInt(amount);
+            }
+        }
+
+        main.totalFemale = function(amount){
+            if(amount!==null) {
+                main.totalFemales = main.totalFemales + parseInt(amount);
+            }
         }
 
 
