@@ -287,7 +287,7 @@
 
         main.totalMale = function(amount){
 
-            if(amount!=='undefined'){
+            if(amount!=='undefined'&&!isNaN(amount)){
                 console.log("MALE !")
                 console.log(amount)
                 main.totalMales =  main.totalMales + parseInt(amount);
@@ -296,7 +296,7 @@
 
         main.totalFemale = function(amount){
 
-            if(amount!=='undefined') {
+            if(amount!=='undefined'&&!isNaN(amount)) {
                 console.log("FEMALE !")
                 console.log(amount)
                 main.totalFemales = main.totalFemales + parseInt(amount);
