@@ -286,17 +286,19 @@
         }
 
         main.totalMale = function(amount){
-            console.log("MALE !")
-            console.log(amount)
-            if(amount!=='null'){
+
+            if(amount!=='undefined'&angular.isNumber(amount)){
+                console.log("MALE !")
+                console.log(amount)
                 main.totalMales =  main.totalMales + parseInt(amount);
             }
         }
 
         main.totalFemale = function(amount){
-            console.log("FEMALE !")
-            console.log(amount)
-            if(amount!=='null') {
+
+            if(amount!=='undefined'&angular.isNumber(amount)) {
+                console.log("FEMALE !")
+                console.log(amount)
                 main.totalFemales = main.totalFemales + parseInt(amount);
             }
         }
