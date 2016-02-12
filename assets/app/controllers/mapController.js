@@ -191,24 +191,24 @@
                                     zoom: 5.6
                                 },
                                 layers:[
-                                    {
-                                        name:'mapbox',
-                                        source: {
-                                            type: 'TileJSON',
-                                            url:'https://api.tiles.mapbox.com/v3/mapbox.geography-class.jsonp'
-                                        }
-                                    }
-                                    //,
                                     //{
-                                    //    name:'geojson',
+                                    //    name:'mapbox',
                                     //    source: {
-                                    //        type: 'GeoJSON',
-                                    //        geojson: {
-                                    //            object: TotalGeo
-                                    //        }
-                                    //    },
-                                    //    style: getStyle
+                                    //        type: 'TileJSON',
+                                    //        url:'https://api.tiles.mapbox.com/v3/mapbox.geography-class.jsonp'
+                                    //    }
                                     //}
+                                    //,
+                                    {
+                                        name:'geojson',
+                                        source: {
+                                            type: 'GeoJSON',
+                                            geojson: {
+                                                object: TotalGeo
+                                            }
+                                        },
+                                        style: getStyle
+                                    }
                                 ],defaults: {
                                     events: {
                                         layers: [ 'mousemove', 'click']
