@@ -1,6 +1,7 @@
 /bootstrap/compiled.php
 /downloads/pushdatavalue.sh
 /dataset/*
+/uploads/*
 /server/dataset/*
 composer.phar
 composer.lock
