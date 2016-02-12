@@ -272,6 +272,7 @@
                     angular.forEach(profiledata,function(profileValue,profileIndex){
                         if(main.profile[profileValue.name] !="undefined"){
                             main.profile[profileValue.name] = profileValue.value;
+                            console.log(profileValue.name+"   =>   "+profileValue.value);
                         }
                     });
 
